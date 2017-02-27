@@ -11,6 +11,7 @@ PG_HOST_INFO = "" # use "" for OS X or Windows
 # Connect to an existing database
 conn = psycopg2.connect("dbname=" + PG_DATABASE + " user=" + PG_USER + " password=" + PG_USER_PASS + PG_HOST_INFO)
 print("** Connected to database.")
+print("Will Cricchi was here muahaha")
 
 
 

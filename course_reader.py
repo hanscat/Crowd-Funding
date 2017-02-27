@@ -12,8 +12,12 @@ PG_HOST_INFO = "" # use "" for OS X or Windows
 conn = psycopg2.connect("dbname=" + PG_DATABASE + " user=" + PG_USER + " password=" + PG_USER_PASS + PG_HOST_INFO)
 print("** Connected to database.")
 
+
+
+
+# hi
 # Open a cursor to perform database operations
-cur = conn.cursor()
+cur2 = conn.cursor()
 
 # Execute a command: this creates a new table, but first removes it if it's there already
 cur.execute("DROP TABLE IF EXISTS coursedata;")

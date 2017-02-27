@@ -36,6 +36,7 @@ print("** Output from SQL SELECT: ", cur.fetchone())
 conn.commit()
 
 # Close communication with the database
+#
 cur.close()
 conn.close()
 print("** Closed connection and database.  Bye!.")

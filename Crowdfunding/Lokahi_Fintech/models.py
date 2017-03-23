@@ -5,24 +5,7 @@ from django_countries.fields import CountryField
 
 class Report(models.Model):
 
-    """Fields needed:
-
-1. Timestamp when report created (automated date/time the report is created).
-2. Company Name. (one line of text)
-3. Company Phone. (one line of text)
-4. Company Location (one line of text)
-5. Company Country (one line of text or a drop down list)
-6. Sector (one line or a drop down list)
-7. Industry (one line of text or a drop down list)
-8. Current Project(s) (multiple lines of text)
-9. One or more files (optional, a report does not have to have a file attached however, the option must be
-available). Any file format can be uploaded. The user should be able to indicate if the uploaded file is
-encrypted. (The system should not encrypt the file or store the information to allow it to be decrypted. But
-it must know whether a given file is encrypted or not.)
-10. Whether the report is public or private (public reports can be seen by any user of the system, private can
-be seen by only those given access).
-
-
+    """
 Location
 user-supplied keyword
 
@@ -32,20 +15,15 @@ Can only be deleted by SM user
 
     timestamp = models.DateTimeField(default=timezone.now)
     Company_name = models.CharField(max_length=60)
-    Company_phone = models.CharField(max_length=60)
+    Company_phone = models.CharField(max_length=12)
     Company_Location = models.CharField(max_length=60)
     country = CountryField()
     sector = models.CharField(max_length=60)
     Industry = models.CharField(max_length=60)
     current_projects = models.TextField()
-    #file = models.FileField() -- needs work
-
+    file = models.FileField(blank = True)
+    encrypted = model.BooleanField(blank = True)
     private = models.BooleanField()
-
-
-
-
-
 
 
 

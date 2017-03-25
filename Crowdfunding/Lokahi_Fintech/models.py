@@ -4,7 +4,7 @@ from django_countries.fields import CountryField
 
 
 # Create your models here.
-class Report(models.Model):
+class report(models.Model):
 
     """Fields needed:
 
@@ -45,7 +45,7 @@ Can only be deleted by SM user
     private = models.BooleanField()
 
 
-class User(models.Model):
+class user(models.Model):
     # general purpose user
     first_name = models.CharField(max_length=20, default="new")
     last_name  = models.CharField(max_length=20, default="user")

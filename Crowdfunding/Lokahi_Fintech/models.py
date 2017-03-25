@@ -40,13 +40,24 @@ Can only be deleted by SM user
     current_projects = models.TextField()
 
     file = models.FileField(blank = True)
-    encrypted = model.BooleanField(blank = True)
+    encrypted = models.BooleanField(blank = True)
 
     private = models.BooleanField()
 
 
+class User(models.Model):
+    # general purpose user
+    first_name = models.CharField(max_length=20, default="new")
+    last_name  = models.CharField(max_length=20, default="user")
+    user_name = models.CharField(max_length=30, unique = True, default="newUser")
+    password = models.CharField(max_length=30, default="password")
+    class Meta:
+        managed = True
 
-    def __str__(self):
-        return self.title
+
+
+
+def __str__(self):
+    return self.title
 
 

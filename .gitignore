@@ -90,3 +90,4 @@ ENV/
 .ropeproject
 
 Crowdfunding/.idea/
+.idea/workspace.xml

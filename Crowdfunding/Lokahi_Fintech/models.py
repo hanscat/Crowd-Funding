@@ -30,13 +30,15 @@ Can only be deleted by SM user
 
     timestamp = models.DateTimeField(default=timezone.now)
     Company_name = models.CharField(max_length=60)
-    Company_phone = models.CharField(max_length=60)
+    Company_phone = models.CharField(max_length=12)
     Company_Location = models.CharField(max_length=60)
     country = CountryField()
     sector = models.CharField(max_length=60)
     Industry = models.CharField(max_length=60)
     current_projects = models.TextField()
     #file = models.FileField() -- needs work
+    file = models.FileField(blank=True)
+    encrypted = models.BooleanField(blank=True)
 
     private = models.BooleanField()
 

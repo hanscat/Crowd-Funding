@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="084b4cf0-1227-4f8f-911c-d69c758571dc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/course_reader.py" afterPath="$PROJECT_DIR$/course_reader.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/models.py" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,8 +13,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Lab4$course_reader.coverage" NAME="course_reader Coverage Results" MODIFIED="1487027492601" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Lab4$coursedata_analyzer.coverage" NAME="coursedata_analyzer Coverage Results" MODIFIED="1487027509068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Lab4$course_reader.coverage" NAME="course_reader Coverage Results" MODIFIED="1487027492601" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -24,47 +22,23 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="course_reader.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/course_reader.py">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="511">
+              <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
               <folding>
-                <element signature="e#45#55#0" expanded="true" />
-                <marker date="1488235594628" expanded="true" signature="561:592" ph="DROP TABLE I... " />
-                <marker date="1488235594628" expanded="true" signature="609:744" ph="CREATE TABLE... coursedata" />
-                <marker date="1488235594628" expanded="true" signature="1076:1215" ph="INSERT INTO coursedata... " />
-                <marker date="1488235594628" expanded="true" signature="1401:1425" ph="SELECT * FRO... coursedata" />
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coursedata_analyzer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/coursedata_analyzer.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Crowdfunding/Crowdfunding/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1023">
-              <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="seas-courses-5years.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/seas-courses-5years.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create_table.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/create_table.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="8" column="18" lean-forward="false" selection-start-line="2" selection-start-column="3" selection-end-line="8" selection-end-column="18" />
+            <state relative-caret-position="450">
+              <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -87,6 +61,8 @@
       <list>
         <option value="$PROJECT_DIR$/coursedata_analyzer.py" />
         <option value="$PROJECT_DIR$/course_reader.py" />
+        <option value="$PROJECT_DIR$/Crowdfunding/Crowdfunding/settings.py" />
+        <option value="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/models.py" />
       </list>
     </option>
   </component>
@@ -97,9 +73,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1591" />
-    <option name="width" value="2260" />
-    <option name="height" value="2111" />
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1030" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -116,22 +92,72 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Lab4" />
+              <option name="myItemId" value="cs3240-s17-team27" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Lab4" />
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crowdfunding" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crowdfunding" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lokahi_Fintech" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs3240-s17-team27" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crowdfunding" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crowdfunding" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -415,10 +441,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1591" y="0" width="2260" height="2111" extended-state="0" />
+    <frame x="950" y="0" width="980" height="1030" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18084154" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.04391892" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -455,10 +481,51 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#45#55#0" expanded="true" />
-            <marker date="1488235594628" expanded="true" signature="561:592" ph="DROP TABLE I... " />
-            <marker date="1488235594628" expanded="true" signature="609:744" ph="CREATE TABLE... coursedata" />
-            <marker date="1488235594628" expanded="true" signature="1076:1215" ph="INSERT INTO coursedata... " />
-            <marker date="1488235594628" expanded="true" signature="1401:1425" ph="SELECT * FRO... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="600:631" ph="DROP TABLE I... " />
+            <marker date="1488236242253" expanded="true" signature="648:783" ph="CREATE TABLE... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="1115:1254" ph="INSERT INTO coursedata... " />
+            <marker date="1488236242253" expanded="true" signature="1440:1464" ph="SELECT * FRO... coursedata" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coursedata_analyzer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+          <folding>
+            <marker date="1488235203599" expanded="true" signature="489:549" ph="SELECT instr... coursedata" />
+            <marker date="1488235203599" expanded="true" signature="659:683" ph="SELECT * FRO... coursedata" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seas-courses-5years.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_table.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="2" selection-start-column="3" selection-end-line="8" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course_reader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#45#55#0" expanded="true" />
+            <marker date="1488236242253" expanded="true" signature="600:631" ph="DROP TABLE I... " />
+            <marker date="1488236242253" expanded="true" signature="648:783" ph="CREATE TABLE... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="1115:1254" ph="INSERT INTO coursedata... " />
+            <marker date="1488236242253" expanded="true" signature="1440:1464" ph="SELECT * FRO... coursedata" />
           </folding>
         </state>
       </provider>
@@ -467,7 +534,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1023">
           <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
-          <folding />
+          <folding>
+            <marker date="1488235203599" expanded="true" signature="489:549" ph="SELECT instr... coursedata" />
+            <marker date="1488235203599" expanded="true" signature="659:683" ph="SELECT * FRO... coursedata" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -493,10 +563,10 @@
           <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#45#55#0" expanded="true" />
-            <marker date="1488235594628" expanded="true" signature="561:592" ph="DROP TABLE I... " />
-            <marker date="1488235594628" expanded="true" signature="609:744" ph="CREATE TABLE... coursedata" />
-            <marker date="1488235594628" expanded="true" signature="1076:1215" ph="INSERT INTO coursedata... " />
-            <marker date="1488235594628" expanded="true" signature="1401:1425" ph="SELECT * FRO... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="600:631" ph="DROP TABLE I... " />
+            <marker date="1488236242253" expanded="true" signature="648:783" ph="CREATE TABLE... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="1115:1254" ph="INSERT INTO coursedata... " />
+            <marker date="1488236242253" expanded="true" signature="1440:1464" ph="SELECT * FRO... coursedata" />
           </folding>
         </state>
       </provider>
@@ -505,7 +575,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1488235203599" expanded="true" signature="489:549" ph="SELECT instr... coursedata" />
+            <marker date="1488235203599" expanded="true" signature="659:683" ph="SELECT * FRO... coursedata" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -531,10 +604,10 @@
           <caret line="0" column="35" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#45#55#0" expanded="true" />
-            <marker date="1488235594628" expanded="true" signature="561:592" ph="DROP TABLE I... " />
-            <marker date="1488235594628" expanded="true" signature="609:744" ph="CREATE TABLE... coursedata" />
-            <marker date="1488235594628" expanded="true" signature="1076:1215" ph="INSERT INTO coursedata... " />
-            <marker date="1488235594628" expanded="true" signature="1401:1425" ph="SELECT * FRO... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="600:631" ph="DROP TABLE I... " />
+            <marker date="1488236242253" expanded="true" signature="648:783" ph="CREATE TABLE... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="1115:1254" ph="INSERT INTO coursedata... " />
+            <marker date="1488236242253" expanded="true" signature="1440:1464" ph="SELECT * FRO... coursedata" />
           </folding>
         </state>
       </provider>
@@ -543,7 +616,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1488235203599" expanded="true" signature="489:549" ph="SELECT instr... coursedata" />
+            <marker date="1488235203599" expanded="true" signature="659:683" ph="SELECT * FRO... coursedata" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -563,11 +639,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/create_table.sql">
+    <entry file="file://$PROJECT_DIR$/course_reader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="8" column="18" lean-forward="false" selection-start-line="2" selection-start-column="3" selection-end-line="8" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="475">
+          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding>
+            <element signature="e#45#55#0" expanded="true" />
+            <marker date="1488236242253" expanded="true" signature="600:631" ph="DROP TABLE I... " />
+            <marker date="1488236242253" expanded="true" signature="648:783" ph="CREATE TABLE... coursedata" />
+            <marker date="1488236242253" expanded="true" signature="1115:1254" ph="INSERT INTO coursedata... " />
+            <marker date="1488236242253" expanded="true" signature="1440:1464" ph="SELECT * FRO... coursedata" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coursedata_analyzer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+          <folding>
+            <marker date="1488235203599" expanded="true" signature="489:549" ph="SELECT instr... coursedata" />
+            <marker date="1488235203599" expanded="true" signature="659:683" ph="SELECT * FRO... coursedata" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -579,24 +672,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/coursedata_analyzer.py">
+    <entry file="file://$PROJECT_DIR$/create_table.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1023">
-          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+        <state relative-caret-position="200">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="2" selection-start-column="3" selection-end-line="8" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/course_reader.py">
+    <entry file="file://$PROJECT_DIR$/Crowdfunding/Crowdfunding/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        <state relative-caret-position="450">
+          <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
           <folding>
-            <element signature="e#45#55#0" expanded="true" />
-            <marker date="1488235594628" expanded="true" signature="561:592" ph="DROP TABLE I... " />
-            <marker date="1488235594628" expanded="true" signature="609:744" ph="CREATE TABLE... coursedata" />
-            <marker date="1488235594628" expanded="true" signature="1076:1215" ph="INSERT INTO coursedata... " />
-            <marker date="1488235594628" expanded="true" signature="1401:1425" ph="SELECT * FRO... coursedata" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

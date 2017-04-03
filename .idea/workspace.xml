@@ -2,74 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="084b4cf0-1227-4f8f-911c-d69c758571dc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/FontAwesome.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/fontawesome-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/fontawesome-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/fontawesome-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/fontawesome-webfont.woff2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/glyphicons-halflings-regular.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/glyphicons-halflings-regular.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/photos/Crowdfunding.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/photos/Geefunding_crowdfunding.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/Crowdfunding_BG.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/crowdfunding1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/db.sqlite3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/.idea/Crowdfunding.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Crowdfunding/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Crowdfunding/settings.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Crowdfunding/urls.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Crowdfunding/wsgi.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/admin.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/migrations/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/models.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/bootstrap.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/bootstrap.min.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/font-awesome.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/footer.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/homepage.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/search.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/css/sidebar.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/fontawesome-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/fonts/glyphicons-halflings-regular.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/jquery/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/jquery/jquery.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/jquery/navbar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/js/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/js/homepage.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/js/navbar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/js/npm.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/404.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/500.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/bootstrap.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/bootstrap.min.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/font-awesome.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/footer.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/footer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/header2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/home.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/homepage.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/results.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/search.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/search_list_view.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/sidebar.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/sidebar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/static/templates/userdetail.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/tests.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/Lokahi_Fintech/views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Crowdfunding/manage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Lab4.iml" afterPath="$PROJECT_DIR$/.idea/Lab4.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -89,7 +21,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="course_reader.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="course_reader.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/course_reader.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="304">
@@ -105,7 +37,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -191,7 +123,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -252,6 +183,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -539,7 +471,7 @@
     <frame x="960" y="0" width="960" height="1032" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33484164" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35633484" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -570,6 +502,98 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/course_reader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#45#55#0" expanded="true" />
+            <marker date="1491248708832" expanded="true" signature="552:583" ph="DROP TABLE I... " />
+            <marker date="1491248708832" expanded="true" signature="600:735" ph="CREATE TABLE... coursedata" />
+            <marker date="1491248708832" expanded="true" signature="1067:1206" ph="INSERT INTO coursedata... " />
+            <marker date="1491248708832" expanded="true" signature="1392:1416" ph="SELECT * FRO... coursedata" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coursedata_analyzer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seas-courses-5years.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_table.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="2" selection-start-column="3" selection-end-line="8" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course_reader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <folding>
+            <element signature="e#45#55#0" expanded="true" />
+            <marker date="1491248708832" expanded="true" signature="552:583" ph="DROP TABLE I... " />
+            <marker date="1491248708832" expanded="true" signature="600:735" ph="CREATE TABLE... coursedata" />
+            <marker date="1491248708832" expanded="true" signature="1067:1206" ph="INSERT INTO coursedata... " />
+            <marker date="1491248708832" expanded="true" signature="1392:1416" ph="SELECT * FRO... coursedata" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coursedata_analyzer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seas-courses-5years.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_table.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="2" selection-start-column="3" selection-end-line="8" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/course_reader.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -784,6 +808,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/course_reader.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -795,14 +827,6 @@
             <marker date="1491248708832" expanded="true" signature="1067:1206" ph="INSERT INTO coursedata... " />
             <marker date="1491248708832" expanded="true" signature="1392:1416" ph="SELECT * FRO... coursedata" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

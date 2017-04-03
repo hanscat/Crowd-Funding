@@ -7,4 +7,5 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^results/?$', 'cs3240-s17-team27.Crowdfunding.Lokahi_Fintech.views.search', name='results.html'),
 ]

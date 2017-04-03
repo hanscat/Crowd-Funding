@@ -34,7 +34,7 @@ Can only be deleted by SM user
     Company_name = models.CharField(max_length=60)
     Company_phone = models.CharField(max_length=12)
     Company_Location = models.CharField(max_length=60)
-    country = CountryField()
+    country = models.CountryField()
     sector = models.CharField(max_length=60)
     Industry = models.CharField(max_length=60)
     current_projects = models.TextField()

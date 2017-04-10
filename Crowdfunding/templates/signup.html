@@ -3,16 +3,16 @@
 <body>
 {% include 'header2.html' %}
 
-<div class="jumbotron" style="background-image: url('/Lokahi_Fintech/static/photos/carbackground.jpg') !important">
-    <div class="container">
-        <font color="white">
-            <h1>Welcome to crowdFunding.com!</h1>
-            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
-                customers</p>
-        </font>
-        <p><a class="btn btn-primary btn-lg" href="signup" role="button">Join here&raquo;</a></p>
-    </div>
-</div>
+{#<div class="jumbotron" style="background-image: url('/Lokahi_Fintech/static/photos/carbackground.jpg') !important">#}
+{#    <div class="container">#}
+{#        <font color="white">#}
+{#            <h1>Welcome to crowdFunding.com!</h1>#}
+{#            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for#}
+{#                customers</p>#}
+{#        </font>#}
+{#        <p><a class="btn btn-primary btn-lg" href="Lokahi/signup" role="button">Join here&raquo;</a></p>#}
+{#    </div>#}
+{#</div>#}
 
 <div class="container">
     <div class="row">
@@ -26,10 +26,12 @@
         {% if is_registered %}
             <script>alert("You are successfully registered with Username:{{user_obj.username }} and Email: {{ user_obj.email }}")</script>
         {% else %}
-            <form action="{% url 'signup' %}" method="post">
+            <form action="{% url 'signup' %}" method="post" id="signup-form">
                 {% csrf_token %}
                 {{ form }}
-                <input type="submit" value="Submit">
+                <div class="submit-row">
+                 <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Register" />
+                </div>
             </form>
         {% endif %}
         {#       <form action="" method="POST" id="signup-form">#}

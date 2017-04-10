@@ -1,3 +1,4 @@
+{% load staticfiles %}
 {% block content %}
 
 <head>
@@ -9,11 +10,10 @@
 
 
   <title> crowdFunding.com </title>
-  <link href="/Lokahi_Fintech/static/css/bootstrap.css" rel="stylesheet">
-  <link href="/Lokahi_Fintech/static/css/font-awesome.css" rel="stylesheet">
-  <link href="/Lokahi_Fintech/static/css/search.css" rel = "stylesheet">
-  <link href="/Lokahi_Fintech/static/css/homepage.css" rel = "stylesheet">
-
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+  <link href="{% static 'css/search.css' %}" rel = "stylesheet">
+  <link href="{% static 'css/homepage.css' %}" rel = "stylesheet">
   <nav class="navbar-wrapper navbar-fixed-top" >
     <div class="container-fluid">
       <div class="navbar-header">

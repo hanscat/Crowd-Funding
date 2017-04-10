@@ -77,7 +77,6 @@ WSGI_APPLICATION = 'Crowdfunding.wsgi.application'
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -86,14 +85,6 @@ DATABASES = {
         # 'PASSWORD': 'password',
         # 'HOST': 'localhost',
         # 'PORT': '',
-=======
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.path.join(BASE_DIR, 'database'),
-        'USER': 'name',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
->>>>>>> 49bc47b7f14e01af3ce0233a9fe431a934d568fd
     }
 }
 

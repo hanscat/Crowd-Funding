@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+<!-- LOGIN TEST -->
+
+
+<div class="jumbotron" style="background-image: url('../photos/crowdfunding1.jpg') !important">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for customers</p>
+        </font>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <form action="" method="POST" id="login-form">
+        {% csrf_token %}
+        {{userform}}
+        <div class="submit-row">
+          <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Log in" />
+        </div>
+        <p>Not a user? Register <a href="/register">here</a></p>
+        {%if message%}
+        {{message}}
+        {%endif%}
+        <div>
+        </div>
+    </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/js/bootstrap.min.js"></script>
+</body>
+</html>

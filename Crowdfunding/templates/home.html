@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
+{% include 'header2.html' %}
+
+<body>
+<div class="jumbotron" id="bki">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        <p><a class="btn btn-primary btn-lg" href="/Lokahi/signup" role="button">Join here&raquo;</a></p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+
+        {% include 'sidebar.html' %}
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            {% if reports %}
+                {% for report in reports %}
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                        <h2>Projects</h2>
+                        <p>Project Name: {{ report.title }}</p>
+                        <p><a class="btn btn-default" href="{% url 'report_detail_page' report_id=report.id %}"
+                              role="button">View
+                            details &raquo;</a></p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <strong>There are no reports available.</strong>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

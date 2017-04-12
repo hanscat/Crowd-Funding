@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse
 from django.template import loader
-import models.py
 
 import urllib.request, json
 import operator

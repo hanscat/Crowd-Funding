@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Lokahi_Fintech',
+
 )
 
 MIDDLEWARE_CLASSES = (

@@ -2,6 +2,11 @@
   font-size: large
 }
 
-a.homepage-text {
+.homepage-text {
   color : #777 ;
+}
+
+.bki {
+  background-image: url("/Lokahi_Fintech/static/photos/crowdfunding1.jpg")
+  
 }

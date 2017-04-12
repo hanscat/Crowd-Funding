@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="row">
-        <form action="" method="POST" id="login-form">
+        <form action="" method="POST" id="login-form" class="form-group">
         {% csrf_token %}
         {{userform}}
         <div class="submit-row">
@@ -38,6 +38,6 @@
 {% include 'footer.html' %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/Lokahi_Fintech/static/js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

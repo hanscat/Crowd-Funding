@@ -26,7 +26,7 @@
         {% if is_registered %}
             <script>alert("You are successfully registered with Username:{{user_obj.username }} and Email: {{ user_obj.email }}")</script>
         {% else %}
-            <form action="{% url 'signup' %}" method="post" id="signup-form">
+            <form action="{% url 'signup' %}" method="post" id="signup-form" class="form-group">
                 {% csrf_token %}
                 {{ form }}
                 <div class="submit-row">

@@ -10,7 +10,10 @@ from django.contrib.auth.models import User, Group
 #     participants = models.ManyToManyField()
 #     owner = models.OneToOneField()
 
-
+class Investor(models.Model):
+    name = models.CharField(max_length=100)
+    
+    
 class Report(models.Model):
     date = models.CharField(default=datetime.date.today, max_length=200)
     title = models.CharField(max_length=100)

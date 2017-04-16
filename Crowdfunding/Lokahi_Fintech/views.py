@@ -82,7 +82,7 @@ def my_logout(request):
     # do something to log out
     logout(request)
     form = UserForm(request.POST or None)
-    return render(request, 'logout.html', {"form": form})
+    return render(request, 'login.html', {"form": form})
 
 
 # the testing function executes with the showdata url to display the list of registered users

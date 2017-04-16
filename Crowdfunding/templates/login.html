@@ -2,7 +2,7 @@
 <html lang="en">
 {% include 'header2.html' %}
 {% load staticfiles %}
-<link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 <!-- LOGIN TEST -->
 <body>
 
@@ -11,7 +11,8 @@
     <div class="container">
         <font color="white">
             <h1>Welcome to crowdFunding.com!</h1>
-            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for customers</p>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
         </font>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
     </div>
@@ -19,19 +20,29 @@
 
 <div class="container">
     <div class="row">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+
         <form action="" method="POST" id="login-form" class="form-group">
-        {% csrf_token %}
-        {{form}}
-        <div class="submit-row">
-          <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Log in" />
-        </div>
-        <p>Not a user? Register <a href="Lokahi/signup/">here</a></p>
-        {%if message%}
-        {{message}}
-        {%endif%}
-        <div>
-        </div>
-    </form>
+            {% csrf_token %}
+            <label for="username">Username: </label>
+            {{ form.username }}
+            </br>
+            <label for="password">Password: </label>
+            {{ form.password }}
+            </br>
+            <label for="password-retype">Retype-password: </label>
+            {{ form.retype_password }}
+            <div class="submit-row">
+                <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Log in"/>
+            </div>
+            <p>Not a user? Register <a href="Lokahi/signup/">here</a></p>
+
+
+            <div>
+            </div>
+        </form>
     </div>
 </div>
 

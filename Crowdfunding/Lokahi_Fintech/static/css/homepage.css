@@ -7,5 +7,10 @@
 }
 
 .bki {
+<<<<<<< HEAD
   background-image: url('/Lokahi_Fintech/static/photos/crowdfunding1.jpg')
+=======
+  background-image: url("/Lokahi_Fintech/static/photos/crowdfunding1.jpg")
+  
+>>>>>>> d586d82472b97c7d4bb2d37ec0bc87f7afb00de0
 }

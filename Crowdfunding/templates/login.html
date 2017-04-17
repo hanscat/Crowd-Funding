@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header2.html' %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
 <!-- LOGIN TEST -->
+<body>
 
-
-<div class="jumbotron" style="background-image: url('Lokahi_Fintech/static/photos/crowdfunding1.jpg') !important">
+{% load staticfiles %}
+<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
     <div class="container">
         <font color="white">
             <h1>Welcome to crowdFunding.com!</h1>
@@ -22,7 +24,7 @@
         <div class="submit-row">
           <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Log in" />
         </div>
-        <p>Not a user? Register <a href="/register">here</a></p>
+        <p>Not a user? Register <a href="Lokahi/signup/">here</a></p>
         {%if message%}
         {{message}}
         {%endif%}

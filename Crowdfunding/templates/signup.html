@@ -3,6 +3,7 @@
 <body>
 {% include 'header2.html' %}
 {% load staticfiles %}
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 <div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
     <div class="container">
         <font color="white">
@@ -24,56 +25,42 @@
             {% endfor %}
         {% endif %}
         {% if is_registered %}
-            <script>alert("You are successfully registered with Username:{{user_obj.username }} and Email: {{ user_obj.email }}")</script>
+            <script>alert("You are successfully registered with \n Username:{{user.username }} and \n Email: {{ user.email }}")</script>
         {% else %}
-            <form action="{% url 'signup' %}" method="post" id="signup-form">
+            <form action="{% url 'signup' %}" method="post" id="signup-form" class="form-group">
                 {% csrf_token %}
-                {{ form }}
+                <h2>Sign Up</h2>
+                </br>
+                <label for="username">Username: </label>
+                {{form.username}}
+                </br>
+                <label for="email">Email: </label>
+                {{form.email}}
+                </br>
+                <label for="password">Password: </label>
+                {{form.password}}
+                </br>
+                <div class="alert alert-info">
+                    <p>Your password should be at least 6 characters long</p>
+                </div>
+                <label for="password-retype">Retype-password: </label>
+                {{form.retype_password}}
+                <label for="password-retype">Organization: </label>
+                {{ profileForm.company }}
+                </br>
+{#                {{ form }}#}
                 <div class="submit-row">
-                 <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Register" />
+                    <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Register"/>
                 </div>
             </form>
+            
         {% endif %}
-        {#       <form action="" method="POST" id="signup-form">#}
-        {#       {% csrf_token %}#}
-        {#       <h2>Sign Up</h2>#}
-        {#        </br>#}
-        {#        <label for="username">Username: </label>#}
-        {#        {{SignupForm.username}}#}
-        {#        </br>#}
-        {##}
-        {#        <label for="password">Password: </label>#}
-        {#        {{SignupForm.password}}#}
-        {#        </br>#}
-        {#        <div class="alert alert-info">#}
-        {#          <p>Your password should be at least 6 characters long</p>#}
-        {#        </div>#}
-        {#        <label for="password_repeat">Retype Password: </label>#}
-        {#        {{SignupForm.password_repeat}}#}
-        {#        </br>#}
-        {##}
-        {#        <label for="first_name">First Name: </label>#}
-        {#        {{SignupForm.first_name}}#}
-        {#        </br>#}
-        {##}
-        {#        <label for="last_name">Last Name: </label>#}
-        {#        {{SignupForm.last_name}}#}
-        {##}
-        {#        <br/>#}
-        {#        <br/>#}
-        {##}
-        {#          <div class="submit-row">#}
-        {#          <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Register" />#}
-        {#        </div>#}
-        {#      </form>#}
-        {#      <br/>#}
-
     </div>
 </div>
 
 {% include 'footer.html' %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/Lokahi_Fintech/static/js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

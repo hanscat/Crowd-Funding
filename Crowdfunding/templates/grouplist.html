@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+
+<h2>Groups</h2>
+    <ul>
+        {% for group in object_list %}
+            <li> Title: {{ group.title }}</li>
+            <li> Members: {% for member in group.participants %} {{ member }} | {% endfor %}</li>
+            <li><p href="{% url "addMember" group.pk%}"> Add Member</p></li>
+        {% empty %}
+            <li>No groups yet</li>
+        {% endfor %}
+    </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="jumbotron" style="background-image: url('/Lokahi_Fintech/static/photos/carbackground.jpg') !important">
+        <div class="container" style="text-align: center">
+            <font color="white">
+                <h1>User doesn't Exist</h1>
+            </font>
+        </div>
+    </div>
+
+{% endif %}
+
+{% include 'footer.html' %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

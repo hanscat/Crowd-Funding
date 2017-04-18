@@ -2,8 +2,19 @@ from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
-
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.contrib.auth import logout, authenticate, login, get_user
+from django.shortcuts import render_to_response
+from django.http import HttpRequest
+from django.template import RequestContext
+
+from django.views.generic.edit import CreateView
+
+from django.views.generic import UpdateView
+
+from django.views.generic import ListView
+
 
 
 
@@ -32,7 +43,7 @@ def my_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request,"home.html",{"user":user, "logedin":True})
+                return render(request,"home.html",{"user":user, "logedin" : True})
             # Redirect to a success page.
             return render(request, 'login.html', {"message":"Disabled account!", "form":form})
         else:
@@ -91,3 +102,29 @@ def my_logout(request):
 def showUsers(request):
     all_users = User.objects.all()
     return render(request, 'userdetail.html', {'all_users': all_users})
+
+
+
+
+class MakeGroup(CreateView):
+    model = Group
+    fields = ["title", "owner", "participants"]
+    success_url =  '/grouplist/'
+    template_name = "addgroup.html"
+
+
+class GroupList(ListView):
+    model = Group
+    template_name = "grouplist.html"
+
+
+
+class addMember(UpdateView):
+    model = Group
+    fields = ["participants"]
+    template_name = "addgroup.html"
+
+
+
+
+

@@ -3,16 +3,22 @@ import datetime
 from django.contrib.auth.models import User
 
 
+
 # Create your models here.
 
-class Group(models.Model):
-    title = models.CharField(max_length=100)
-    # participants = models.ManyToManyField(User, db_constraint=True, swappable=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Investor(models.Model):
     name = models.CharField(max_length=100)
+
+
+class Document(models.Model):
+    #report = models.ForeignKey(Report, null=True)
+    name = models.CharField(max_length=100, null=True, default=None, blank=True)
+    encrypted = models.BooleanField(default=False)
+    file = models.FileField(upload_to='documents')
+    def __str__(self):
+        return str(self.file)
 
 
 class Report(models.Model):
@@ -20,7 +26,7 @@ class Report(models.Model):
     title = models.CharField(max_length=100)
     Company = models.CharField(max_length=60)
     Industry = models.CharField(max_length=60)
-    encrypted = models.BooleanField(blank=True)
+    encrypted = models.BooleanField(default=False)
     private = models.BooleanField()
 
     def __str__(self):
@@ -40,3 +46,21 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+
+class Group(models.Model):
+    title = models.CharField(max_length=100)
+    owner = models.CharField(max_length=100, default="")
+    participants = models.ManyToManyField(User)
+    #reports = models.ManyToManyField(Report)
+    def __str__(self):
+        return str(self.name)
+
+    def users(self):
+        return self.owner | self.participants
+
+    def is_member(self, user):
+        if user == self.owner or user in self.participants:
+            return True
+        else:
+            return False

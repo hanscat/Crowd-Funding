@@ -1,65 +1,105 @@
-
+__author__ = 'pbs5kx'
+#some code from http://www.laurentluce.com/posts/python-and-cryptography-with-pycrypto/
+import os
+import Crypto
+import hashlib
 from Crypto.Cipher import ARC4
-import json
+from Crypto.PublicKey import RSA
+from Crypto import Random
+from Crypto.Hash import SHA256
+from Crypto.Hash import MD5
 
+#takes in a string and key and returns encrypted string
+def secret_string(str, publickey):
+    if not(isinstance(publickey, RSA._RSAobj)):
+        print("Not a valid key")
+        return False
+    str=str.encode('utf-8')
+    encrypted = publickey.encrypt(str, 32)
+    return encrypted
 
-def encrypt(file, inp):
-
-    key = inp.encode('utf-8')
-
-    split_name = file.split('/')
-   # docname = split_name[len(split_name)-1]
-
-    encryp = ARC4.new(key)
-    lastPeriod = file.rfind('.')
-
-
+#takes in file and key and writes to make an encrypted file
+def encrypt_file(filename, pubkey):
+    key = hashlib.sha256(pubkey.encode('utf-8')).digest()
+    obj = ARC4.new(key)
     try:
-        fr = open(file, 'rb')
-        fw = open("testText.enc", 'wb')
-        #fw = open(file[:lastPeriod] + ".enc", 'wb')
+        with open(filename, 'rb') as in_file:
+            with open(filename+".enc", 'wb') as out_file:
+                while True:
+                    chunk = in_file.read(8192)
+                    if len(chunk) == 0:
+                        break
+                    out_file.write(obj.encrypt(chunk))
+        return True
     except FileNotFoundError:
-        print("file not found")
+        print("Wrong file or file path")
         return False
 
-    text = fr.read()
-    data = encryp.encrypt(text)
-    fw.write(data)
-    fr.close()
-    fw.close()
-    print("File Encrypted. Saved as " + file[:lastPeriod] + ".enc")
-    print()
+#takes in encrypted file and key; decrypts the file and writes to make a new decrypted file
+def decrypt_file(filename, pubkey):
+    key = hashlib.sha256(pubkey.encode('utf-8')).digest()
+    out=filename.replace(".enc","")
+    out="DEC_"+out
+    obj = ARC4.new(key)
+    try:
+        with open(filename, 'rb') as in_file:
+            with open(out, 'wb') as out_file:
+                while True:
+                    chunk = in_file.read(8192)
+                    if len(chunk) == 0:
+                        break
+                    out_file.write(obj.decrypt(chunk))
+        return True
+    except FileNotFoundError:
+        print("Wrong file or file path")
+        return False
 
-    fr2 = open("testText.enc",'rb')
-    #fr2 = open(file[:lastPeriod] + ".enc",'rb')
-    fw2 = open("done.txt", 'wb')
+def checksum(filename):
+    h = MD5.new()
+    chunk_size = 8192
+    with open(filename, 'rb') as f:
+        while True:
+            chunk = f.read(chunk_size)
+            if len(chunk) == 0:
+                break
+            h.update(chunk)
+    return h.hexdigest()
 
-    text2 = fr2.read()
-    data = encryp.decrypt(text2)
-    fw2.write(data)
-
-    fr2.close()
-    fw2.close()
-
-
-
-    return True
-
-def decrypt_file(lines, key, name):
-    """ decrypt a .enc file to a DEC_ file using the given key """
-    dec = ARC4.new(key)
-    fw = open("downloads/"+name, 'wb')
-    for line in lines:
-	    enc_text = line.encode('latin-1')
-	    text = dec.decrypt(enc_text)
-	    fw.write(text)
-    return True
+def equal(x,y):
+    if(x==y):
+        print("The files are equal")
+    else:
+        print("The files are not equal")
 
 
-if __name__ == "__main__":
-    inp = input("Enter Key")
-    filename = input("Enter filename: ")
-    #filename = C:/Users/Student/Documents/HCI/Second Test/textbook+-+chapter5.pdf
-    #file = open(filename, 'rb')
-    encrypt(filename, inp)
-
+if __name__ == '__main__':
+    random_generator = Random.new().read
+    x= RSA.generate(1024, random_generator)
+    public_key = x.publickey()
+    enc=secret_string("waterBoat", public_key)
+    #print(enc)
+    dec=x.decrypt(enc)
+    print(dec)
+    encrypt_file("enpt.py", "hellobob")
+    decrypt_file("qweqwe", "hellobob")
+    encrypt_file("file.txt", "hellobob")
+    decrypt_file("file.txt.enc", "hellobob")
+    encrypt_file("testcase-doc-hw3.xlsx", "hellobob")
+    decrypt_file("testcase-doc-hw3.xlsx.enc", "hellobob")
+    encrypt_file("logo.jpg", "hellobob")
+    decrypt_file("logo.jpg.enc", "hellobob")
+    encrypt_file("class10.pdf", "hellobob")
+    decrypt_file("class10.pdf.enc", "hellobob")
+    encrypt_file("vlsi.ppt", "BLABLA")
+    decrypt_file("vlsi.ppt.enc", "BLABLA")
+    encrypt_file("1st.PNG", "hellobob")
+    decrypt_file("1st.PNG.enc", "hellobob")
+    encrypt_file("encrypt.py", "hellobob")
+    decrypt_file("encrypt.py.enc","hellobob")
+    equal(checksum("file.txt"),checksum("DEC_file.txt"))
+    equal(checksum("logo.jpg"), checksum("DEC_logo.jpg"))
+    equal(checksum("testcase-doc-hw3.xlsx"), checksum("DEC_testcase-doc-hw3.xlsx"))
+    equal(checksum("Class10.pdf"), checksum("DEC_Class10.pdf"))
+    equal(checksum("vlsi.ppt"), checksum("DEC_vlsi.ppt"))
+    equal(checksum("1st.PNG"), checksum("DEC_1st.PNG"))
+    equal(checksum("encrypt.py"),checksum("DEC_encrypt.py"))

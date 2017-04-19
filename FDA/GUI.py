@@ -3,10 +3,16 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from functools import partial
+import Crypto
+
 from Crypto.Cipher import ARC4
+import hashlib
+import urllib.request
 
 
-import psycopg2
+
+
+#import psycopg2
 
 
 global conn
@@ -129,12 +135,6 @@ class Window:
         self.reports_page.pack_forget()
         self.encrypt_file_page.pack()
 
-    def show_docsPage(self, report):
-        self.encrypt_file_page.pack_forget()
-        self.docs_page.pack_forget()
-        self.docs_page.destroy()
-        self.docs_page = Frame(self.root, borderwidth = 2, bg= "blue")
-
 
     def show_reportsPage(self):
         self.login_page.pack_forget()
@@ -174,33 +174,26 @@ class Window:
 
     def encryptFile(self):
 
-        file = self.fileEntry.get()
+        filename = self.fileEntry.get()
         key_entry = self.key_entry.get()
-
-        key = key_entry.encode('utf-8')
-
-        split_name = file.split('/')
-        # docname = split_name[len(split_name)-1]
-
-        encryp = ARC4.new(key)
-        lastPeriod = file.rfind('.')
+        pubkey = key_entry.encode('utf-8')
+        key = hashlib.sha256(pubkey).digest()
+        obj = ARC4.new(key)
 
         try:
-            fr = open(file, 'rb')
-            fw = open("testText.enc", 'wb')
-            # fw = open(file[:lastPeriod] + ".enc", 'wb')
+            with open(filename, 'rb') as in_file:
+                with open(filename + ".enc", 'wb') as out_file:
+                    while True:
+                        chunk = in_file.read(8192)
+                        if len(chunk) == 0:
+                            break
+                        out_file.write(obj.encrypt(chunk))
+            messagebox.showinfo("File Encoded", "Encoded file saved to " + filename + ".enc")
+            return True
         except FileNotFoundError:
-            print("file not found")
+            print("Wrong file or file path")
             return False
 
-        text = fr.read()
-        data = encryp.encrypt(text)
-        fw.write(data)
-        fr.close()
-        fw.close()
-        print("File Encrypted. Saved as " + file[:lastPeriod] + ".enc")
-        print()
-        print("encryptfile here")
 
     def loadtemplate(self):
 
@@ -213,6 +206,38 @@ class Window:
 
         return filename
 
+
+    def download_file(self, doc):
+        url = 'documents url' + doc[1]  #name field
+        filename = doc[1] #name field
+        response = urllib.request.urlopen(url)
+        data = response.read()
+        fw = open("downloads/" + filename, 'wb');
+        fw.write(data);
+
+        if(doc[2]):  #is encoded field
+                pubkey = doc[3] #public key field
+                key = hashlib.sha256(pubkey.encode('utf-8')).digest()
+                out = "downloads/" + filename.replace(".enc", "")
+                obj = ARC4.new(key)
+                try:
+                    with open("downloads/" + filename, 'rb') as in_file:
+                        with open(out, 'wb') as out_file:
+                            while True:
+                                chunk = in_file.read(8192)
+                                if len(chunk) == 0:
+                                    break
+                                out_file.write(obj.decrypt(chunk))
+                    messagebox.showinfo("File Encoded", "Encoded file saved to downloads/" + filename)
+                    return True
+
+                except FileNotFoundError:
+                    print("Wrong file or file path")
+                    return False
+        else:
+            messagebox.showinfo("File Encoded", "Encoded file saved to downloads/" + filename )
+
+
     def getReports(self):
         global conn
         curs = conn.cursor()
@@ -224,7 +249,7 @@ class Window:
                 reportsList.append(report)
         return (reportsList)
 
-    def getDocs(self, report):
+    def get_Docs(self, report):
         global conn
         curs = conn.cursor()
         curs.execute("SELECT * FROM doc")  # whatever we call docs
@@ -233,7 +258,28 @@ class Window:
         for doc in documents:
             if (doc[1] == report[0]):  # if the doc is in report
                 docs.append(doc)
-        return (documents)
+        return documents
+
+    def show_docsPage(self, report):
+        self.encrypt_file_page.pack_forget()
+        self.docs_page.pack_forget()
+        self.docs_page.destroy()
+        self.docs_page = Frame(self.root, borderwidth = 2, bg= "blue")
+
+        docs = self.get_Docs(report)
+        row = 0
+        self.doc_page_title = Label(self.docs_page, text="Documents from " + report[1])  #name filed
+        self.doc_page_title.grid(row=row)
+        row += 1
+        for doc in docs:
+            doc_title = Label(self.docs_page, text="Title: " + doc[1])  #doc title field
+            download_button = Button(self.docs_page, text='Download', command=partial(self.download_file, doc))
+
+            doc_title.grid(row=row, column=0)
+            download_button.grid(row=row, column=1)
+            row += 1
+
+        self.docs_page.pack()
 
 
 page = Window()

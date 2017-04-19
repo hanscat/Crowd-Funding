@@ -36,3 +36,8 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+class Messages(models.Model):
+    sender = models.ForeignKey(User, related_name="sender")
+    receiver = models.ForeignKey(User, related_name="receiver")
+    msg_content = models.CharField(max_length=1000)

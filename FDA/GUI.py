@@ -19,7 +19,7 @@ import psycopg2
 global conn
 
 
-#conn = psycopg2.connect(dbname="default", user="postgres", password="password")
+conn = psycopg2.connect(dbname="default", user="postgres", password="password")
 #conn = "test"
 
 

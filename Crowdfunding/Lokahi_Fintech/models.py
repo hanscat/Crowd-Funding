@@ -69,11 +69,11 @@ class Group(models.Model):
     def __str__(self):
         return str(self.name)
 
-    def users(self):
+    def people(self):
         return self.owner | self.participants
 
-    def is_member(self, user):
-        if user == self.owner or user in self.participants:
+    def is_member(self, member):
+        if member == self.owner or member in self.participants:
             return True
         else:
             return False

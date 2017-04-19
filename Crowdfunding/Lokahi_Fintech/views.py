@@ -109,7 +109,7 @@ def showUsers(request):
 class MakeGroup(CreateView):
     model = Group
     fields = ["title", "owner", "participants"]
-    success_url =  '/grouplist/'
+    success_url =  '/Lokahi/GroupList/'
     template_name = "addgroup.html"
 
 

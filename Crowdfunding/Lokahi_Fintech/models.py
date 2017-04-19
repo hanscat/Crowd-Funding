@@ -23,7 +23,7 @@ class Document(models.Model):
 
 class Report(models.Model):
     date = models.CharField(default=datetime.date.today, max_length=200)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default="")
     Company = models.CharField(max_length=60)
     Industry = models.CharField(max_length=60)
     encrypted = models.BooleanField(default=False)

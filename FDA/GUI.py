@@ -19,8 +19,8 @@ import psycopg2
 global conn
 
 
-conn = psycopg2.connect(dbname="users", user="postgres", password="password")
-
+#conn = psycopg2.connect(dbname="default", user="postgres", password="password")
+#conn = "test"
 
 
 
@@ -112,7 +112,7 @@ class Window:
 
         #send to login script
 
-        URL = "Lokahi/login" #need url
+        URL = "8000/Lokahi/login" #need url
 
         session = requests.Session()
         session.get(URL)

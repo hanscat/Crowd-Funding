@@ -23,7 +23,7 @@
         {% for group in object_list %}
             <li> Title: {{ group.title }}</li>
             <li> Members: {% for member in group.participants.all %} {{ member }} | {% endfor %}</li>
-            <!-- <li><p href="{ url "addMember" group.pk%}"></p> Add Member</p></li> -->
+            <a href="{% url "addmember" group.pk%}"> Add Member</a>
             <p>Add member button goes here</p>
             <p>         </p>
             {% empty %}

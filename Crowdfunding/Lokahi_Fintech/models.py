@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
-
 class Report(models.Model):
     date = models.CharField(default=datetime.date.today, max_length=200)
     title = models.CharField(max_length=100, default="")
@@ -58,3 +56,8 @@ class Group(models.Model):
             return True
         else:
             return False
+
+class Messages(models.Model):
+    sender = models.ForeignKey(User, related_name="sender")
+    receiver = models.ForeignKey(User, related_name="receiver")
+    msg_content = models.CharField(max_length=1000)

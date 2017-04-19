@@ -8,19 +8,6 @@ from django.contrib.auth.models import User
 
 
 
-class Investor(models.Model):
-    name = models.CharField(max_length=100)
-
-
-class Document(models.Model):
-    #report = models.ForeignKey(Report, null=True)
-    name = models.CharField(max_length=100, null=True, default=None, blank=True)
-    encrypted = models.BooleanField(default=False)
-    file = models.FileField(upload_to='documents')
-    def __str__(self):
-        return str(self.file)
-
-
 class Report(models.Model):
     date = models.CharField(default=datetime.date.today, max_length=200)
     title = models.CharField(max_length=100, default="")

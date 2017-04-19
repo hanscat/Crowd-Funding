@@ -110,20 +110,6 @@ class Window:
         self.user = self.username_entry.get()
         password = self.password_entry.get()
 
-        URL = "8000:"
-        session = requests.Session()
-        session.get(URL)
-        csrftoken = session.cookies['csrftoken']
-
-        data = {'username': self.user, 'password': password,
-                   'csrfmiddlewaretoken': csrftoken}
-        response = session.post(URL, data=data)
-
-        if(response.)
-
-
-
-
         #send to login script
 
         URL = "8000/Lokahi/login" #need url

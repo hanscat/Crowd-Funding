@@ -24,32 +24,15 @@
             {{ message }}
         {% endif %}
 
-        <form action="" method="POST" id="login-form" class="form-group">
+        <form action="" method="POST">
             {% csrf_token %}
-            <label for="username">Username: </label>
-            {{ form.username }}
-            </br>
-            <label for="password">Password: </label>
-            {{ form.password }}
-            </br>
-            <label for="password-retype">Retype-password: </label>
-            {{ form.retype_password }}
-            <div class="submit-row">
-                <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Log in"/>
-
-            </div>
-            <p>Not a user? Register <a href="Lokahi/signup/">here</a></p>
+                <table>
+                    {{ form.as_table }}
+                </table>
+             <p><input type="submit" value="Add Group" /></p>
 
 
-            <div>
-            </div>
         </form>
     </div>
 </div>
 
-{% include 'footer.html' %}
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-</body>
-</html>

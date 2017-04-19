@@ -77,8 +77,4 @@ class Group(models.Model):
         else:
             return False
 
-class Messages(models.Model):
-    sender = models.ForeignKey(User, related_name="sender")
-    receiver = models.ForeignKey(User, related_name="receiver")
-    msg_content = models.CharField(max_length=1000)
 

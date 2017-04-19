@@ -37,6 +37,21 @@
                 <strong>There are no reports available.</strong>
             {% endif %}
         </div>
+        <div class="col-sm-8">
+            {% if users %}
+                {% for user in users %}
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                        <h2>Users</h2>
+                        <p>User Name: {{ user.name }}</p>
+                        <p><a class="btn btn-default" href="{% url 'report_detail_page' report_id=report.id %}"
+                              role="button">View
+                            details &raquo;</a></p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <strong>There are no users available.</strong>
+            {% endif %}
+        </div>
 
     </div>
 </div>
@@ -48,3 +63,4 @@
 </body>
 
 </html>
+

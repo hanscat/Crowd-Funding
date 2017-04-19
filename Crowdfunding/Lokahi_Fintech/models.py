@@ -28,6 +28,7 @@ class Report(models.Model):
     Industry = models.CharField(max_length=60)
     private = models.BooleanField()
 
+
     def __str__(self):
         return self.title
         # timestamp = models.DateTimeField(default=timezone.now)
@@ -47,7 +48,7 @@ class File(models.Model):
         return str(self.docfile)
 
 class Profile(models.Model):
-    user  = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     types = (('C',"Company"),("I","Investor"),("N/A",'not declared'))
     role = models.CharField(max_length=20, choices=types)
     

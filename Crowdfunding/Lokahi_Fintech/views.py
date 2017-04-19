@@ -104,8 +104,6 @@ def showUsers(request):
     return render(request, 'userdetail.html', {'all_users': all_users})
 
 
-
-
 class MakeGroup(CreateView):
     model = Group
     fields = ["title", "owner", "participants"]
@@ -123,8 +121,3 @@ class addMember(UpdateView):
     model = Group
     fields = ["participants"]
     template_name = "addgroup.html"
-
-
-
-
-

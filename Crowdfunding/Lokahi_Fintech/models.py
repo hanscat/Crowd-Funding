@@ -20,7 +20,6 @@ class Report(models.Model):
     title = models.CharField(max_length=100)
     Company = models.CharField(max_length=60)
     Industry = models.CharField(max_length=60)
-    encrypted = models.BooleanField(blank=True)
     private = models.BooleanField()
 
     def __str__(self):
@@ -32,6 +31,14 @@ class Report(models.Model):
         # sector = models.CharField(max_length=60)
         # current_projects = models.TextField()
         # file = models.FileField(blank = True)
+
+class File(models.Model):
+    report = models.ForeignKey(Report, null=True)
+    name = models.CharField(max_length=100, null=True, default=None, blank=True)
+    encrypted = models.BooleanField(default=False)
+    filename = models.FileField(upload_to='documents')
+    def __str__(self):
+        return str(self.docfile)
 
 class Profile(models.Model):
     user  = models.OneToOneField(User, on_delete=models.CASCADE)

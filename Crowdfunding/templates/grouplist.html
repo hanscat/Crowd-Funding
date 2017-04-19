@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<!-- LOGIN TEST -->
+<body>
+
+{% load staticfiles %}
+<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
+    </div>
+</div>
+
+<h2>Groups</h2>
+    <ul>
+        {% for group in object_list %}
+            <li> Title: {{ group.title }}</li>
+            <li> Members: {% for member in group.participants.all %} {{ member }} | {% endfor %}</li>
+            <!-- <li><p href="{ url "addMember" group.pk%}"></p> Add Member</p></li> -->
+            <p>Add member button goes here</p>
+            <p>         </p>
+            {% empty %}
+            <li>No groups yet</li>
+        {% endfor %}
+    </ul>
+            </div>
+        </div>
+
+
+
+{% include 'footer.html' %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

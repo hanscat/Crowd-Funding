@@ -8,19 +8,19 @@ import Crypto
 from Crypto.Cipher import ARC4
 import hashlib
 import urllib.request
+import requests
 
 
 
 
-#import psycopg2
+import psycopg2
 
 
 global conn
 
-conn = "test"
 
-#conn = psycopg2.connect(dbname="test, user="postgres", password="secret")
-
+#conn = psycopg2.connect(dbname="default", user="postgres", password="password")
+#conn = "test"
 
 
 
@@ -112,10 +112,19 @@ class Window:
 
         #send to login script
 
-        #if (respose == True):
-            #self.show_mainPage()
-        #else:
-            #print("Login failed try again")
+        URL = "8000/Lokahi/login" #need url
+
+        session = requests.Session()
+        session.get(URL)
+        csrftoken = session.cookies['csrftoken']
+        send_to_page = {'username' : self.user, 'password' : password, 'csrfmiddlewaretoken': csrftoken }
+        response = session.post(URL, data=send_to_page)
+
+        if(response.__getitem__("logedin") == True):
+            self.show_mainPage()
+        else:
+            messagebox.showinfo("Login Failed", "Login Failed")
+
 
     def show_mainPage(self):
         self.login_page.pack_forget()
@@ -151,7 +160,7 @@ class Window:
         row = 0
 
         for report in reports:
-            report_title = Label(self.reportsframe, text="Report Title: " + reports[1])  #report title index
+            report_title = Label(self.reportsframe, text="Report Title: " + report[1])  #report title index
             report_date = Label(self.reportsframe, text="Date: " + report[1].strftime('%m/%d/%Y')) #date index
             reports_desc = Label(self.reportsframe, text="Report Description: " + report[2])  #decription index
             repport_owner = Label(self.reportsframe, text="Owner: " + report[1 ])  #owner index

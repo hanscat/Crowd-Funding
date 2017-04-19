@@ -27,3 +27,4 @@ class Profile_Form(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['role', 'company']
+

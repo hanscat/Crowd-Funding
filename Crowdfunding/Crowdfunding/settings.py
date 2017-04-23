@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
@@ -26,7 +26,7 @@ SECRET_KEY = 'aro9iymicd7e07*o0!$3%5gpr7dov6bdmxd=1$$auvot_5v8uo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['crowdfunding.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -89,9 +89,6 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-
-DATABASES['default'] = dj_database_url.config()
 
 
 
@@ -113,11 +110,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
-STATIC_DIRS = (
-    os.path.join(BASE_DIR, 'static')
-)
-
 # STATIC_ROOT = os.path.join(BASE_DIR, "／static/")
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PRONTO', 'https')

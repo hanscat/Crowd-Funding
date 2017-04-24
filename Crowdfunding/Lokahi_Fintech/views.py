@@ -2,12 +2,11 @@ from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import  csrf_exempt
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout, authenticate, login, get_user
-from django.shortcuts import render_to_response
-from django.http import HttpRequest
-from django.template import RequestContext
+from datetime import datetime
 
 from django.views.generic.edit import CreateView
 
@@ -19,20 +18,22 @@ from django.views.generic import ListView
 
 
 # Create your views here.
+@csrf_exempt
 def index(request):
+    # print("==================="+request.session.get('loged_user'))
     if not request.user.is_authenticated:
-        return render(request, 'home.html')
+        return render(request, 'home.html', {'logedin':False})
     else:
         # all_users = User.objects.all()
         # the_report = Report.objects.get(get_user(request))
         # reports_to_show = {"file list": Document.objects.filter(report = the_report)}
-        reports_to_show = {}
-        return render(request, 'home.html', reports_to_show)
+        # reports_to_show = {"logedin" : True}
+        return render(request, 'home.html', {"logedin" : True})
 
 
-def login_page(request):
-    form = UserForm(request.POST or None)
-    return render(request, 'login.html', {"form":form})
+# def login_page(request):
+#     form = UserForm(request.POST or None)
+#     return render(request, 'login.html', {"form":form})
 
 def my_login(request):
     form = UserForm(request.POST or None)
@@ -43,6 +44,8 @@ def my_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                request.session['logged_user'] = username
+                request.session['loged_in'] = True
                 return render(request,"home.html",{"user":user, "logedin" : True})
             # Redirect to a success page.
             return render(request, 'login.html', {"message":"Disabled account!", "form":form})
@@ -81,6 +84,8 @@ def signup(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                request.session['logged_user'] = username
+                request.session['loged_in'] = True
                 return redirect("/Lokahi")
             
     return render(request,"signup.html", {"form":form, "profileForm": profile,'is_registered': False})
@@ -89,22 +94,82 @@ def signup(request):
     #     form = UserForm()  # an unboundform
     #     return render(request, 'signup.html', {'form': form})
 
+@login_required
+def sendMessage(request):
+    form = sendMessageForm(request.POST or None)
+    if request.method == 'POST':
+        print("===>before validating form<===")
+        print(form.errors)
+        if form.is_valid():
+            print("yeah, form is valid")
+
+    
+            content = request.POST.get('content', '')
+            print("content is ", content)
+            receiver_pk= request.POST.get('receiver', '') 
+            print("recerver is ", receiver_pk)
+            # try:
+            #     receiver = User.objects.get(username=receiver_name)
+            #     message.receiver = receiver
+            # except KeyError:"receiver does not exist"
+    
+            sender_name = request.session.get('logged_user')
+            print(sender_name)
+            sender = User.objects.get(username=sender_name)
+            print("sender is", sender)
+            time = datetime.now()
+            print("time is", time)
+            message = form.save()
+            message.receiver = User.objects.get(pk=receiver_pk)
+            message.content = content
+            message.sender = sender
+            message.time = time
+            message.save()
+
+            if message is not None:
+                print(message)
+                receiver_name = User.objects.get(pk=receiver_pk).username
+                return redirect("/Lokahi", {"message":"Message successfully sent to" + receiver_name + "!"})
+
+    return render(request,'sendMessage.html', {"logedin" : True, "form":form})
 
 @login_required
 def my_logout(request):
     # do something to log out
     logout(request)
+    try:
+        del request.session['user']
+    except KeyError:
+        pass
+    try:
+        del request.session['logged_in']
+    except KeyError:
+        pass
+    
     form = UserForm(request.POST or None)
-    return render(request, 'login.html', {"form": form})
+    return redirect('login.html', {"form": form})
 
 
 # the testing function executes with the showdata url to display the list of registered users
 def showUsers(request):
     all_users = User.objects.all()
-    return render(request, 'userdetail.html', {'all_users': all_users})
+    # print(all_users)
+    all_messages = Message.objects.all()
+    # print(all_messages)
+    return render(request, 'userdetail.html', {'all_users': all_users, "all_messages":all_messages})
 
+@login_required
+def inbox(request):
+    # form = sendMessageForm(request.POST or None)
+    all_messages = Message.objects.all()
+    username = request.session.get('logged_user')
+    # print("======",username,"======")
+    # print("all messages: ",all_messages)
+    return render(request, 'inbox.html', {"logedin" : True, "messages":all_messages, "receiver_name":username})
 
-
+@login_required
+def message_detail(request, message):
+    return render(request, 'messagedetail.html', {"logedin" : True, "message":message})
 
 class MakeGroup(CreateView):
     model = Group

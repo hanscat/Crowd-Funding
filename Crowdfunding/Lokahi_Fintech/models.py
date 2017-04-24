@@ -58,3 +58,9 @@ class Group(models.Model):
             return True
         else:
             return False
+        
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender", null=True)
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
+    content = models.CharField(max_length=500)
+    time = models.DateField(default=None, blank=True,null=True)

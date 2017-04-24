@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 {% include 'header2.html' %}
-
+{#<p>Hello, {{ message.receiver }}</p>#}
 <body>
 <div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
     <div class="container">
@@ -23,34 +23,25 @@
         </div>
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-            {% if message %}
-                {% for m in message %}
-                    <div class="alert alert-warning">
-                        {{ m }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            {% if reports %}
-                {% for report in reports %}
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                        <h2>Projects</h2>
-                        <p>Project Name: {{ report.title }}</p>
-                        <p><a class="btn btn-default" href="{% url 'report_detail_page' report_id=report.id %}"
-                              role="button">View
-                            details &raquo;</a></p>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <strong>There are no reports available.</strong>
-            {% endif %}
-        </div>
+            <form action="{% url 'sendMessage' %}" method="POST" id="sendMessage-form" class="form-group">
+                {% csrf_token %}
+                <h2>---Create a new message---</h2>
+                <label for="receiver">Send to: </label>
+                {{ form.receiver }}
+                </br>
+                <label for="content">The content of your message: </label>
+                {{ form.content }}
+                <div class="submit-row">
+                    <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Send"/>
 
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 {% include 'footer.html' %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 

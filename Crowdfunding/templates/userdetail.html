@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header2.html' %}
+{% if all_messages %}
+
+    <h1>Here is the list of users.</h1>
+<ul>
+    {% for message in all_messages %}
+
+    <li> Receiver:{{ message.receiver }} Sender:{{ message.sender  }} Content: {{ message.content }} Time: {{ message.time }}</li>
+    {% endfor %}
+</ul>
+{#  In case  no user exists.  #}
+{% else %}
+<h3> No users found.</h3>
+{% endif %}
 {% if all_users %}
     {% for user in all_users %}
         <div class="jumbotron"

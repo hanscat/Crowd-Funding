@@ -102,25 +102,25 @@ class Window:
     def login(self, *args):
         print("Do login stuff")
         #do login stuff
-        self.login_page.pack_forget()
-        self.encrypt_file_page.forget()
-        self.reports_page.pack_forget()
-        self.first_page.pack()
+        #self.login_page.pack_forget()
+        #self.encrypt_file_page.forget()
+        #self.reports_page.pack_forget()
+        #self.first_page.pack()
 
         self.user = self.username_entry.get()
         password = self.password_entry.get()
 
         #send to login script
 
-        URL = "8000/Lokahi/login" #need url
+        URL = "http://localhost:8000/Lokahi/login" #need url
 
         session = requests.Session()
         session.get(URL)
         csrftoken = session.cookies['csrftoken']
-        send_to_page = {'username' : self.user, 'password' : password, 'csrfmiddlewaretoken': csrftoken }
-        response = session.post(URL, data=send_to_page)
-
-        if(response.__getitem__("logedin") == True):
+        payload = {'username' : self.user, 'password' : password, 'next': 'validate.html','csrfmiddlewaretoken': csrftoken }
+        response = session.post(URL, data=payload)
+        #print(response.text)
+        if(response.text == "success"):
             self.show_mainPage()
         else:
             messagebox.showinfo("Login Failed", "Login Failed")

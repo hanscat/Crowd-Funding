@@ -14,6 +14,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic import UpdateView
 
 from django.views.generic import ListView
+import django
+django.setup()
 
 
 
@@ -109,7 +111,6 @@ def showUsers(request):
     all_users = User.objects.all()
     return render(request, 'userdetail.html', {'all_users': all_users})
 
-
 class MakeGroup(CreateView):
     model = Group
     fields = ["title", "owner", "participants"]
@@ -121,13 +122,47 @@ class GroupList(ListView):
     model = Group
     template_name = "grouplist.html"
 
-
-
 class addMember(UpdateView):
     model = Group
     fields = ["participants"]
     template_name = "addgroup.html"
 
-
 def Validate(request):
     return render(request, 'validate.html')
+
+def deleteUser(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            User.objects.filter(username=search_id).delete()
+
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
+
+def deleteFromGroup(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            User.groups.filter(username=search_id)
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
+
+def makeSM(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+#            u = User.objects.get(username=search_id)
+#            u.is__superuser = True
+#            u.save()
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
+

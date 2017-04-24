@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'signup', views.signup, name='signup'),
     url(r'showusers', views.showUsers, name='showusers'),
     url(r'addgroup/$', views.MakeGroup.as_view(), name='addgroup'),
-    url(r'GroupList/$', views.GroupList.as_view(), name='grouplist')
+    url(r'GroupList/$', views.GroupList.as_view(), name='grouplist'),
+    url(r'deleteuser', views.deleteUser, name='deleteuser'),
+    url(r'deletefromgroup', views.deleteFromGroup, name='deletefromgroup')
     # url(r'createListing', views.createListing, name='createListing'),
 ]

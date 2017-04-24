@@ -39,11 +39,17 @@ def my_login(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
+        next = request.POST['next']
+
+
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request,"home.html",{"user":user, "logedin" : True})
+                if next == 'home.html':
+                    return render(request,"home.html",{"user":user, "logedin" : True})
+                else:
+                    return render(request, "validate.html", {"user": user, "logedin": True})
             # Redirect to a success page.
             return render(request, 'login.html', {"message":"Disabled account!", "form":form})
         else:
@@ -121,3 +127,7 @@ class addMember(UpdateView):
     model = Group
     fields = ["participants"]
     template_name = "addgroup.html"
+
+
+def Validate(request):
+    return render(request, 'validate.html')

@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'addmember/(?P<pk>\d+)$', views.addMember.as_view(), name='addmember'),
     url(r'showusers', views.showUsers, name='showusers'),
     url(r'addgroup/$', views.MakeGroup.as_view(), name='addgroup'),
-    url(r'GroupList/$', views.GroupList.as_view(), name='grouplist')
+    url(r'GroupList/$', views.GroupList.as_view(), name='grouplist'),
+    url(r'^validate/$', views.Validate, name='validate')
     # url(r'createListing', views.createListing, name='createListing'),
 ]

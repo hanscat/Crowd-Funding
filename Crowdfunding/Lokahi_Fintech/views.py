@@ -46,6 +46,7 @@ def my_login(request):
     else:
         return render(request, "login.html", {"form":form})
 
+
 def signup(request):
     # if request.method == 'POST':  # if the form has been filled
 
@@ -53,34 +54,34 @@ def signup(request):
     profile = Profile_Form(request.POST or None)
 
     if form.is_valid() and not profile.is_valid():  # All the data is valid
-        user = form.save(), 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
-    # else:
-    #     form = UserForm()  # an u
-        
+        user = form.save()
+
         username = request.POST.get('username', '')
         email = request.POST.get('email', '')
         # user.set_email(email)
         password = request.POST.get('password', '')
         user.set_password(password)
         # profile = profile.save(commit=False)
-        
+
         # # creating an user object containing all the data
         # user_obj = User(username=username, email=email, password=password)
         # # saving all the data in the current object into the database
         # user_obj.save()
-        
+
         # profile.user = user
         # profile.save()
         user.save()
-        
+
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
                 return redirect("/Lokahi")
-            
-    return render(request,"signup.html", {"form":form, "profileForm": profile,'is_registered': False})
-            # return render(requesnboundform
+
+    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False})
+    # return render(request, 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
+    # else:
+    #     form = UserForm()  # an unboundform
     #     return render(request, 'signup.html', {'form': form})
 
 

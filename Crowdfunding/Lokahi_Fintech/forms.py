@@ -20,6 +20,19 @@ class loginForm(forms.Form):
     username = forms.CharField(max_length=100, required=True)
     password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput())
     
+class sendMessageForm(forms.ModelForm):
+    content = forms.CharField(max_length=500, widget=forms.Textarea)
+    receiver = forms.ModelChoiceField(queryset=User.objects.all(),empty_label="--Select a Receiver--")
+    to_encrypt = forms.TypedChoiceField(
+                   coerce=lambda x: x == 'True',
+                   choices=((False, 'False'), (True, 'True')),
+                   widget=forms.RadioSelect
+                )
+    class Meta:
+        model = Message
+        # fields = ['receiver', 'content', 'sender', 'time']
+        exclude = ['sender', 'time']
+    
 class Profile_Form(forms.ModelForm):
     company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': "company", 'class': 'form-control'}))
     types = ["company","investor","not declared"]

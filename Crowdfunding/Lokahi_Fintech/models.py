@@ -94,8 +94,15 @@ class Group1(models.Model):
             return True
         else:
             return False
-
     class Meta:
         db_table = 'groups1'
 
 
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender", null=True)
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
+    content = models.TextField(max_length=500)
+    time = models.DateField(default=None, blank=True,null=True)
+    to_encrypt = models.BooleanField(default=False)
+    key = models.TextField(max_length=10000, null=True, blank=True)
+     

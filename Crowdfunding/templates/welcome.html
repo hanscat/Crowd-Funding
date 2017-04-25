@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class="jumbotron" id="bki" style="background-color: #04a9af">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowdFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        {% if not logedin %}
+        <p><a class="btn btn-primary btn-lg" href="/Lokahi/signup" role="button">Join here&raquo;</a>
+        <a class="btn btn-primary btn-lg" href="/Lokahi/login" role="button">Login&raquo;</a></p>
+        {% endif %}
+    </div>
+</div>

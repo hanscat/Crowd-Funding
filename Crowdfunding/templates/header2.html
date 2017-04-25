@@ -22,14 +22,16 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    {% if logedin %}
-                        <li><a href="#"> Hi, {{ user.username }} <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/Lokahi/logout">Logout</a></li>
+                    {% if not logedin %}
+                    <li><a href="/Lokahi/signup">Sign Up <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/Lokahi/login">Login</a></li>
                     {% else %}
-                        <li><a href="/Lokahi/signup">Sign Up <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/Lokahi/login">Login</a></li>
-                    {% endif %}
+                    <li><a href="#"> Hi, {{ user.username }} <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/Lokahi/logout">Logout</a></li>
                     <li><a href="/Lokahi/showusers/">Profile</a></li>
+                    <li><a href="/Lokahi/showreports/">Reports</a></li>
+                    <li><a href="/Lokahi/GroupList/">Groups</a></li>
+                    {% endif %}
                 </ul>
 
                 {#        <div class="container-2" >#}

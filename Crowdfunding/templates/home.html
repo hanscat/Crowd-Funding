@@ -6,73 +6,59 @@
 {% include 'header2.html' %}
 
 <body>
-<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
-    <div class="container">
-        <font color="white">
-            <h1>Welcome to crowdFunding.com!</h1>
-            <p>Here at crowdFunding.com we are dedicated to providing quality crowdfunding opportunities for
-                customers</p>
-        </font>
-        <p><a class="btn btn-primary btn-lg" href="/Lokahi/signup" role="button">Join here&raquo;</a></p>
-    </div>
-</div>
+
+{% include 'welcome.html' %}
+{% if logedin %}
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-        {% include 'sidebar.html' %}
-        </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            {% if reports %}
-                {% for report in reports %}
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                        <h2>Projects</h2>
-                        <p>Project Name: {{ report.title }}</p>
-                        <p><a class="btn btn-default" href="{% url 'report_detail_page' report_id=report.id %}"
-                              role="button">View
-                            details &raquo;</a></p>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <strong>There are no reports available.</strong>
-            {% endif %}
-        </div>
-        <div class="col-sm-8">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <h2>User</h2>
-                    <p>User Name: {{ user.username }}</p>
+                <p>User Name: {{ user.username }}</p>
             </div>
-        </div>
-<!--THIS PORTION IS FOR SITE MANAGERS AND SHOULD BE CHANGED LATER-->
-        <div class="'col-sm-8">
-            {% if True %}
-            <h2>Delete Users:</h2>
-            <form method="POST" action="/Lokahi/deleteuser/">
-                {% csrf_token %}
-                <input type="text" name="textfield">
-
-                <button type="submit">Delete</button>
-            </form>
-
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            {% if user.is_superuser %}
+            <div>
+                <h2>Suspend Users:</h2>
+                <form method="POST" action="/Lokahi/suspenduser/">
+                    {% csrf_token %}
+                    <input type="text" name="textfield">
+                    <button type="submit">Suspend</button>
+                </form>
+            </div>
+            <div>
+                <h2>Reactivate Users:</h2>
+                <form method="POST" action="/Lokahi/activateuser/">
+                    {% csrf_token %}
+                    <input type="text" name="textfield">
+                    <button type="submit">Reactivate</button>
+                </form>
+            </div>
+            <div>
+                <h2>Remove Users from Groups:</h2>
+                <form method="POST" action="/Lokahi/deletefromgroup/">
+                    {% csrf_token %}
+                    <input type="text" name="textfield">
+                    <button type="submit">Search User</button>
+                </form>
+            </div>
+            <div>
+                <h2>Make Site Manager:</h2>
+                <form method="POST" action="/Lokahi/makemanager/">
+                    {% csrf_token %}
+                    <input type="text" name="textfield">
+                    <button type="submit">Make Site Manager</button>
+                </form>
+            </div>
             {% endif %}
         </div>
-        <div class="'col-sm-8">
-            {% if True %}
-            <h2>Remove Users from Groups:</h2>
-            <form method="POST" action="/Lokahi/deletefromgroup/">
-                {% csrf_token %}
-                <input type="text" name="textfield">
-
-                <button type="submit">Search User</button>
-            </form>
-
-            {% endif %}
-        </div>
-
-
-
     </div>
 </div>
+{% endif %}
 
 {% include 'footer.html' %}
 

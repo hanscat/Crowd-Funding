@@ -63,7 +63,7 @@ class Messages(models.Model):
 
 class Group(models.Model):
     title = models.CharField(max_length=100)
-    owner = models.CharField(max_length=100, default="")
+    owner = models.CharField(max_length=100)
     participants = models.ManyToManyField(User)
     #reports = models.ManyToManyField(Report)
     def __str__(self):

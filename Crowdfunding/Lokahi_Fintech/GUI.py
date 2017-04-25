@@ -283,13 +283,13 @@ class Window:
     def get_Docs(self, report):
         global conn
         curs = conn.cursor()
-        curs.execute("SELECT * FROM document")  # whatever we call docs
-        documents = curs.fetchall()
-        docs = []
-        for doc in documents:
-            if (doc[1] == report[0]):  # if the doc is in report
-                docs.append(doc)
-        return documents
+        curs.execute("SELECT * FROM file")  # whatever we call docs
+        allfiles = curs.fetchall()
+        files = []
+        for file in allfiles:
+            if (file[5] == report[0]):  # if the doc is in report
+                files.append(file)
+        return files
 
     def show_docsPage(self, report):
         self.encrypt_file_page.pack_forget()

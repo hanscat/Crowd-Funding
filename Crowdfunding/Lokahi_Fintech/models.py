@@ -13,7 +13,7 @@ class Investor(models.Model):
 
 
 class Document(models.Model):
-    #report = models.ForeignKey(Report, null=True)
+    report = models.ForeignKey('Report', null=True)
     name = models.CharField(max_length=100, null=True, default=None, blank=True)
     encrypted = models.BooleanField(default=False)
     file = models.FileField(upload_to='documents')
@@ -27,12 +27,15 @@ class Document(models.Model):
 class File(models.Model):
 
     name = models.CharField(max_length=100, default="")
-    reports = models.ManyToManyField('Report')
+    reports = models.ForeignKey('Report', null = True)
     encrypted = models.BooleanField(default=False)
     encryptionKey = models.CharField(max_length=100, default="", blank=True)
     filename = models.FileField(upload_to='documents', blank=True)
     def __str__(self):
-        return str(self.docfile)
+        return str(self.name)
+
+    class Meta:
+        db_table = 'file'
 
 class Report(models.Model):
     owner = models.CharField(max_length=60, default="")

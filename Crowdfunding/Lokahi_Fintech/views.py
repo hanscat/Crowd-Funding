@@ -129,6 +129,16 @@ class addFile(CreateView):
     template_name = "addfile.html"
     success_url = '/Lokahi/ReportList/'
 
+class FileList(ListView):
+    model = File
+    template_name = "filelist.html"
+
+class linkfile(UpdateView):
+    model = Report
+    fields = ["files"]
+    template_name = "addFile.html"
+    success_url = '/Lokahi/ReportList/'
+
 class deleteReport(DeleteView):
     model = Report
     success_url = '/Lokahi/ReportList/'

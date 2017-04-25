@@ -137,17 +137,17 @@ def message_detail_decrypted(request, message_id):
     # print("type of content", type(content))
 
     raw_key = message.key.encode('utf-8')
-    print("raw key", raw_key)
-    print("type of raw key", type(raw_key))
+    # print("raw key", raw_key)
+    # print("type of raw key", type(raw_key))
 
     # get the key from the message object
     parsed_key = RSA.importKey(message.key)
     # print("parsed key", parsed_key)
 
     # for debugging use, change the content within b'' with the correct exported RSA key
-    text_key = (
-    b'-----BEGIN RSA PRIVATE KEY-----\nMIICXQIBAAKBgQC0Y04oecrWP1rcEHfRHvh/+SOchB/iX48FNPDMn6+XLSQdQfKT\nOKaLsJi8iGQWUG+mhg0at0Zd9NUEIjFWLpWFCW/bks2qC1oJieGi0QXLAKmN6K3Y\n3GVBUcc5I/06rbI4deQ/Falft9VIiy61FBXnhvb84XXZR0S2hmCSIXCLWwIDAQAB\nAoGBAK9i/lMMV9MHtmfQ+y4wVpzWt3EuZXHMR1pgpt/NQwRRt5Na02eg5Q1cnqRw\nWB/6BRR7sbIQEDK6IYLrW9zXXjdhkCq8n77aaDzX8tLnAe63p4xEDyy9BCAkU93F\nBR8WUnq3jy54k3q9e1KpXsWgOPLh7Y88bLaCS4m5r6qwO7hBAkEA058jB+Vye1XL\nWH/7dRjwMIL6CcJU91cOxcrJ9gQjccKbkXGt+Q4ssQNuBeb0+8e7VFvuvYb6yF4P\nBPl9L/wGvQJBANo3ZJJzPk2ul1mnrTvD4nTIKjXIQPYN62r2KJAmpk9wZWjTvF+9\neuOiMEDAL28fdblOI1he5kcYvtGORpnQZ/cCQGcYyEA4kCV2DrL25tKNa7a2mInY\nmvxE9XV27h1ktr/dR1z8PP1w4mT6fsdxVTi0fZcDkrPS5qpm6HpL8alG5yECQQCw\n7bLEr133vDSJA9QInjVxfI4E114cYoLbUcTnw/6acEY47VxRwB7wjCNVjL2o+rgH\nzBwKXb+WK7Ej1ZjWw8xXAkBQJ1iTkGF0apa89vV+wNOojW15ZL40Ffqyhycn7f5l\n6HIj8lSueBw49qNMfUqNrd0Q0KLauM/ih5APKLPB12yN\n-----END RSA PRIVATE KEY-----')
-    print("type of text key", type(text_key))
+    # text_key = (
+    # b'-----BEGIN RSA PRIVATE KEY-----\nMIICXQIBAAKBgQC0Y04oecrWP1rcEHfRHvh/+SOchB/iX48FNPDMn6+XLSQdQfKT\nOKaLsJi8iGQWUG+mhg0at0Zd9NUEIjFWLpWFCW/bks2qC1oJieGi0QXLAKmN6K3Y\n3GVBUcc5I/06rbI4deQ/Falft9VIiy61FBXnhvb84XXZR0S2hmCSIXCLWwIDAQAB\nAoGBAK9i/lMMV9MHtmfQ+y4wVpzWt3EuZXHMR1pgpt/NQwRRt5Na02eg5Q1cnqRw\nWB/6BRR7sbIQEDK6IYLrW9zXXjdhkCq8n77aaDzX8tLnAe63p4xEDyy9BCAkU93F\nBR8WUnq3jy54k3q9e1KpXsWgOPLh7Y88bLaCS4m5r6qwO7hBAkEA058jB+Vye1XL\nWH/7dRjwMIL6CcJU91cOxcrJ9gQjccKbkXGt+Q4ssQNuBeb0+8e7VFvuvYb6yF4P\nBPl9L/wGvQJBANo3ZJJzPk2ul1mnrTvD4nTIKjXIQPYN62r2KJAmpk9wZWjTvF+9\neuOiMEDAL28fdblOI1he5kcYvtGORpnQZ/cCQGcYyEA4kCV2DrL25tKNa7a2mInY\nmvxE9XV27h1ktr/dR1z8PP1w4mT6fsdxVTi0fZcDkrPS5qpm6HpL8alG5yECQQCw\n7bLEr133vDSJA9QInjVxfI4E114cYoLbUcTnw/6acEY47VxRwB7wjCNVjL2o+rgH\nzBwKXb+WK7Ej1ZjWw8xXAkBQJ1iTkGF0apa89vV+wNOojW15ZL40Ffqyhycn7f5l\n6HIj8lSueBw49qNMfUqNrd0Q0KLauM/ih5APKLPB12yN\n-----END RSA PRIVATE KEY-----')
+    # print("type of text key", type(text_key))
     # VERIFY IF IT IS THE RECEIVER TRYING TO DECRYPT
     if (str(reader) == str(receiver) and message.to_encrypt == True):
         print("pass the decrption check!!!")
@@ -167,18 +167,18 @@ def sendMessage(request):
         print(form.errors)
         if form.is_valid():
             content = request.POST.get('content', '')
-            print("content is ", content)
+            # print("content is ", content)
             receiver_pk = request.POST.get('receiver', '')
-            print("recerver is ", receiver_pk)
+            # print("recerver is ", receiver_pk)
             to_encrypt = request.POST.get('to_encrypt', '')
-            print("To encrypt:", to_encrypt)
+            # print("To encrypt:", to_encrypt)
 
             sender_name = request.session.get('logged_user')
-            print(sender_name)
+            # print(sender_name)
             sender = User.objects.get(username=sender_name)
-            print("sender is", sender)
+            # print("sender is", sender)
             time = datetime.now()
-            print("time is", time)
+            # print("time is", time)
 
             message = form.save()
             message.receiver = User.objects.get(pk=receiver_pk)
@@ -202,10 +202,10 @@ def sendMessage(request):
             # print("type of content", type(content))
             # print("decrypt when send:", plain)
             # print("key is", key)
-            print("text key ", text_key)
+            # print("text key ", text_key)
 
             if message is not None:
-                print(message)
+                # print(message)
                 receiver_name = User.objects.get(pk=receiver_pk).username
                 success_message = "Message successfully sent to: " + receiver_name + "!"
                 return render(request, "home.html", {"logedin": True, "message": success_message})

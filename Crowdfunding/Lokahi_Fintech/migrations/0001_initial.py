@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Document',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('name', models.CharField(max_length=100, blank=True, null=True, default=None)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('name', models.CharField(default=None, null=True, max_length=100, blank=True)),
                 ('encrypted', models.BooleanField(default=False)),
                 ('file', models.FileField(upload_to='documents')),
             ],
@@ -28,10 +28,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='File',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('name', models.CharField(max_length=100, default='')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('name', models.CharField(default='', max_length=100)),
                 ('encrypted', models.BooleanField(default=False)),
-                ('encryptionKey', models.CharField(max_length=100, blank=True, default='')),
+                ('encryptionKey', models.CharField(default='', blank=True, max_length=100)),
                 ('filename', models.FileField(blank=True, upload_to='documents')),
             ],
             options={
@@ -41,9 +41,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Group1',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('title', models.CharField(max_length=100)),
-                ('owner', models.CharField(max_length=100, default='')),
+                ('owner', models.CharField(default='', max_length=100)),
                 ('participants', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -53,42 +53,45 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Investor',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Messages',
+            name='Message',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('msg_content', models.CharField(max_length=1000)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('content', models.TextField(max_length=500)),
+                ('time', models.DateField(null=True, default=None, blank=True)),
+                ('to_encrypt', models.BooleanField(default=False)),
+                ('key', models.TextField(null=True, max_length=10000, blank=True)),
                 ('receiver', models.ForeignKey(related_name='receiver', to=settings.AUTH_USER_MODEL)),
-                ('sender', models.ForeignKey(related_name='sender', to=settings.AUTH_USER_MODEL)),
+                ('sender', models.ForeignKey(related_name='sender', null=True, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('role', models.CharField(max_length=20, choices=[('C', 'Company'), ('I', 'Investor'), ('N/A', 'not declared')])),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('role', models.CharField(choices=[('C', 'Company'), ('I', 'Investor'), ('N/A', 'not declared')], max_length=20)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Report',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('owner', models.CharField(max_length=60, default='')),
-                ('date', models.CharField(max_length=200, default=datetime.date.today)),
-                ('title', models.CharField(max_length=100, default='')),
-                ('company', models.CharField(max_length=60, default='')),
-                ('phone', models.CharField(max_length=12, default='')),
-                ('location', models.CharField(max_length=60, default='')),
-                ('country', models.CharField(max_length=60, default='')),
-                ('industry', models.CharField(max_length=60, default='')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('owner', models.CharField(default='', max_length=60)),
+                ('date', models.CharField(default=datetime.date.today, max_length=200)),
+                ('title', models.CharField(default='', max_length=100)),
+                ('company', models.CharField(default='', max_length=60)),
+                ('phone', models.CharField(default='', max_length=12)),
+                ('location', models.CharField(default='', max_length=60)),
+                ('country', models.CharField(default='', max_length=60)),
+                ('industry', models.CharField(default='', max_length=60)),
                 ('projects', models.TextField(default='')),
                 ('private', models.BooleanField()),
-                ('files', models.ManyToManyField(blank=True, to='Lokahi_Fintech.File')),
+                ('files', models.ManyToManyField(to='Lokahi_Fintech.File', blank=True)),
             ],
             options={
                 'db_table': 'report',

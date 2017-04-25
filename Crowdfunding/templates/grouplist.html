@@ -24,7 +24,11 @@
             <li> Title: {{ group.title }}</li>
             <li> Members: {% for member in group.participants.all %} {{ member }} | {% endfor %}</li>
             <a href="{% url "addmember" group.pk%}"> Add Member</a>
-            <p>Add member button goes here</p>
+            {% if user.username == group.owner %}
+                <a href="{% url "deleteGroup" group.pk %}">Delete Group</a>
+            {% endif %}
+
+
             <p>         </p>
             {% empty %}
             <li>No groups yet</li>

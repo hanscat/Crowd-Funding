@@ -11,7 +11,7 @@ from django.template import RequestContext
 
 from django.views.generic.edit import CreateView
 
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 
 from django.views.generic import ListView
 
@@ -101,13 +101,15 @@ def my_logout(request):
     # do something to log out
     logout(request)
     form = UserForm(request.POST or None)
-    return render(request, 'login.html', {"form": form})
+    return render(request, 'logout.html', {"form": form})
 
 
 # the testing function executes with the showdata url to display the list of registered users
+
 def showUsers(request):
     all_users = User.objects.all()
     return render(request, 'userdetail.html', {'all_users': all_users})
+
 
 
 class MakeGroup(CreateView):
@@ -115,6 +117,8 @@ class MakeGroup(CreateView):
     fields = ["title", "owner", "participants"]
     success_url =  '/Lokahi/GroupList/'
     template_name = "addgroup.html"
+    #pass in user and login status
+
 
 
 class GroupList(ListView):
@@ -127,7 +131,19 @@ class addMember(UpdateView):
     model = Group
     fields = ["participants"]
     template_name = "addgroup.html"
+    success_url = '/Lokahi/GroupList/'
 
+class deleteGroup(DeleteView):
+
+    model = Group
+    success_url = '/Lokahi/GroupList/'
+    template_name = 'deleteGroup.html'
+
+class removeSelf(UpdateView):
+    model = Group
+    fields = ["participants"]
+    template_name = "addgroup.html"
+    success_url = '/Lokahi/GroupList'
 
 def Validate(request):
     return render(request, 'validate.html')

@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'showusers', views.showUsers, name='showusers'),
     url(r'addgroup/$', views.MakeGroup.as_view(), name='addgroup'),
     url(r'GroupList/$', views.GroupList.as_view(), name='grouplist'),
+    url(r'deleteGroup/(?P<pk>\d+)$', views.deleteGroup.as_view(), name='deleteGroup'),
     url(r'^validate/$', views.Validate, name='validate')
     # url(r'createListing', views.createListing, name='createListing'),
 ]

@@ -18,20 +18,27 @@
     </div>
 </div>
 
-<h2>Groups</h2>
+<h2>Reports</h2>
     <ul>
-        {% for group1 in object_list %}
-            <li> Title: {{ group1.title }}</li>
-            <li> Members: {% for member in group.participants.all %} {{ member }} | {% endfor %}</li>
-            <a href="{% url "addmember" group1.pk%}"> Add Member</a>
-            {% if user.username == group1.owner %}
-                <a href="{% url "deleteGroup" group1.pk %}">Delete Group</a>
+        {% for report in object_list %}
+            <li> Owner: {{ report.owner }}</li>
+            <li> Title: {{ report.title }}</li>
+            <li> Company: {{ report.company }}</li>
+            <li> Phone {{ report.phone }}</li>
+            <li> Location: {{ report.location }}</li>
+            <li> Country: {{ report.country}}</li>
+            <li> Industry: {{ report.industry }}</li>
+            <li> Projects: {{ report.projects }}</li>
+            <li> Files: {{ report.files }}</li>
+            <li> Private: {{ report.private }}</li>
+            <a href="{% url "addfile" report.pk%}"> Add File</a>
+            {% if user.username == report.owner %}
+                <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
             {% endif %}
-
 
             <p>         </p>
             {% empty %}
-            <li>No groups yet</li>
+            <li>No reports yet</li>
         {% endfor %}
     </ul>
             </div>

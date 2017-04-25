@@ -11,7 +11,7 @@ from django.template import RequestContext
 
 from django.views.generic.edit import CreateView
 
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 
 from django.views.generic import ListView
 import django
@@ -103,29 +103,58 @@ def my_logout(request):
     # do something to log out
     logout(request)
     form = UserForm(request.POST or None)
-    return render(request, 'login.html', {"form": form})
+    return render(request, 'logout.html', {"form": form})
 
 
 # the testing function executes with the showdata url to display the list of registered users
+
 def showUsers(request):
     all_users = User.objects.all()
     return render(request, 'userdetail.html', {'all_users': all_users})
 
+class MakeReport(CreateView):
+    model = Report
+    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files", "private"]
+    success_url = '/Lokahi/ReportList/'
+    template_name = "addreport.html"
+
+
+class ReportList(ListView):
+    model = Report
+    template_name = "reportslist.html"
+
+class addFile(CreateView):
+    model = File
+    fields = ["name", "reports", "encrypted", "encryptionKey", "filename"]
+    template_name = "addfile.html"
+    success_url = '/Lokahi/ReportList/'
+
+class deleteReport(DeleteView):
+    model = Report
+    success_url = '/Lokahi/ReportList/'
+    template_name = 'deleteReport.html'
+
 class MakeGroup(CreateView):
-    model = Group
+    model = Group1
     fields = ["title", "owner", "participants"]
     success_url =  '/Lokahi/GroupList/'
     template_name = "addgroup.html"
-
+    #pass in user and login status
 
 class GroupList(ListView):
-    model = Group
+    model = Group1
     template_name = "grouplist.html"
 
 class addMember(UpdateView):
-    model = Group
+    model = Group1
     fields = ["participants"]
     template_name = "addgroup.html"
+    success_url = '/Lokahi/GroupList/'
+
+class deleteGroup(DeleteView):
+    model = Group1
+    success_url = '/Lokahi/GroupList/'
+    template_name = 'deleteGroup.html'
 
 def Validate(request):
     return render(request, 'validate.html')
@@ -157,9 +186,9 @@ def makeSM(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
         try:
-#            u = User.objects.get(username=search_id)
-#            u.is__superuser = True
-#            u.save()
+            u = User.objects.get(username=search_id)
+            u.is__superuser = True
+            u.save()
             return render(request, 'home.html')
         except User.DoesNotExist:
             return HttpResponse("no user by that username")

@@ -18,29 +18,21 @@
     </div>
 </div>
 
-<h2>Reports</h2>
+<h2>Files</h2>
     <ul>
-        <a href="{% url "addfile" %}"> Upload file</a>
-        <a href="{% url "filelist" %}"> View  All Files</a>
-        {% for report in object_list %}
-            <li> Owner: {{ report.owner }}</li>
-            <li> Title: {{ report.title }}</li>
-            <li> Company: {{ report.company }}</li>
-            <li> Phone {{ report.phone }}</li>
-            <li> Location: {{ report.location }}</li>
-            <li> Country: {{ report.country}}</li>
-            <li> Industry: {{ report.industry }}</li>
-            <li> Projects: {{ report.projects }}</li>
-            <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
-            <li> Private: {{ report.private }}</li>
-            <a href="{% url "linkfile" report.pk%}"> Link File</a>
-            {% if user.username == report.owner %}
-                <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
-            {% endif %}
+
+        {% for file in object_list %}
+            <li> Name: {{ file.name }}</li>
+            <li> Report: {{ file.reports }}</li>
+            <li> Encrypted: {{ file.encrypted }}</li>
+            <li> Filename {{ file.filename }}</li>
+             <p>         </p>
+
+
 
             <p>         </p>
             {% empty %}
-            <li>No reports yet</li>
+            <li>No files yet</li>
         {% endfor %}
     </ul>
             </div>

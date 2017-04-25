@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
 from django.conf import settings
+import datetime
 
 
 class Migration(migrations.Migration):
@@ -29,10 +29,14 @@ class Migration(migrations.Migration):
             name='File',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('name', models.CharField(max_length=100, blank=True, null=True, default=None)),
+                ('name', models.CharField(max_length=100, default='')),
                 ('encrypted', models.BooleanField(default=False)),
-                ('filename', models.FileField(upload_to='documents')),
+                ('encryptionKey', models.CharField(max_length=100, blank=True, default='')),
+                ('filename', models.FileField(blank=True, upload_to='documents')),
             ],
+            options={
+                'db_table': 'file',
+            },
         ),
         migrations.CreateModel(
             name='Group1',
@@ -89,5 +93,15 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'report',
             },
+        ),
+        migrations.AddField(
+            model_name='file',
+            name='reports',
+            field=models.ForeignKey(null=True, to='Lokahi_Fintech.Report'),
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='report',
+            field=models.ForeignKey(null=True, to='Lokahi_Fintech.Report'),
         ),
     ]

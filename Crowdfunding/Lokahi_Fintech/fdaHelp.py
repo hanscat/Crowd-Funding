@@ -31,7 +31,18 @@ def showAllReports():
 		print( report )
 	print( "------------------------" )
 
+def showAllFiles():
+	global conn
+	cur = conn.cursor()
+	cur.execute("SELECT * FROM file")
+	reports = cur.fetchall()
+	print( "All Files" )
+	for report in reports:
+		print( report )
+	print( "------------------------" )
+
 
 #
 showAllReports()
+showAllFiles()
 #showAllTables()

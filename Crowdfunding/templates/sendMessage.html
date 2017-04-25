@@ -29,8 +29,11 @@
                 <label for="receiver">Send to: </label>
                 {{ form.receiver }}
                 </br>
-                <label for="content">The content of your message: </label>
+                <label for="content">The content of your message (max length of 500 characters): </label>
                 {{ form.content }}
+                </br>
+                <label for="to_encrypt">To Encrypt? </label>
+                {{ form.to_encrypt }}
                 <div class="submit-row">
                     <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Send"/>
 

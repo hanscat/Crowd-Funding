@@ -23,12 +23,28 @@
         </div>
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
+            <h3>Message details:</h3>
             {% if message %}
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                <div class="alert alert-warning">
+                    <p>From: {{ message.sender }}</p>
+                    <p>Time: {{ message.time }}</p>
+                    <p>Encrypted?: {{ message.to_encrypt }}</p>
+                </div>
+                <div class="alert alert-warning">
                     <p>Content: {{ message.content }}</p>
                 </div>
+                {% if message.to_encrypt == True %}
+                    <a class="btn btn-default" href="/Lokahi/message_detail_decrypted/{{ message.id }}" role="button">Decrypt&raquo;</a>
+                {% endif %}
             {% else %}
                 <strong>Poor internet connection, content can not be loaded.</strong>
+            {% endif %}
+
+            {% if dec %}
+                <h3>Decrypted Message details:</h3>
+                <div class="alert alert-warning">
+                    <p>Content: {{ plaintext }}</p>
+                </div>
             {% endif %}
         </div>
 

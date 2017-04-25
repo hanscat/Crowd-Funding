@@ -62,5 +62,7 @@ class Group(models.Model):
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender", null=True)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
-    content = models.CharField(max_length=500)
+    content = models.TextField(max_length=500)
     time = models.DateField(default=None, blank=True,null=True)
+    to_encrypt = models.BooleanField(default=False)
+    key = models.TextField(max_length=10000, null=True, blank=True)

@@ -24,11 +24,9 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             {% if message %}
-                {% for m in message %}
                     <div class="alert alert-warning">
-                        {{ m }}
+                        {{ message }}
                     </div>
-                {% endfor %}
             {% endif %}
             {% if reports %}
                 {% for report in reports %}

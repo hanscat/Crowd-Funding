@@ -12,7 +12,10 @@ urlpatterns = [
     url(r'signup', views.signup, name='signup'),
     url(r'inbox', views.inbox, name='inbox'),
     url(r'sendMessage', views.sendMessage, name='sendMessage'),
-    url(r'message_detail', views.message_detail, name='message_detail'),
+    url(r'delete_message/(?P<message_id>[0-9]+)', views.delete_message, name='delete_message'),
+    url(r'message_detail/(?P<message_id>[0-9]+)', views.message_detail, name='message_detail'),
+    url(r'message_detail_decrypted/(?P<message_id>[0-9]+)', views.message_detail_decrypted,
+        name='decrypted_message_detail'),
     url(r'showusers', views.showUsers, name='showusers'),
     url(r'addgroup/$', views.MakeGroup.as_view(), name='addgroup'),
     url(r'GroupList/$', views.GroupList.as_view(), name='grouplist')

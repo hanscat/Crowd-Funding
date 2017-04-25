@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 {% include 'header2.html' %}
 
 
-
+<body>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="background-image: url('/Lokahi_Fintech/static/photos/carbackground.jpg') !important">
         <div class="container" style = "text-align: center">
@@ -20,7 +21,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
   </body>
 </html>

@@ -21,6 +21,9 @@ class Migration(migrations.Migration):
                 ('encrypted', models.BooleanField(default=False)),
                 ('file', models.FileField(upload_to='documents')),
             ],
+            options={
+                'db_table': 'document',
+            },
         ),
         migrations.CreateModel(
             name='File',
@@ -32,13 +35,16 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Group',
+            name='Group1',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('title', models.CharField(max_length=100)),
                 ('owner', models.CharField(max_length=100, default='')),
                 ('participants', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+                'db_table': 'groups1',
+            },
         ),
         migrations.CreateModel(
             name='Investor',
@@ -68,16 +74,20 @@ class Migration(migrations.Migration):
             name='Report',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('owner', models.CharField(max_length=60, default='')),
                 ('date', models.CharField(max_length=200, default=datetime.date.today)),
                 ('title', models.CharField(max_length=100, default='')),
-                ('Company', models.CharField(max_length=60)),
-                ('Industry', models.CharField(max_length=60)),
+                ('company', models.CharField(max_length=60, default='')),
+                ('phone', models.CharField(max_length=12, default='')),
+                ('location', models.CharField(max_length=60, default='')),
+                ('country', models.CharField(max_length=60, default='')),
+                ('industry', models.CharField(max_length=60, default='')),
+                ('projects', models.TextField(default='')),
                 ('private', models.BooleanField()),
+                ('files', models.ManyToManyField(blank=True, to='Lokahi_Fintech.File')),
             ],
-        ),
-        migrations.AddField(
-            model_name='file',
-            name='report',
-            field=models.ForeignKey(null=True, to='Lokahi_Fintech.Report'),
+            options={
+                'db_table': 'report',
+            },
         ),
     ]

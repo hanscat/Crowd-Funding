@@ -20,14 +20,30 @@ class Document(models.Model):
     def __str__(self):
         return str(self.file)
 
+    class Meta:
+        db_table = 'document'
+
+
+class File(models.Model):
+    name = models.CharField(max_length=100, default="")
+    encrypted = models.BooleanField(default=False)
+    encrptionKey = models.CharField(max_length=100, default="", blank=True)
+    filename = models.FileField(upload_to='documents')
+    def __str__(self):
+        return str(self.docfile)
 
 class Report(models.Model):
+    owner = models.CharField(max_length=60, default="")
     date = models.CharField(default=datetime.date.today, max_length=200)
     title = models.CharField(max_length=100, default="")
-    Company = models.CharField(max_length=60)
-    Industry = models.CharField(max_length=60)
+    company = models.CharField(max_length=60, default="")
+    phone = models.CharField(max_length=12, default="")
+    location = models.CharField(max_length=60, default="")
+    country = models.CharField(max_length=60, default="")
+    industry = models.CharField(max_length=60, default="")
+    projects = models.TextField(default="")
+    files = models.ManyToManyField(File, blank=True)
     private = models.BooleanField()
-
 
     def __str__(self):
         return self.title
@@ -38,14 +54,10 @@ class Report(models.Model):
         # sector = models.CharField(max_length=60)
         # current_projects = models.TextField()
         # file = models.FileField(blank = True)
+    class Meta:
+        db_table = 'report'
 
-class File(models.Model):
-    report = models.ForeignKey(Report, null=True)
-    name = models.CharField(max_length=100, null=True, default=None, blank=True)
-    encrypted = models.BooleanField(default=False)
-    filename = models.FileField(upload_to='documents')
-    def __str__(self):
-        return str(self.docfile)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -61,7 +73,7 @@ class Messages(models.Model):
     msg_content = models.CharField(max_length=1000)
 
 
-class Group(models.Model):
+class Group1(models.Model):
     title = models.CharField(max_length=100)
     owner = models.CharField(max_length=100, default="")
     participants = models.ManyToManyField(User)
@@ -77,5 +89,8 @@ class Group(models.Model):
             return True
         else:
             return False
+
+    class Meta:
+        db_table = 'groups1'
 
 

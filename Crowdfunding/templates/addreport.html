@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<!-- LOGIN TEST -->
+<body>
+
+{% load staticfiles %}
+<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+             <p><input type="submit" value="Add" /></p>
+
+
+        </form>
+    </div>
+</div>
+

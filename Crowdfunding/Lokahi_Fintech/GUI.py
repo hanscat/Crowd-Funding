@@ -87,13 +87,15 @@ class Window:
 
 
         #reports page
+
         self.reports_page = Frame(self.root)
-        self.reports = Canvas(self.reports_page)
-        scroll = Scrollbar(self.reports_page, orient=VERTICAL, command=self.reports.yview)
-        scroll.pack(side='right', fill='y')
-        self.reports.pack()
-        self.reports.configure(yscrollcommand=scroll.set)
-        self.reportsframe = Frame(self.reports)
+        self.back_button2 = Button(self.reports_page, text='Back', command=self.show_mainPage)
+        self.reports_title = Label(self.reports_page, text="Reports")
+        self.reports_title.pack()
+        self.back_button2.pack()
+
+
+
 
         self.docs_page = Frame(self.root)
 
@@ -130,7 +132,9 @@ class Window:
         self.login_page.pack_forget()
         self.encrypt_file_page.forget()
         self.reports_page.pack_forget()
+        self.docs_page.pack_forget()
         self.first_page.pack()
+        self.canvas.destroy()
 
     def show_loginPage(self):
         #self.root.blind("<Return>", self.login)
@@ -149,21 +153,39 @@ class Window:
         self.login_page.pack_forget()
         self.first_page.pack_forget()
         self.encrypt_file_page.pack_forget()
-        self.reportsframe.pack_forget()
         self.reports_page.pack()
 
-        self.reportsframe.destroy()
-        self.reportsframe = Frame(self.reports_page, borderwidth=4, bg="lightblue")
-        self.reports.create_window(0, 0, window=self.reportsframe, anchor='w')
+        self.canvas = Canvas(self.reports_page, bd=1,scrollregion=(0,0,1000,1000))
+        self.scrollbar = Scrollbar(self.reports_page, orient=VERTICAL, command=self.canvas.yview)
+        self.canvas.config(yscrollcommand=self.scrollbar.set)
+
+        self.scrollbar.pack(side=RIGHT, fill=Y)
+        self.canvas.pack(expand=YES, fill=BOTH)
+
+
+
 
         reports = self.getReports()
-        row = 0
 
+        x = 0
+        y = 0
+
+        if reports.__len__() == 0:
+            print("No reports")
         for report in reports:
-            report_title = Label(self.reportsframe, text="Report Title: " + report[1])  #report title index
-            report_date = Label(self.reportsframe, text="Date: " + report[1].strftime('%m/%d/%Y')) #date index
-            reports_desc = Label(self.reportsframe, text="Report Description: " + report[2])  #decription index
-            repport_owner = Label(self.reportsframe, text="Owner: " + report[1 ])  #owner index
+
+
+            row = 0
+
+            self.reportsframe = Frame(highlightbackground="black", highlightcolor="black", highlightthickness=1, width=100, height=100,bd= 0)
+
+            self.canvas.create_window(0, y, anchor=NW, window=self.reportsframe)
+            y = y+120
+
+            report_title = Label(self.reportsframe, text="Report Title: " + report[2])  #report title index
+            report_date = Label(self.reportsframe, text="Date: " + report[1]) #date index
+            reports_desc = Label(self.reportsframe, text="Company: " + report[4])  #decription index
+            repport_owner = Label(self.reportsframe, text="Owner: " + report[8])  #owner index
             view_docs_butt = Button(self.reportsframe, text='View Documents', command=partial(self.show_docsPage, report))
 
             report_title.grid(row=row)
@@ -178,7 +200,7 @@ class Window:
             row += 1
 
 
-        print("open reports page")
+
 
 
     def encryptFile(self):
@@ -254,14 +276,14 @@ class Window:
         reports = curs.fetchall()
         reportsList = []
         for report in reports:
-            if (report[1] == True):  # What ever index public is
+            if (report[3] == False):  # What ever index public is
                 reportsList.append(report)
         return (reportsList)
 
     def get_Docs(self, report):
         global conn
         curs = conn.cursor()
-        curs.execute("SELECT * FROM doc")  # whatever we call docs
+        curs.execute("SELECT * FROM document")  # whatever we call docs
         documents = curs.fetchall()
         docs = []
         for doc in documents:
@@ -277,7 +299,7 @@ class Window:
 
         docs = self.get_Docs(report)
         row = 0
-        self.doc_page_title = Label(self.docs_page, text="Documents from " + report[1])  #name filed
+        self.doc_page_title = Label(self.docs_page, text="Documents from " + report[2])  #name filed
         self.doc_page_title.grid(row=row)
         row += 1
         for doc in docs:

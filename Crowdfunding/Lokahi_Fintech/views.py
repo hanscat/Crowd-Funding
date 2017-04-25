@@ -111,9 +111,34 @@ def showUsers(request):
     return render(request, 'userdetail.html', {'all_users': all_users})
 
 
+class MakeReport(CreateView):
+    model = Report
+    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files", "private"]
+    success_url = '/Lokahi/ReportList/'
+    template_name = "addreport.html"
+
+
+class ReportList(ListView):
+    model = Report
+    template_name = "reportslist.html"
+
+class addFile(UpdateView):
+    model = Report
+    fields = ["owner"]
+    template_name = "addreport.html"
+    success_url = '/Lokahi/ReportList/'
+
+
+class deleteReport(DeleteView):
+
+    model = Report
+    success_url = '/Lokahi/ReportList/'
+    template_name = 'deleteReport.html'
+
+
 
 class MakeGroup(CreateView):
-    model = Group
+    model = Group1
     fields = ["title", "owner", "participants"]
     success_url =  '/Lokahi/GroupList/'
     template_name = "addgroup.html"
@@ -122,28 +147,24 @@ class MakeGroup(CreateView):
 
 
 class GroupList(ListView):
-    model = Group
+    model = Group1
     template_name = "grouplist.html"
 
 
 
 class addMember(UpdateView):
-    model = Group
+    model = Group1
     fields = ["participants"]
     template_name = "addgroup.html"
     success_url = '/Lokahi/GroupList/'
 
 class deleteGroup(DeleteView):
 
-    model = Group
+    model = Group1
     success_url = '/Lokahi/GroupList/'
     template_name = 'deleteGroup.html'
 
-class removeSelf(UpdateView):
-    model = Group
-    fields = ["participants"]
-    template_name = "addgroup.html"
-    success_url = '/Lokahi/GroupList'
+
 
 def Validate(request):
     return render(request, 'validate.html')

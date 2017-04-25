@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Delete Group</title>
+    <title>Delete Report</title>
 </head>
 <body>
 
     <form action="" method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ group1.title }}"?</p>
+    <p>Are you sure you want to delete "{{ report.title }}"?</p>
     <input type="submit" value="Confirm" />
     </form>
 

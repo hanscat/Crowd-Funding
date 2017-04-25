@@ -25,10 +25,12 @@ class Document(models.Model):
 
 
 class File(models.Model):
+
     name = models.CharField(max_length=100, default="")
+    reports = models.ManyToManyField('Report')
     encrypted = models.BooleanField(default=False)
-    encrptionKey = models.CharField(max_length=100, default="", blank=True)
-    filename = models.FileField(upload_to='documents')
+    encryptionKey = models.CharField(max_length=100, default="", blank=True)
+    filename = models.FileField(upload_to='documents', blank=True)
     def __str__(self):
         return str(self.docfile)
 

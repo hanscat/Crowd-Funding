@@ -122,11 +122,12 @@ class ReportList(ListView):
     model = Report
     template_name = "reportslist.html"
 
-class addFile(UpdateView):
-    model = Report
-    fields = ["owner"]
-    template_name = "addreport.html"
+class addFile(CreateView):
+    model = File
+    fields = ["name", "reports", "encrypted", "encryptionKey", "filename"]
+    template_name = "addfile.html"
     success_url = '/Lokahi/ReportList/'
+
 
 
 class deleteReport(DeleteView):

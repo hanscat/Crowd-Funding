@@ -21,6 +21,10 @@ urlpatterns = [
     url(r'deleteReport/(?P<pk>\d+)$', views.deleteReport.as_view(), name='deleteReport'),
     url(r'GroupList/$', views.GroupList.as_view(), name='grouplist'),
     url(r'deleteGroup/(?P<pk>\d+)$', views.deleteGroup.as_view(), name='deleteGroup'),
-    url(r'^validate/$', views.Validate, name='validate')
+    url(r'^validate/$', views.Validate, name='validate'),
+    url(r'suspenduser', views.suspendUser, name='suspenduser'),
+    url(r'activateuser', views.activateUser, name='activateuser'),
+    url(r'deletefromgroup', views.deleteFromGroup, name='deletefromgroup'),
+    url(r'makemanager', views.makeManager, name='makemanager')
     # url(r'createListing', views.createListing, name='createListing'),
 ]

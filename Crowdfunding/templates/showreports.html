@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+{% if all_reports %}
+    {% for report in all_reports %}
+        <div class="container">
+            <div class="col-lg-12">
+                        <ul>
+                            <li> Report Title: {{ report.title }}</li>
+                        </ul>
+                <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">View</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="jumbotron" style="background-image: url('/Lokahi_Fintech/static/photos/carbackground.jpg') !important">
+        <div class="container" style="text-align: center">
+            <font color="white">
+                <h1>No reports for this user.</h1>
+            </font>
+        </div>
+    </div>
+
+{% endif %}
+
+<div>
+    <form action="{% url 'showreports' %}" method="post" id="new-report" class="ReportForm">
+                {% csrf_token %}
+                <h2>New Report</h2>
+                </br>
+                <label for='title'>Title: </label>
+                {{form.title}}
+                </br>
+                <label for='body'>Body Text: </label>
+                {{form.email}}
+                </br>
+{#                {{ form }}#}
+                <div class="submit-row">
+                    <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Save"/>
+                </div>
+            </form>
+
+</div>
+
+{% include 'footer.html' %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

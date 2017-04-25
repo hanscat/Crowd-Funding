@@ -22,15 +22,7 @@ django.setup()
 
 # Create your views here.
 def index(request):
-    if not request.user.is_authenticated:
-        return render(request, 'home.html')
-    else:
-        # all_users = User.objects.all()
-        # the_report = Report.objects.get(get_user(request))
-        # reports_to_show = {"file list": Document.objects.filter(report = the_report)}
-        reports_to_show = {}
-        return render(request, 'home.html', reports_to_show)
-
+    return render(request, 'home.html')
 
 def login_page(request):
     form = UserForm(request.POST or None)
@@ -52,6 +44,7 @@ def my_login(request):
                     return render(request,"home.html",{"user":user, "logedin" : True})
                 else:
                     return render(request, "validate.html", {"user": user, "logedin": True})
+
             # Redirect to a success page.
             return render(request, 'login.html', {"message":"Disabled account!", "form":form})
         else:
@@ -59,6 +52,7 @@ def my_login(request):
             return render(request, 'login.html', {"message":"invalid token!", "form":form})
     else:
         return render(request, "login.html", {"form":form})
+
 
 def signup(request):
     # if request.method == 'POST':  # if the form has been filled
@@ -68,31 +62,31 @@ def signup(request):
 
     if form.is_valid() and not profile.is_valid():  # All the data is valid
         user = form.save()
-        
+
         username = request.POST.get('username', '')
         email = request.POST.get('email', '')
         # user.set_email(email)
         password = request.POST.get('password', '')
         user.set_password(password)
         # profile = profile.save(commit=False)
-        
+
         # # creating an user object containing all the data
         # user_obj = User(username=username, email=email, password=password)
         # # saving all the data in the current object into the database
         # user_obj.save()
-        
+
         # profile.user = user
         # profile.save()
         user.save()
-        
+
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
                 return redirect("/Lokahi")
-            
-    return render(request,"signup.html", {"form":form, "profileForm": profile,'is_registered': False})
-            # return render(request, 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
+
+    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False})
+    # return render(request, 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
     # else:
     #     form = UserForm()  # an unboundform
     #     return render(request, 'signup.html', {'form': form})
@@ -149,7 +143,7 @@ class MakeGroup(CreateView):
     fields = ["title", "owner", "participants"]
     success_url =  '/Lokahi/GroupList/'
     template_name = "addgroup.html"
-    #pass in user and login status
+
 
 class GroupList(ListView):
     model = Group1
@@ -169,12 +163,26 @@ class deleteGroup(DeleteView):
 def Validate(request):
     return render(request, 'validate.html')
 
-def deleteUser(request):
+def suspendUser(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
         try:
-            User.objects.filter(username=search_id).delete()
+            user = User.objects.get(username=search_id)
+            user.is_active=False
+            user.save()
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
 
+def activateUser(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            user = User.objects.get(username=search_id)
+            user.is_active=True
+            user.save()
             return render(request, 'home.html')
         except User.DoesNotExist:
             return HttpResponse("no user by that username")
@@ -185,14 +193,14 @@ def deleteFromGroup(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
         try:
-            User.groups.filter(username=search_id)
+            g = User.groups.filter(username=search_id)
             return render(request, 'home.html')
         except User.DoesNotExist:
             return HttpResponse("no user by that username")
     else:
         return render(request, 'home.html')
 
-def makeSM(request):
+def makeManager(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
         try:

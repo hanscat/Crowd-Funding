@@ -7,16 +7,7 @@
 <body>
 
 {% load staticfiles %}
-<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
-    <div class="container">
-        <font color="white">
-            <h1>Welcome to crowdFunding.com!</h1>
-            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
-                customers</p>
-        </font>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
-    </div>
-</div>
+{% include 'welcome.html' %}
 
 <h2>Groups</h2>
     <ul>

@@ -29,3 +29,6 @@ class Profile_Form(forms.ModelForm):
         model = Profile
         fields = ['role', 'company']
 
+class ReportForm(forms.ModelForm):
+    title = forms.CharField(max_length=100, required = True)
+    body = forms.CharField(required=True)

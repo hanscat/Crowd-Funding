@@ -66,3 +66,4 @@ class Message(models.Model):
     time = models.DateField(default=None, blank=True,null=True)
     to_encrypt = models.BooleanField(default=False)
     key = models.TextField(max_length=10000, null=True, blank=True)
+     

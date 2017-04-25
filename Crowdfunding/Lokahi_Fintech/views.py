@@ -10,6 +10,8 @@ from django.views.generic import UpdateView
 from django.views.generic import ListView
 from Crypto.PublicKey import RSA
 from Crypto import Random
+from ast import literal_eval as make_tuple
+
 
 # helper functions for encryption & decryptions
 def secret_string(msg, public_key):
@@ -22,7 +24,7 @@ key, then returns the resulting string"""
 def plain_string(msg, key):
     """takes in a string and a public key, decrypts the string with said
 key, then returns the plain string"""
-    plain_text = key.decrypt(msg,32)
+    plain_text = key.decrypt(msg, 32)
     return plain_text
 
 
@@ -113,6 +115,52 @@ def signup(request):
 
 
 @login_required
+def message_detail(request, message_id):
+    message = Message.objects.filter(id=message_id)[0]
+    # print(message.content)
+    return render(request, 'messagedetail.html', {"logedin": True, "message": message})
+
+
+@login_required
+def message_detail_decrypted(request, message_id):
+    message = Message.objects.filter(id=message_id)[0]
+    reader = request.session.get('logged_user')
+
+    # initialize the plain text as an default error message string
+    plain = "Decryption failed"
+    receiver = message.receiver
+    content = message.content
+    
+    # key factor for decryption. Since the database converted the tuple into string when storing, so we have to convert it back
+    content = make_tuple(content)
+    # print("content is ", content)
+    # print("type of content", type(content))
+
+    raw_key = message.key.encode('utf-8')
+    print("raw key", raw_key)
+    print("type of raw key", type(raw_key))
+
+    # get the key from the message object
+    parsed_key = RSA.importKey(message.key)
+    # print("parsed key", parsed_key)
+
+    # for debugging use, change the content within b'' with the correct exported RSA key
+    text_key = (
+    b'-----BEGIN RSA PRIVATE KEY-----\nMIICXQIBAAKBgQC0Y04oecrWP1rcEHfRHvh/+SOchB/iX48FNPDMn6+XLSQdQfKT\nOKaLsJi8iGQWUG+mhg0at0Zd9NUEIjFWLpWFCW/bks2qC1oJieGi0QXLAKmN6K3Y\n3GVBUcc5I/06rbI4deQ/Falft9VIiy61FBXnhvb84XXZR0S2hmCSIXCLWwIDAQAB\nAoGBAK9i/lMMV9MHtmfQ+y4wVpzWt3EuZXHMR1pgpt/NQwRRt5Na02eg5Q1cnqRw\nWB/6BRR7sbIQEDK6IYLrW9zXXjdhkCq8n77aaDzX8tLnAe63p4xEDyy9BCAkU93F\nBR8WUnq3jy54k3q9e1KpXsWgOPLh7Y88bLaCS4m5r6qwO7hBAkEA058jB+Vye1XL\nWH/7dRjwMIL6CcJU91cOxcrJ9gQjccKbkXGt+Q4ssQNuBeb0+8e7VFvuvYb6yF4P\nBPl9L/wGvQJBANo3ZJJzPk2ul1mnrTvD4nTIKjXIQPYN62r2KJAmpk9wZWjTvF+9\neuOiMEDAL28fdblOI1he5kcYvtGORpnQZ/cCQGcYyEA4kCV2DrL25tKNa7a2mInY\nmvxE9XV27h1ktr/dR1z8PP1w4mT6fsdxVTi0fZcDkrPS5qpm6HpL8alG5yECQQCw\n7bLEr133vDSJA9QInjVxfI4E114cYoLbUcTnw/6acEY47VxRwB7wjCNVjL2o+rgH\nzBwKXb+WK7Ej1ZjWw8xXAkBQJ1iTkGF0apa89vV+wNOojW15ZL40Ffqyhycn7f5l\n6HIj8lSueBw49qNMfUqNrd0Q0KLauM/ih5APKLPB12yN\n-----END RSA PRIVATE KEY-----')
+    print("type of text key", type(text_key))
+    # VERIFY IF IT IS THE RECEIVER TRYING TO DECRYPT
+    if (str(reader) == str(receiver) and message.to_encrypt == True):
+        print("pass the decrption check!!!")
+        # plain_text = plain_string(message.content, key)
+        # decrypt the content
+        plain = RSA.importKey(raw_key).decrypt(content)
+
+    # print("decrypt when read:", plain)
+    return render(request, 'messagedetail.html',
+                  {"logedin": True, "message": message, 'plaintext': plain, "dec": True})
+
+
+@login_required
 def sendMessage(request):
     form = sendMessageForm(request.POST or None)
     if request.method == 'POST':
@@ -132,19 +180,16 @@ def sendMessage(request):
             time = datetime.now()
             print("time is", time)
 
-
             message = form.save()
             message.receiver = User.objects.get(pk=receiver_pk)
             key = generate_RSA()
 
             if (to_encrypt == 'True'):
                 content = secret_string(content, key.publickey())
-                plain = RSA.importKey(message.key).decrypt(message.content)
-                print(plain)
                 message.to_encrypt = True
             else:
                 message.to_encrypt = False
-                
+
             message.content = content
             message.sender = sender
             message.time = time
@@ -152,15 +197,17 @@ def sendMessage(request):
             text_key = key.exportKey()
             message.key = text_key
             message.save()
-
+            # plain = RSA.importKey(message.key).decrypt(message.content)
+            # print("content is ", message.content)
+            # print("type of content", type(content))
+            # print("decrypt when send:", plain)
             # print("key is", key)
-            # print("text key ", text_key)
+            print("text key ", text_key)
 
             if message is not None:
                 print(message)
                 receiver_name = User.objects.get(pk=receiver_pk).username
                 success_message = "Message successfully sent to: " + receiver_name + "!"
-                # return redirect("/Lokahi", {"message":success_message})
                 return render(request, "home.html", {"logedin": True, "message": success_message})
 
     return render(request, 'sendMessage.html', {"logedin": True, "form": form})
@@ -200,32 +247,6 @@ def inbox(request):
     # print("======",username,"======")
     # print("all messages: ",all_messages)
     return render(request, 'inbox.html', {"logedin": True, "messages": all_messages, "receiver_name": username})
-
-
-@login_required
-def message_detail(request, message_id):
-    message = Message.objects.filter(id=message_id)[0]
-    print(message.content)
-    return render(request, 'messagedetail.html', {"logedin": True, "message": message})
-
-
-@login_required
-def message_detail_decrypted(request, message_id):
-    message = Message.objects.filter(id=message_id)[0]
-    # print(message.content)
-    reader = request.session.get('logged_user')
-    receiver = message.receiver
-    # VERIFY IF IT IS THE RECEIVER TRYING TO DECRYPT
-    plain = ""
-    # print("text key", message.key.encode('ascii'))
-    key = RSA.importKey(message.key)
-    if (reader == receiver and message.to_encrypt == True):
-        plain_text = plain_string(message.content, key)
-        plain = RSA.importKey(message.key).decrypt(message.content)
-    print("key is ", key)
-    print("plain text is: ",plain)
-    return render(request, 'messagedetail.html',
-                  {"logedin": True, "message": message, 'plaintext': plain, "dec":True})
 
 
 @login_required

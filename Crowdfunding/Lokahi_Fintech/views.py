@@ -40,6 +40,7 @@ def generate_RSA():
 @csrf_exempt
 def index(request):
     # print("==================="+request.session.get('loged_user'))
+
     if not request.user.is_authenticated:
         return render(request, 'home.html', {'logedin': False})
     else:
@@ -47,7 +48,8 @@ def index(request):
         # the_report = Report.objects.get(get_user(request))
         # reports_to_show = {"file list": Document.objects.filter(report = the_report)}
         # reports_to_show = {"logedin" : True}
-        return render(request, 'home.html', {"logedin": True})
+        # print(request.user.profile)
+        return render(request, 'home.html', {"logedin": True, 'user': request.user})
 
 
 # def login_page(request):
@@ -61,7 +63,6 @@ def my_login(request):
         password = request.POST['password']
         next = request.POST['next']
 
-
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
@@ -69,7 +70,7 @@ def my_login(request):
                 request.session['logged_user'] = username
                 request.session['loged_in'] = True
                 if next == 'home.html':
-                    return render(request,"home.html",{"user":user, "logedin" : True})
+                    return render(request, "home.html", {"user": user, "logedin": True})
                 else:
                     return render(request, "validate.html", {"user": user, "logedin": True})
 
@@ -88,7 +89,9 @@ def signup(request):
 
     form = UserForm(request.POST or None)
     profile = Profile_Form(request.POST or None)
-
+    print(form.errors)
+    messages = []
+    messages.append(form.errors)
     if form.is_valid() and not profile.is_valid():  # All the data is valid
         user = form.save()
         username = request.POST.get('username', '')
@@ -97,25 +100,38 @@ def signup(request):
         password = request.POST.get('password', '')
         user.set_password(password)
         # profile = profile.save(commit=False)
+        type = request.POST.get('type', '')
+        if (str(type) == 'True'):
+            # print("assigning type ", type)
+            user.profile.is_investor = True
+        else:
+            # print("assigning type", type)
+            user.profile.is_investor = False
 
-        # # creating an user object containing all the data
-        # user_obj = User(username=username, email=email, password=password)
-        # # saving all the data in the current object into the database
-        # user_obj.save()
+        company = request.POST.get('company', '')
+        if (company):
+            user.profile.company = company
+        # print(user.profile.company, user.profile.is_investor)    
 
-        # profile.user = user
-        # profile.save()
+        user.profile.save()
         user.save()
 
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
-                request.session['logged_user'] = username
-                request.session['loged_in'] = True
-                return redirect("/Lokahi")
+                if (not user.profile.is_investor) and user.profile.company == None:
+                    messages.append("Registration failed! Please fill in the company field for a company user!")
+                    print('here!')
+                    # return redirect('/Lokahi/signup', {'messages':messages})
+                    return render(request, "signup.html",
+                                  {"form": form, "profileForm": profile, 'is_registered': False,'messages':messages})
+                else:
+                    login(request, user)
+                    request.session['logged_user'] = username
+                    request.session['loged_in'] = True
+                    return redirect("/Lokahi")
 
-    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False})
+    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False,'messages':messages})
     # return render(request, 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
     # else:
     #     form = UserForm()  # an unboundform
@@ -138,7 +154,7 @@ def message_detail_decrypted(request, message_id):
     plain = "Decryption failed"
     receiver = message.receiver
     content = message.content
-    
+
     # key factor for decryption. Since the database converted the tuple into string when storing, so we have to convert it back
     content = make_tuple(content)
     # print("content is ", content)
@@ -261,7 +277,8 @@ def inbox(request):
 
 class MakeReport(CreateView):
     model = Report
-    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files", "private"]
+    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files",
+              "private"]
     success_url = '/Lokahi/ReportList/'
     template_name = "addreport.html"
 
@@ -270,15 +287,18 @@ class ReportList(ListView):
     model = Report
     template_name = "reportslist.html"
 
+
 class addFile(CreateView):
     model = File
     fields = ["name", "reports", "encrypted", "encryptionKey", "filename"]
     template_name = "addfile.html"
     success_url = '/Lokahi/ReportList/'
 
+
 class FileList(ListView):
     model = File
     template_name = "filelist.html"
+
 
 class linkfile(UpdateView):
     model = Report
@@ -286,10 +306,12 @@ class linkfile(UpdateView):
     template_name = "addFile.html"
     success_url = '/Lokahi/ReportList/'
 
+
 class deleteReport(DeleteView):
     model = Report
     success_url = '/Lokahi/ReportList/'
     template_name = 'deleteReport.html'
+
 
 @login_required
 def delete_message(request, message_id):
@@ -299,11 +321,13 @@ def delete_message(request, message_id):
     # Message.objects.all().delete()
     return render(request, 'home.html', {"logedin": True, 'message': 'Message successfully deleted!'})
 
+
 class MakeGroup(CreateView):
     model = Group1
     fields = ["title", "owner", "participants"]
     success_url = '/Lokahi/GroupList/'
     template_name = "addgroup.html"
+
 
 
 class GroupList(ListView):
@@ -374,6 +398,6 @@ def makeManager(request):
     else:
         return render(request, 'home.html')
 
+
 def Validate(request):
     return render(request, 'validate.html')
-

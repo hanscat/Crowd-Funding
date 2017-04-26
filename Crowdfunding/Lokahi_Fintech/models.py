@@ -78,6 +78,7 @@ class Messages(models.Model):
     msg_content = models.CharField(max_length=1000)
 
 
+
 class Group1(models.Model):
     title = models.CharField(max_length=100)
     owner = models.CharField(max_length=100)
@@ -97,5 +98,3 @@ class Group1(models.Model):
 
     class Meta:
         db_table = 'groups1'
-
-

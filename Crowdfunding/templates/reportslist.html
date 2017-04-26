@@ -23,7 +23,7 @@
         <a href="{% url "addfile" %}"> Upload file</a>
         <a href="{% url "filelist" %}"> View  All Files</a>
         {% for report in object_list %}
-        {% if user.is_superuser or user in report.viewers.all or not report.private %}
+        {% if user.is_superuser or user in report.viewers.all or user.username == report.owner or user in report.groups.all.participants.all or not report.private %}
             <li> Owner: {{ report.owner }}</li>
             <li> Title: {{ report.title }}</li>
             <li> Company: {{ report.company }}</li>
@@ -40,6 +40,23 @@
                 <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
             {% endif %}
         {% endif %}
+        {% for group in report.groups.all %}
+        {% if user in group.participants.all %}
+            <li> Owner: {{ report.owner }}</li>
+            <li> Title: {{ report.title }}</li>
+            <li> Company: {{ report.company }}</li>
+            <li> Phone {{ report.phone }}</li>
+            <li> Location: {{ report.location }}</li>
+            <li> Country: {{ report.country}}</li>
+            <li> Industry: {{ report.industry }}</li>
+            <li> Projects: {{ report.projects }}</li>
+            <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
+            <li> Private: {{ report.private }}</li>
+            <li> Members with access: {% for user in report.viewers.all %} {{ user }} | {% endfor %}</li>
+            <li> Groups with access: {% for group in report.groups.all %} {{ group }} | {% endfor %}</li>
+            <a href="{% url "linkfile" report.pk%}"> Link File</a>
+        {% endif %}
+        {% endfor %}
             <p>         </p>
             {% empty %}
             <li>No reports yet</li>

@@ -58,6 +58,28 @@ class File(models.Model):
         db_table = 'file'
 
 
+class Group1(models.Model):
+    title = models.CharField(max_length=100)
+    owner = models.CharField(max_length=100)
+    participants = models.ManyToManyField(User)
+
+    # reports = models.ManyToManyField(Report)
+    def __str__(self):
+        return str(self.title)
+
+    def people(self):
+        return self.owner | self.participants
+
+    def is_member(self, member):
+        if member == self.owner or member in self.participants:
+            return True
+        else:
+            return False
+
+    class Meta:
+        db_table = 'groups1'
+
+
 class Report(models.Model):
     owner = models.CharField(max_length=60, default="")
     date = models.CharField(default=datetime.date.today, max_length=200)
@@ -70,6 +92,7 @@ class Report(models.Model):
     projects = models.TextField(default="")
     files = models.ManyToManyField(File, blank=True)
     viewers = models.ManyToManyField(User, blank=True)
+    groups = models.ManyToManyField(Group1, blank=True)
     private = models.BooleanField()
 
     def __str__(self):
@@ -85,26 +108,6 @@ class Report(models.Model):
     class Meta:
         db_table = 'report'
 
-class Group1(models.Model):
-    title = models.CharField(max_length=100)
-    owner = models.CharField(max_length=100)
-    participants = models.ManyToManyField(User)
-
-    # reports = models.ManyToManyField(Report)
-    def __str__(self):
-        return str(self.name)
-
-    def people(self):
-        return self.owner | self.participants
-
-    def is_member(self, member):
-        if member == self.owner or member in self.participants:
-            return True
-        else:
-            return False
-
-    class Meta:
-        db_table = 'groups1'
 
 
 class Message(models.Model):

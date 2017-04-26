@@ -27,14 +27,10 @@
                         <li><a href="/Lokahi/addgroup">Add Group</a></li>
                         <li><a href="/Lokahi/GroupList">See Groups</a></li>
                         {% if not user.profile.is_investor %}
-{#                            Company Users create reports#}
+
                             <li><a href="/Lokahi/addreport">Add Report</a></li>
+                    {% endif %}
                             <li><a href="/Lokahi/ReportList">See Reports</a></li>
-                        {% else %}
-{#                            Investor Users can search for reports and only add files to existing reports. #}
-{#                            Investor users do not create reports.#}
-                            <li><a href="/Lokahi/ReportList">See Reports</a></li>
-                        {% endif %}
 
                         <li><a href="/Lokahi/inbox">Messages</a></li>
                     {% else %}

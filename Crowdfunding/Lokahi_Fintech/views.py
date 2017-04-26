@@ -278,7 +278,7 @@ def inbox(request):
 class MakeReport(CreateView):
     model = Report
     fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files",
-              "private"]
+              "private", "viewers"]
     success_url = '/Lokahi/ReportList/'
     template_name = "addreport.html"
 

@@ -69,6 +69,7 @@ class Report(models.Model):
     industry = models.CharField(max_length=60, default="")
     projects = models.TextField(default="")
     files = models.ManyToManyField(File, blank=True)
+    viewers = models.ManyToManyField(User, blank=True)
     private = models.BooleanField()
 
     def __str__(self):

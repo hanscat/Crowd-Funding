@@ -23,6 +23,7 @@
         <a href="{% url "addfile" %}"> Upload file</a>
         <a href="{% url "filelist" %}"> View  All Files</a>
         {% for report in object_list %}
+        {% if user.is_superuser or user in report.viewers.all or not report.private %}
             <li> Owner: {{ report.owner }}</li>
             <li> Title: {{ report.title }}</li>
             <li> Company: {{ report.company }}</li>
@@ -33,11 +34,12 @@
             <li> Projects: {{ report.projects }}</li>
             <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
             <li> Private: {{ report.private }}</li>
+            <li> Members with access: {% for user in report.viewers.all %} {{ user }} | {% endfor %}</li>
             <a href="{% url "linkfile" report.pk%}"> Link File</a>
-            {% if user.username == report.owner %}
+            {% if user.is_superuser %}
                 <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
             {% endif %}
-
+        {% endif %}
             <p>         </p>
             {% empty %}
             <li>No reports yet</li>
@@ -45,6 +47,7 @@
     </ul>
             </div>
         </div>
+
 
 
 

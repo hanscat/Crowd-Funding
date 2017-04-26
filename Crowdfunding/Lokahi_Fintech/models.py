@@ -84,15 +84,6 @@ class Report(models.Model):
     class Meta:
         db_table = 'report'
 
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    types = (('C',"Company"),("I","Investor"),("N/A",'not declared'))
-    role = models.CharField(max_length=20, choices=types)
-    
-    def __str__(self):
-        return self.user.username
-
 class Group1(models.Model):
     title = models.CharField(max_length=100)
     owner = models.CharField(max_length=100)

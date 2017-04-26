@@ -14,9 +14,9 @@
         {% for group1 in object_list %}
             <li> Title: {{ group1.title }}</li>
             <li> Members: {% for member in group1.participants.all %} {{ member }} | {% endfor %}</li>
-            <a href="{% url "addmember" group1.pk%}"> Add Member</a>
+            <a href="{% url 'addmember' group1.pk%}"> Add Member</a>
             {% if user.username == group1.owner %}
-                <a href="{% url "deleteGroup" group1.pk %}">Delete Group</a>
+                <a href="{% url 'deleteGroup' group1.pk %}">Delete Group</a>
             {% endif %}
 
 

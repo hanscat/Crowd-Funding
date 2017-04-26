@@ -23,10 +23,23 @@
         </div>
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
+            {% if user %}
+                {% if user.profile.is_investor %}
+                    <li>Type: Investor</li>
+                    {% if user.profile.company %}
+                        <li>Company: {{ user.profile.company }}</li>
+                        {% else %}
+                        <li>Company: Not specified when register</li>
+                    {% endif %}
+                {% else %}
+                    <li>Type: Company User</li>
+                    <li>Company: {{ user.profile.company }}</li>
+                {% endif %}
+            {% endif %}
             {% if message %}
-                    <div class="alert alert-warning">
-                        {{ message }}
-                    </div>
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
             {% endif %}
             {% if reports %}
                 {% for report in reports %}

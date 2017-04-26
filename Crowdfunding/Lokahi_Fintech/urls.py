@@ -8,6 +8,12 @@ urlpatterns = [
     url(r'logout', views.my_logout, name='logout'),
     url(r'signup', views.signup, name='signup'),
     url(r'addmember/(?P<pk>\d+)$', views.addMember.as_view(), name='addmember'),
+    url(r'inbox', views.inbox, name='inbox'),
+    url(r'sendMessage', views.sendMessage, name='sendMessage'),
+    url(r'delete_message/(?P<message_id>[0-9]+)', views.delete_message, name='delete_message'),
+    url(r'message_detail/(?P<message_id>[0-9]+)', views.message_detail, name='message_detail'),
+    url(r'message_detail_decrypted/(?P<message_id>[0-9]+)', views.message_detail_decrypted,
+        name='decrypted_message_detail'),
     url(r'showusers', views.showUsers, name='showusers'),
     url(r'addgroup/$', views.MakeGroup.as_view(), name='addgroup'),
     url(r'addreport/$', views.MakeReport.as_view(), name='addreport'),
@@ -24,3 +30,4 @@ urlpatterns = [
     url(r'deletefromgroup', views.deleteFromGroup, name='deletefromgroup'),
     url(r'makemanager', views.makeManager, name='makemanager')
 ]
+

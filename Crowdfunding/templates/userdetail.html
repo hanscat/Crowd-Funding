@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 {% include 'header2.html' %}
+<body>
+{% if all_messages %}
+
+    <h1>Here is the list of users.</h1>
+    <ul>
+        {% for message in all_messages %}
+
+            <li> Receiver:{{ message.receiver }} Sender:{{ message.sender }} Content: {{ message.content }}
+                Time: {{ message.time }}</li>
+        {% endfor %}
+    </ul>
+    {#  In case  no user exists.  #}
+{% else %}
+    <h3> No users found.</h3>
+{% endif %}
 {% if all_users %}
     {% for user in all_users %}
         <!--<div class="jumbotron"
@@ -19,6 +35,7 @@
                             <li> Email:{{ user.email }}</li>
                             <!--<li> Company:{{ user.company }}</li>-->
                         </ul>
+
                 <div class="profile-userbuttons">
                     <button type="button" class="btn btn-success btn-sm">Follow</button>
                     <button type="button" class="btn btn-danger btn-sm">Message</button>
@@ -40,7 +57,7 @@
 {% include 'footer.html' %}
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

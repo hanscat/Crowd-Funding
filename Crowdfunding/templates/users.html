@@ -2,19 +2,19 @@
 {% load staticfiles %}
 <html lang="en">
 
-<link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 {% include 'header2.html' %}
 
 <body>
 <form type="get" action="." style="margin: 0">
-    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
-    <button id="search_submit" type="submit" >Submit</button>
+    <input id="search_box" type="text" name="search_box" placeholder="Search...">
+    <button id="search_submit" type="submit">Submit</button>
 </form>
 
 {% include 'footer.html' %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
+

@@ -58,4 +58,3 @@ class Profile_Form(forms.ModelForm):
 class ReportForm(forms.ModelForm):
     title = forms.CharField(max_length=100, required = True)
     body = forms.CharField(required=True)
-

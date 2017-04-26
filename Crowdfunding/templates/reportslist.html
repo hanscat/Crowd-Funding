@@ -18,6 +18,7 @@
     </div>
 </div>
 
+
 <h2>Reports</h2>
     <ul>
         <a href="{% url "addfile" %}"> Upload file</a>
@@ -31,6 +32,7 @@
             <li> Location: {{ report.location }}</li>
             <li> Country: {{ report.country}}</li>
             <li> Industry: {{ report.industry }}</li>
+            <li> Sector : {{ report.sector }}</li>
             <li> Projects: {{ report.projects }}</li>
             <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
             <li> Private: {{ report.private }}</li>
@@ -49,6 +51,7 @@
             <li> Location: {{ report.location }}</li>
             <li> Country: {{ report.country}}</li>
             <li> Industry: {{ report.industry }}</li>
+            <li> Sector : {{ report.sector }}</li>
             <li> Projects: {{ report.projects }}</li>
             <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
             <li> Private: {{ report.private }}</li>

@@ -89,6 +89,7 @@ class Report(models.Model):
     location = models.CharField(max_length=60, default="")
     country = models.CharField(max_length=60, default="")
     industry = models.CharField(max_length=60, default="")
+    sector = models.CharField(max_length=60, default="")
     projects = models.TextField(default="")
     files = models.ManyToManyField(File, blank=True)
     viewers = models.ManyToManyField(User, blank=True)
@@ -104,6 +105,9 @@ class Report(models.Model):
         # sector = models.CharField(max_length=60)
         # current_projects = models.TextField()
         # file = models.FileField(blank = True)
+
+    def __unicode__(self):
+        return u'%s' % (self.title)
 
     class Meta:
         db_table = 'report'

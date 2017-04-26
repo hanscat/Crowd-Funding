@@ -12,6 +12,7 @@ from Crypto.PublicKey import RSA
 from Crypto import Random
 from ast import literal_eval as make_tuple
 from django.http import HttpResponse
+from django.db.models import Q
 
 
 # helper functions for encryption & decryptions
@@ -277,7 +278,7 @@ def inbox(request):
 
 class MakeReport(CreateView):
     model = Report
-    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files",
+    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "sector", "projects", "files",
               "private", "viewers", "groups"]
     success_url = '/Lokahi/ReportList/'
     template_name = "addreport.html"

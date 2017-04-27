@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<!-- LOGIN TEST -->
+<body>
+
+{% load staticfiles %}
+<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
+    </div>
+</div>
+
+{% block content %}
+    <h2>Search</h2>
+
+    <form method="get" action="">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+        {% if query %}
+            <h3>Results</h3>
+            {% for report in page.object_list %}
+            <li> Title: {{ report.title }}</li>
+            <li> Owner: {{ report.owner }}</li>
+            <li> Company: {{ report.company }}</li>
+            <li> Location: {{ report.location }}</li>
+            <li> Country: {{ report.country}}</li>
+            <li> Industry: {{ report.industry }}</li>
+            <li> Sector : {{ report.sector }}</li>
+            <li> Projects: {{ report.projects }}</li>
+            <a href="{% url "linkfile" report.pk%}"> Link File</a>
+            {% if user.is_superuser %}
+                <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
+            {% endif %}
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+        {% endif %}
+    </form>
+        {% endblock %}
+
+
+{% include 'footer.html' %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

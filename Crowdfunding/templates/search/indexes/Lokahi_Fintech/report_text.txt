@@ -1,0 +1,8 @@
+{{ object.text }}
+{{ object.company }}
+{{ object.location }}
+{{ object.country }}
+{{ object.date }}
+{{ object.sector }}
+{{ object.industry }}
+{{ object.projects }}

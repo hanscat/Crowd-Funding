@@ -1,8 +1,10 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
+from haystack.views import SearchView
 
 urlpatterns = [
+    url(r'search/', include('haystack.urls'), name='search'),
     url(r'^$', views.index, name='index'),
     url(r'login', views.my_login, name='login'),
     url(r'logout', views.my_logout, name='logout'),
@@ -28,6 +30,6 @@ urlpatterns = [
     url(r'suspenduser', views.suspendUser, name='suspenduser'),
     url(r'activateuser', views.activateUser, name='activateuser'),
     url(r'deletefromgroup', views.deleteFromGroup, name='deletefromgroup'),
-    url(r'makemanager', views.makeManager, name='makemanager')
+    url(r'makemanager', views.makeManager, name='makemanager'),
 ]
 

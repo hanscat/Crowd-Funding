@@ -33,8 +33,10 @@
         </table>
 
         {% if query %}
-            <h3>Results</h3>
+
             {% for report in page.object_list %}
+            {% if user.is_superuser or user in report.viewers.all or user.username == report.owner or not report.private %}
+            <h3>Results</h3>
             <li> Title: {{ report.title }}</li>
             <li> Owner: {{ report.owner }}</li>
             <li> Company: {{ report.company }}</li>
@@ -46,6 +48,8 @@
             <a href="{% url "linkfile" report.pk%}"> Link File</a>
             {% if user.is_superuser %}
                 <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
+            {% endif %}
+            {% else %} <p>No results found.</p>
             {% endif %}
             {% empty %}
                 <p>No results found.</p>

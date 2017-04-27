@@ -12,6 +12,7 @@ class ReportIndex(SearchIndex, Indexable):
     location = CharField(model_attr='location')
     country = CharField(model_attr='country')
     projects = CharField(model_attr='projects')
+    private = BooleanField(model_attr='private')
 
     def get_model(self):
         return Report

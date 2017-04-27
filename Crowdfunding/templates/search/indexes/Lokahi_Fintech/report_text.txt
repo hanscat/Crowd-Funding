@@ -6,3 +6,4 @@
 {{ object.sector }}
 {{ object.industry }}
 {{ object.projects }}
+{{ object.private }}

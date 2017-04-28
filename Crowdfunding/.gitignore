@@ -93,4 +93,5 @@ Crowdfunding/.idea/
 .idea/workspace.xml
 db.sqlite3
 Lokahi_Fintech/migrations/
+Crowdfunding/settings.py
 

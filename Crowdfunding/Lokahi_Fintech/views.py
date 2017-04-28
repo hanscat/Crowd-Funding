@@ -335,11 +335,12 @@ def MakeReport (request):
             industry = request.POST.get('industry')
             sector = request.POST.get('sector')
             projects = request.POST.get('projects')
+            encryptionKey = request.POST.get('encryptionKey')
             is_private = request.POST.get('is_private')
             is_encrypted = request.POST.get('is_encrypted')
             created_at = request.POST.get('created_at')
             report = Report.objects.create(title=title, owner=owner, company=company,  phone=phone,
-            location=location, country=country,industry=industry, sector=sector, projects=projects,is_private=is_private,is_encrypted=is_encrypted, created_at=created_at)
+            location=location, country=country,industry=industry, sector=sector,encryptionKey =encryptionKey, projects=projects,is_private=is_private,is_encrypted=is_encrypted, created_at=created_at)
 
             report.save()
 
@@ -348,8 +349,10 @@ def MakeReport (request):
                 # split = url.split("/").pop(0)
                 # actualurl = split.join("/")
                 actualurl="";
+                encrypted = request.POST.get('Encrypted')
+
                 actualurl = "static/documents/" + str(afile);
-                fileX = File.objects.create(file=afile, actualurl=actualurl)
+                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, encryptionKey=encryptionKey)
                 FILENAME = afile.name
                 fileX.save()
                 report.files.add(fileX)

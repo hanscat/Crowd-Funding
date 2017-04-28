@@ -18,18 +18,9 @@
     </div>
 </div>
 
-
-<h2>Reports | <a href="search">Search</a> </h2>
+<h2>Reports</h2>
     <ul>
-<<<<<<< HEAD
         {% for report in reports %}
-=======
-        <a href="{% url "addfile" %}"> Upload file</a>
-        <a href="{% url "filelist" %}"> View  All Files</a>
-        {% for report in object_list %}
-        {% if user.is_superuser or user in report.viewers.all or user.username == report.owner or user in report.groups.all.participants.all or not report.private %}
-            <li> Owner: {{ report.owner }}</li>
->>>>>>> c14ad86d9649072d56039f0f68a200ef5f1ab9a5
             <li> Title: {{ report.title }}</li>
             <li> Company: {{ report.company }}</li>
             <li> Owner: {{ report.owner }}</li>
@@ -37,13 +28,13 @@
             <li> Location: {{ report.location }}</li>
             <li> Country: {{ report.country}}</li>
             <li> Industry: {{ report.industry }}</li>
-<<<<<<< HEAD
             <li> Owner: {{ report.owner }}</li>
             <li> Projects: {{ report.projects }}</li>
             <li> Private: {{ report.is_private }}</li>
             <li> Encrypted?: {{ report.is_encrypted }}</li>
             <li> Created at: {{ report.created_at }}</li>
             {% for f in report.files.all %}
+            <li> File Encrypted: {{ f.encrypted }}</li>
             <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
                 <br>
             {% endfor %}
@@ -60,36 +51,9 @@
             </li>
 
             {% if user.username == report.owner %}
-=======
-            <li> Sector : {{ report.sector }}</li>
-            <li> Projects: {{ report.projects }}</li>
-            <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
-            <li> Private: {{ report.private }}</li>
-            <li> Members with access: {% for user in report.viewers.all %} {{ user }} | {% endfor %}</li>
-            <a href="{% url "linkfile" report.pk%}"> Link File</a>
-            {% if user.is_superuser %}
->>>>>>> c14ad86d9649072d56039f0f68a200ef5f1ab9a5
                 <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
             {% endif %}
-        {% endif %}
-        {% for group in report.groups.all %}
-        {% if user in group.participants.all %}
-            <li> Owner: {{ report.owner }}</li>
-            <li> Title: {{ report.title }}</li>
-            <li> Company: {{ report.company }}</li>
-            <li> Phone {{ report.phone }}</li>
-            <li> Location: {{ report.location }}</li>
-            <li> Country: {{ report.country}}</li>
-            <li> Industry: {{ report.industry }}</li>
-            <li> Sector : {{ report.sector }}</li>
-            <li> Projects: {{ report.projects }}</li>
-            <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
-            <li> Private: {{ report.private }}</li>
-            <li> Members with access: {% for user in report.viewers.all %} {{ user }} | {% endfor %}</li>
-            <li> Groups with access: {% for group in report.groups.all %} {{ group }} | {% endfor %}</li>
-            <a href="{% url "linkfile" report.pk%}"> Link File</a>
-        {% endif %}
-        {% endfor %}
+
             <p>         </p>
             {% empty %}
             <li>No reports yet</li>
@@ -97,7 +61,6 @@
     </ul>
             </div>
         </div>
-
 
 
 

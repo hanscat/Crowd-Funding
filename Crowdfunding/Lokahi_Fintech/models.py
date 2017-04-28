@@ -49,8 +49,8 @@ class File(models.Model):
 
     #name = models.CharField(max_length=100, default="")
     #reports = models.ForeignKey('Report', null = True)
-    #encrypted = models.BooleanField(default=False)
-    #encryptionKey = models.CharField(max_length=100, default="", blank=True)
+    encrypted = models.NullBooleanField(default=False)
+    encryptionKey = models.CharField(max_length=100, default="", blank=True)
     file = models.FileField(upload_to='Lokahi_Fintech/static/documents/', blank=True)
     actualurl=models.TextField(default="")
     #def __str__(self):
@@ -97,6 +97,7 @@ class Report(models.Model):
     sector = models.CharField(max_length=60, default="")
     projects = models.TextField(default="")
     created_at = models.DateTimeField('Date Created', default=datetime.datetime.now)
+    encryptionKey = models.CharField(max_length=100, default="", blank=True)
     #files = models.ManyToManyField(File, blank=True)
     files = models.ManyToManyField(File, default="none")
     is_private = models.NullBooleanField(default=False)

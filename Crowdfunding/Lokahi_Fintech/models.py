@@ -46,14 +46,16 @@ class Document(models.Model):
 
 
 class File(models.Model):
-    name = models.CharField(max_length=100, default="")
-    reports = models.ForeignKey('Report', null=True)
-    encrypted = models.BooleanField(default=False)
-    encryptionKey = models.CharField(max_length=100, default="", blank=True)
-    filename = models.FileField(upload_to='documents', blank=True)
 
-    def __str__(self):
-        return str(self.name)
+    #name = models.CharField(max_length=100, default="")
+    #reports = models.ForeignKey('Report', null = True)
+    #encrypted = models.BooleanField(default=False)
+    #encryptionKey = models.CharField(max_length=100, default="", blank=True)
+    file = models.FileField(upload_to='Lokahi_Fintech/static/documents/', blank=True)
+    actualurl=models.TextField(default="")
+    #def __str__(self):
+        #return str(self.name)
+
 
     class Meta:
         db_table = 'file'
@@ -82,20 +84,30 @@ class Group1(models.Model):
 
 
 class Report(models.Model):
-    owner = models.CharField(max_length=60, default="")
-    date = models.CharField(default=datetime.date.today, max_length=200)
+
+    OPTIONS=(('Y', 'Yes'),
+             ('N', 'No'),)
     title = models.CharField(max_length=100, default="")
     company = models.CharField(max_length=60, default="")
+    owner = models.CharField(max_length=60, default="")
     phone = models.CharField(max_length=12, default="")
     location = models.CharField(max_length=60, default="")
     country = models.CharField(max_length=60, default="")
     industry = models.CharField(max_length=60, default="")
     sector = models.CharField(max_length=60, default="")
     projects = models.TextField(default="")
-    files = models.ManyToManyField(File, blank=True)
-    viewers = models.ManyToManyField(User, blank=True)
-    groups = models.ManyToManyField(Group1, blank=True)
-    private = models.BooleanField()
+    created_at = models.DateTimeField('Date Created', default=datetime.datetime.now)
+    #files = models.ManyToManyField(File, blank=True)
+    files = models.ManyToManyField(File, default="none")
+    is_private = models.NullBooleanField(default=False)
+    is_encrypted = models.NullBooleanField(default=False)
+
+
+    # files = models.ManyToManyField(File, blank=True)
+    # viewers = models.ManyToManyField(User, blank=True)
+    # groups = models.ManyToManyField(Group1, blank=True)
+    # private = models.BooleanField()
+
 
     def __str__(self):
         return self.title

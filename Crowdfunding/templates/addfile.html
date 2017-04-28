@@ -26,13 +26,12 @@
 
         <form action="" method="POST">
             {% csrf_token %}
-                <table>
-                    {{ form.as_table }}
-                </table>
-             <p><input type="submit" value="Add" /></p>
-
-
+            {{ form }}
+            <br>
+            <br>
+            <button class="button special" value="submit">Create Report</button>
         </form>
+        <a href="{% url 'ReportList' %}" class="button">Back to Reports</a>
     </div>
 </div>
 

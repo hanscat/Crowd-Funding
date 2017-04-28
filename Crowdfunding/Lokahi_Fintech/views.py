@@ -11,8 +11,12 @@ from django.views.generic import ListView
 from Crypto.PublicKey import RSA
 from Crypto import Random
 from ast import literal_eval as make_tuple
+
+from django.http import HttpResponseRedirect
+
 from django.http import HttpResponse
 from django.db.models import Q
+
 
 
 # helper functions for encryption & decryptions
@@ -276,17 +280,92 @@ def inbox(request):
     # print("all messages: ",all_messages)
     return render(request, 'inbox.html', {"logedin": True, "messages": all_messages, "receiver_name": username})
 
-class MakeReport(CreateView):
-    model = Report
-    fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "sector", "projects", "files",
-              "private", "viewers", "groups"]
-    success_url = '/Lokahi/ReportList/'
-    template_name = "addreport.html"
 
 
-class ReportList(ListView):
-    model = Report
-    template_name = "reportslist.html"
+# class MakeReport(CreateView):
+#     model = Report
+#     fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files", "private"]
+#     success_url = '/Lokahi/ReportList/'
+#     template_name = "addreport.html"
+
+
+
+# class ReportList(ListView):
+#     model = Report
+#     template_name = "reportslist.html"
+
+# def viewReports (request):
+#     model = Report
+#     template_name = "reportslist.html"
+def ReportList(request):
+    reports = Report.objects.all()
+    return render(request, 'reportslist.html', { 'reports': reports })
+
+def report_list(request):
+    reports = Report.objects.all()
+
+
+    return render(request, 'reportslist.html', { 'reports': reports })
+def viewReport (request, report_id):
+    report = Report.objects.get(pk=report_id)
+    if request.method == 'POST':
+        form = FileAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            for afile in request.FILES.getlist('files'):
+                fileX = File.objects.create(file=afile)
+                fileX.save()
+                report.files.add(fileX)
+            report.save()
+        return HttpResponseRedirect('../' + report_id)
+    form = FileAddForm()
+    return render(request, 'viewreport.html', {'report': report, 'form': form})
+
+def MakeReport (request):
+    #Report.objects.get(pk=id)
+    #Report.object.all()
+    if request.method == 'POST':
+        form = ReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            title = request.POST.get('title')
+            owner = request.POST.get('owner')
+            company = request.POST.get('company')
+            phone = request.POST.get('phone')
+            location = request.POST.get('location')
+            country = request.POST.get('country')
+            industry = request.POST.get('industry')
+            sector = request.POST.get('sector')
+            projects = request.POST.get('projects')
+            is_private = request.POST.get('is_private')
+            is_encrypted = request.POST.get('is_encrypted')
+            created_at = request.POST.get('created_at')
+            report = Report.objects.create(title=title, owner=owner, company=company,  phone=phone,
+            location=location, country=country,industry=industry, sector=sector, projects=projects,is_private=is_private,is_encrypted=is_encrypted, created_at=created_at)
+
+            report.save()
+
+            for afile in request.FILES.getlist('files'):
+                # url = afile
+                # split = url.split("/").pop(0)
+                # actualurl = split.join("/")
+                actualurl="";
+                actualurl = "static/documents/" + str(afile);
+                fileX = File.objects.create(file=afile, actualurl=actualurl)
+                FILENAME = afile.name
+                fileX.save()
+                report.files.add(fileX)
+
+            report.save()
+
+            # if is_private == 'N':
+            #     story = Story.objects.create(content=user.username+" created a report called "+report.projects)
+            return HttpResponseRedirect('/Lokahi/ReportList')
+
+        else:
+            print(form.errors)
+    else:
+       form = ReportForm();
+    return render(request, 'addReport.html', {'form': form})
+
 
 
 class addFile(CreateView):
@@ -349,6 +428,7 @@ class deleteGroup(DeleteView):
 def Validate(request):
     return render(request, 'validate.html')
 
+
 def suspendUser(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
@@ -402,3 +482,4 @@ def makeManager(request):
 
 def Validate(request):
     return render(request, 'validate.html')
+

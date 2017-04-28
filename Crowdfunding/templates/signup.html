@@ -4,23 +4,14 @@
 {% include 'header2.html' %}
 {% load staticfiles %}
   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
-    <div class="container">
-        <font color="white">
-            <h1>Welcome to crowdFunding.com!</h1>
-            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
-                customers</p>
-        </font>
-        <p><a class="btn btn-primary btn-lg" href="Lokahi/signup" role="button">Join here&raquo;</a></p>
-    </div>
-</div>
+{% include 'welcome.html' %}
 
 <div class="container">
     <div class="row">
-        {% if message %}
-            {% for m in message %}
+        {% if messages %}
+            {% for message in messages %}
                 <div class="alert alert-warning">
-                    {{ m }}
+                    {{ message }}
                 </div>
             {% endfor %}
         {% endif %}
@@ -46,9 +37,18 @@
                 <label for="password-retype">Retype-password: </label>
                 {{form.retype_password}}
                 </br>
-                <label for="organization">Organization: </label>
+                <div class="alert alert-info">
+                    <p>Type the same password again</p>
+                </div>
+                <label for="password-retype">User Type: </label>
+                {{form.type}}
+                </br>
+                <label for="organization">Organization:</label>
                 {{ form.company }}
                 </br>
+                <div class="alert alert-info">
+                    <p>Company Users Must Specify This</p>
+                </div>
 {#                {{ form }}#}
                 <div class="submit-row">
                     <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Register"/>

@@ -1,11 +1,31 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from haystack.indexes import *
 
 
 # Create your models here.
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_investor = models.BooleanField(default=False) # True for investor, false for company user
+    company = models.CharField(max_length=100, null=True)
+    # bio = models.TextField(max_length=500, blank=True)
+    # location = models.CharField(max_length=30, blank=True)
+    # birth_date = models.DateField(null=True, blank=True)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 class Investor(models.Model):
@@ -17,6 +37,7 @@ class Document(models.Model):
     name = models.CharField(max_length=100, null=True, default=None, blank=True)
     encrypted = models.BooleanField(default=False)
     file = models.FileField(upload_to='documents')
+
     def __str__(self):
         return str(self.file)
 
@@ -35,8 +56,32 @@ class File(models.Model):
     #def __str__(self):
         #return str(self.name)
 
+
     class Meta:
         db_table = 'file'
+
+
+class Group1(models.Model):
+    title = models.CharField(max_length=100)
+    owner = models.CharField(max_length=100)
+    participants = models.ManyToManyField(User)
+
+    # reports = models.ManyToManyField(Report)
+    def __str__(self):
+        return str(self.title)
+
+    def people(self):
+        return self.owner | self.participants
+
+    def is_member(self, member):
+        if member == self.owner or member in self.participants:
+            return True
+        else:
+            return False
+
+    class Meta:
+        db_table = 'groups1'
+
 
 class Report(models.Model):
 
@@ -58,6 +103,12 @@ class Report(models.Model):
     is_encrypted = models.NullBooleanField(default=False)
 
 
+    # files = models.ManyToManyField(File, blank=True)
+    # viewers = models.ManyToManyField(User, blank=True)
+    # groups = models.ManyToManyField(Group1, blank=True)
+    # private = models.BooleanField()
+
+
     def __str__(self):
         return self.title
         # timestamp = models.DateTimeField(default=timezone.now)
@@ -67,45 +118,19 @@ class Report(models.Model):
         # sector = models.CharField(max_length=60)
         # current_projects = models.TextField()
         # file = models.FileField(blank = True)
+
+    def __unicode__(self):
+        return u'%s' % (self.title)
+
     class Meta:
         db_table = 'report'
 
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    types = (('C',"Company"),("I","Investor"),("N/A",'not declared'))
-    role = models.CharField(max_length=20, choices=types)
-    
-    def __str__(self):
-        return self.user.username
-
-
-class Group1(models.Model):
-    title = models.CharField(max_length=100)
-    owner = models.CharField(max_length=100, default="")
-    participants = models.ManyToManyField(User)
-    #reports = models.ManyToManyField(Report)
-    def __str__(self):
-        return str(self.name)
-
-    def people(self):
-        return self.owner | self.participants
-
-    def is_member(self, member):
-        if member == self.owner or member in self.participants:
-            return True
-        else:
-            return False
-    class Meta:
-        db_table = 'groups1'
 
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender", null=True)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
     content = models.TextField(max_length=500)
-    time = models.DateField(default=None, blank=True,null=True)
+    time = models.DateField(default=None, blank=True, null=True)
     to_encrypt = models.BooleanField(default=False)
     key = models.TextField(max_length=10000, null=True, blank=True)
-     

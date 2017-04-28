@@ -11,7 +11,12 @@ from django.views.generic import ListView
 from Crypto.PublicKey import RSA
 from Crypto import Random
 from ast import literal_eval as make_tuple
+
 from django.http import HttpResponseRedirect
+
+from django.http import HttpResponse
+from django.db.models import Q
+
 
 
 # helper functions for encryption & decryptions
@@ -40,6 +45,7 @@ def generate_RSA():
 @csrf_exempt
 def index(request):
     # print("==================="+request.session.get('loged_user'))
+
     if not request.user.is_authenticated:
         return render(request, 'home.html', {'logedin': False})
     else:
@@ -47,7 +53,8 @@ def index(request):
         # the_report = Report.objects.get(get_user(request))
         # reports_to_show = {"file list": Document.objects.filter(report = the_report)}
         # reports_to_show = {"logedin" : True}
-        return render(request, 'home.html', {"logedin": True})
+        # print(request.user.profile)
+        return render(request, 'home.html', {"logedin": True, 'user': request.user})
 
 
 # def login_page(request):
@@ -61,7 +68,6 @@ def my_login(request):
         password = request.POST['password']
         next = request.POST['next']
 
-
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
@@ -69,9 +75,10 @@ def my_login(request):
                 request.session['logged_user'] = username
                 request.session['loged_in'] = True
                 if next == 'home.html':
-                    return render(request,"home.html",{"user":user, "logedin" : True})
+                    return render(request, "home.html", {"user": user, "logedin": True})
                 else:
                     return render(request, "validate.html", {"user": user, "logedin": True})
+
             # Redirect to a success page.
             return render(request, 'login.html', {"message": "Disabled account!", "form": form})
         else:
@@ -81,40 +88,55 @@ def my_login(request):
         return render(request, "login.html", {"form": form})
 
 
+
 def signup(request):
     # if request.method == 'POST':  # if the form has been filled
 
     form = UserForm(request.POST or None)
     profile = Profile_Form(request.POST or None)
-
+    print(form.errors)
+    messages = []
+    messages.append(form.errors)
     if form.is_valid() and not profile.is_valid():  # All the data is valid
         user = form.save()
-
         username = request.POST.get('username', '')
         email = request.POST.get('email', '')
         # user.set_email(email)
         password = request.POST.get('password', '')
         user.set_password(password)
         # profile = profile.save(commit=False)
+        type = request.POST.get('type', '')
+        if (str(type) == 'True'):
+            # print("assigning type ", type)
+            user.profile.is_investor = True
+        else:
+            # print("assigning type", type)
+            user.profile.is_investor = False
 
-        # # creating an user object containing all the data
-        # user_obj = User(username=username, email=email, password=password)
-        # # saving all the data in the current object into the database
-        # user_obj.save()
+        company = request.POST.get('company', '')
+        if (company):
+            user.profile.company = company
+        # print(user.profile.company, user.profile.is_investor)    
 
-        # profile.user = user
-        # profile.save()
+        user.profile.save()
         user.save()
 
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
-                request.session['logged_user'] = username
-                request.session['loged_in'] = True
-                return redirect("/Lokahi")
+                if (not user.profile.is_investor) and user.profile.company == None:
+                    messages.append("Registration failed! Please fill in the company field for a company user!")
+                    print('here!')
+                    # return redirect('/Lokahi/signup', {'messages':messages})
+                    return render(request, "signup.html",
+                                  {"form": form, "profileForm": profile, 'is_registered': False,'messages':messages})
+                else:
+                    login(request, user)
+                    request.session['logged_user'] = username
+                    request.session['loged_in'] = True
+                    return redirect("/Lokahi")
 
-    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False})
+    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False,'messages':messages})
     # return render(request, 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
     # else:
     #     form = UserForm()  # an unboundform
@@ -137,7 +159,7 @@ def message_detail_decrypted(request, message_id):
     plain = "Decryption failed"
     receiver = message.receiver
     content = message.content
-    
+
     # key factor for decryption. Since the database converted the tuple into string when storing, so we have to convert it back
     content = make_tuple(content)
     # print("content is ", content)
@@ -259,11 +281,13 @@ def inbox(request):
     return render(request, 'inbox.html', {"logedin": True, "messages": all_messages, "receiver_name": username})
 
 
+
 # class MakeReport(CreateView):
 #     model = Report
 #     fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files", "private"]
 #     success_url = '/Lokahi/ReportList/'
 #     template_name = "addreport.html"
+
 
 
 # class ReportList(ListView):
@@ -343,15 +367,18 @@ def MakeReport (request):
     return render(request, 'addReport.html', {'form': form})
 
 
+
 class addFile(CreateView):
     model = File
     fields = ["name", "reports", "encrypted", "encryptionKey", "filename"]
     template_name = "addfile.html"
     success_url = '/Lokahi/ReportList/'
 
+
 class FileList(ListView):
     model = File
     template_name = "filelist.html"
+
 
 class linkfile(UpdateView):
     model = Report
@@ -360,12 +387,11 @@ class linkfile(UpdateView):
     success_url = '/Lokahi/ReportList/'
 
 
-
 class deleteReport(DeleteView):
-
     model = Report
     success_url = '/Lokahi/ReportList/'
     template_name = 'deleteReport.html'
+
 
 @login_required
 def delete_message(request, message_id):
@@ -376,20 +402,17 @@ def delete_message(request, message_id):
     return render(request, 'home.html', {"logedin": True, 'message': 'Message successfully deleted!'})
 
 
-
 class MakeGroup(CreateView):
     model = Group1
     fields = ["title", "owner", "participants"]
     success_url = '/Lokahi/GroupList/'
     template_name = "addgroup.html"
-    #pass in user and login status
 
 
 
 class GroupList(ListView):
     model = Group1
     template_name = "grouplist.html"
-
 
 class addMember(UpdateView):
     model = Group1
@@ -398,12 +421,65 @@ class addMember(UpdateView):
     success_url = '/Lokahi/GroupList/'
 
 class deleteGroup(DeleteView):
-
     model = Group1
     success_url = '/Lokahi/GroupList/'
     template_name = 'deleteGroup.html'
 
+def Validate(request):
+    return render(request, 'validate.html')
+
+
+def suspendUser(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            user = User.objects.get(username=search_id)
+            user.is_active=False
+            user.save()
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
+
+def activateUser(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            user = User.objects.get(username=search_id)
+            user.is_active=True
+            user.save()
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
+
+def deleteFromGroup(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            g = User.groups.filter(username=search_id)
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
+
+def makeManager(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+        try:
+            u = User.objects.get(username=search_id)
+            u.is_superuser = True
+            u.save()
+            return render(request, 'home.html')
+        except User.DoesNotExist:
+            return HttpResponse("no user by that username")
+    else:
+        return render(request, 'home.html')
 
 
 def Validate(request):
     return render(request, 'validate.html')
+

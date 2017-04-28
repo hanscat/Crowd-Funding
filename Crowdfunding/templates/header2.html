@@ -24,17 +24,19 @@
                     {% if user.is_authenticated %}
                         <li><a href="#"> Hi, {{ user.username }} <span class="sr-only">(current)</span></a></li>
                         <li><a href="/Lokahi/logout">Logout</a></li>
-                         <li><a href="/Lokahi/addgroup">Add Group</a> </li>
-                        <li><a href="/Lokahi/GroupList">See Groups</a> </li>
-                        <li><a href="/Lokahi/addreport">Add Report</a> </li>
-                        <li><a href="/Lokahi/ReportList">See Reports</a> </li>
+                        <li><a href="/Lokahi/addgroup">Add Group</a></li>
+                        <li><a href="/Lokahi/GroupList">See Groups</a></li>
+                        {% if not user.profile.is_investor %}
+
+                            <li><a href="/Lokahi/addreport">Add Report</a></li>
+                    {% endif %}
+                            <li><a href="/Lokahi/ReportList">See Reports</a></li>
+
                         <li><a href="/Lokahi/inbox">Messages</a></li>
                     {% else %}
                         <li><a href="/Lokahi/signup">Sign Up <span class="sr-only">(current)</span></a></li>
                         <li><a href="/Lokahi/login">Login</a></li>
                     {% endif %}
-
-                    <li><a href="/Lokahi/showusers/">Profile</a></li>
                 </ul>
 
                 {#        <div class="container-2" >#}

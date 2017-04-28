@@ -135,6 +135,7 @@ class Window:
         self.docs_page.pack_forget()
         self.first_page.pack()
         self.canvas.destroy()
+        self.scrollbar.destroy()
 
     def show_loginPage(self):
         #self.root.blind("<Return>", self.login)
@@ -239,7 +240,7 @@ class Window:
 
 
     def download_file(self, doc):
-        url = 'documents url' + doc[1]  #name field
+        url = 'http://localhost:8000/static/documents' + doc[1]  #name field
         filename = doc[1] #name field
         response = urllib.request.urlopen(url)
         data = response.read()
@@ -295,7 +296,7 @@ class Window:
         self.encrypt_file_page.pack_forget()
         self.docs_page.pack_forget()
         self.docs_page.destroy()
-        self.docs_page = Frame(self.root, borderwidth = 2, bg= "blue")
+        self.docs_page = Frame(self.root, borderwidth = 2, highlightbackground = "black", highlightcolor = "blue", highlightthickness = 1, bd = 0)
 
         docs = self.get_Docs(report)
         row = 0
@@ -310,7 +311,8 @@ class Window:
             download_button.grid(row=row, column=1)
             row += 1
 
-        self.docs_page.pack()
+        #self.canvas.create_window(10, 300, anchor=NW, window=self.docs_page)
+        self.docs_page.pack(side = BOTTOM)
 
 
 page = Window()

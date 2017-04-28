@@ -20,20 +20,35 @@
 
 <h2>Reports</h2>
     <ul>
-        <a href="{% url "addfile" %}"> Upload file</a>
-        <a href="{% url "filelist" %}"> View  All Files</a>
-        {% for report in object_list %}
-            <li> Owner: {{ report.owner }}</li>
+        {% for report in reports %}
             <li> Title: {{ report.title }}</li>
             <li> Company: {{ report.company }}</li>
+            <li> Owner: {{ report.owner }}</li>
             <li> Phone {{ report.phone }}</li>
             <li> Location: {{ report.location }}</li>
             <li> Country: {{ report.country}}</li>
             <li> Industry: {{ report.industry }}</li>
+            <li> Owner: {{ report.owner }}</li>
             <li> Projects: {{ report.projects }}</li>
-            <li> Files: {% for file in report.files.all %} {{ file }} | {% endfor %}</li>
-            <li> Private: {{ report.private }}</li>
-            <a href="{% url "linkfile" report.pk%}"> Link File</a>
+            <li> Private: {{ report.is_private }}</li>
+            <li> Encrypted?: {{ report.is_encrypted }}</li>
+            <li> Created at: {{ report.created_at }}</li>
+            {% for f in report.files.all %}
+            <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                <br>
+            {% endfor %}
+            <br>
+            <br>
+            <h5> Add Additional Files to Report</h5>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <br>
+                <button name="submit" class="button special" value="submit">Add Files</button>
+            </form>
+
+            </li>
+
             {% if user.username == report.owner %}
                 <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
             {% endif %}

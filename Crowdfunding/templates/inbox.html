@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% include 'header2.html' %}
+{#<p>Hello, {{ message.receiver }}</p>#}
+<body>
+<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        <p><a class="btn btn-primary btn-lg" href="/Lokahi/signup" role="button">Join here&raquo;</a></p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            {% include 'sidebar.html' %}
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <h4>Received messages:</h4>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.receiver.username  == receiver_name %}
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                            <p><Strong>From</Strong>: {{ message.sender }}</p>
+                            <p><Strong>Time</Strong>: {{ message.time }}</p>
+                            <p><a class="btn btn-default" href="/Lokahi/message_detail/{{ message.id }}" role="button">View
+                                details &raquo;</a>
+                                <a class="btn btn-default" href="/Lokahi/delete_message/{{ message.id }}" role="button">Delete&raquo;</a>
+                            </p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <strong>Your inbox is empty</strong>
+            {% endif %}
+        </div>
+        <div class="col-sm-8"><h4>
+            ----------------------------------------------------------------------------------------</h4></div>
+        <div class="col-sm-8">
+
+            <p><a class="btn btn-primary btn-lg" href="Lokahi/sendMessage" role="button">Send a message&raquo;</a></p>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

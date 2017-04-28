@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <html lang="en">
 
-<link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 {% include 'header2.html' %}
 
 <body>
@@ -19,10 +19,15 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-        {% include 'sidebar.html' %}
+            {% include 'sidebar.html' %}
         </div>
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
+            {% if message %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+            {% endif %}
             {% if reports %}
                 {% for report in reports %}
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">

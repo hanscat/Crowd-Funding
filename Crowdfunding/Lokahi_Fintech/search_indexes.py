@@ -6,13 +6,11 @@ class ReportIndex(SearchIndex, Indexable):
     owner = CharField(model_attr='owner')
     title = CharField(model_attr='title')
     company = CharField(model_attr='company')
-    date = CharField(model_attr='date')
     sector = CharField(model_attr='sector')
     industry = CharField(model_attr='industry')
     location = CharField(model_attr='location')
     country = CharField(model_attr='country')
     projects = CharField(model_attr='projects')
-    private = BooleanField(model_attr='private')
 
     def get_model(self):
         return Report

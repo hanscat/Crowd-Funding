@@ -24,15 +24,14 @@
             {{ message }}
         {% endif %}
 
-        <form action="" method="POST">
+         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
                 <table>
                     {{ form.as_table }}
                 </table>
-             <p><input type="submit" value="Add" /></p>
-
-
-        </form>
+            <button type="submit">Create Report</button>
+         </form>
+         <a href="{% url 'ReportList' %}" class="button">Back to Reports</a>
     </div>
 </div>
 

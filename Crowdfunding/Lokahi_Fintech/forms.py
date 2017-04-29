@@ -55,6 +55,35 @@ class Profile_Form(forms.ModelForm):
         model = Profile
         fields = ['role', 'company']
 
+
+class UploadForm(forms.Form):
+    files = forms.FileField(label="Upload a file here",
+                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}),
+                              required=False)
+    class Meta:
+        model = Report
+        fields = ("files",)
+
 class ReportForm(forms.ModelForm):
-    title = forms.CharField(max_length=100, required = True)
-    body = forms.CharField(required=True)
+    OPTIONS=(('Y', 'Yes'),
+             ('N', 'No'),)
+    title = forms.CharField(required=True, label="Enter Report Title")
+    company = forms.CharField(required=True, label="Enter Company Name")
+    owner = forms.CharField(required=True, label="Enter Owner Name")
+    phone = forms.CharField(required=True, label="Enter Company Phone Number")
+    location = forms.CharField(required=True, label="Enter Company Location")
+    country = forms.CharField(required=True, label="Enter Company Country")
+    industry = forms.CharField(required=True, label="Enter Industry")
+    sector = forms.CharField(required=True, label="Enter Company Sector")
+    projects = forms.CharField(required=True, label="Enter Project Name")
+    encryptionKey = forms.CharField(required=False, label="Enter the Key")
+    is_private = forms.BooleanField(label="Is This Private?", required=False)
+    is_encrypted = forms.BooleanField(label="Is The File Encrypted?", required =False)
+    files = forms.FileField(label="Upload a file here",
+                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
+    class Meta:
+        model= Report;
+        fields = ['title','company','owner','phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
+
+
+

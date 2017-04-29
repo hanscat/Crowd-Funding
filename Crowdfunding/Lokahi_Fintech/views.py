@@ -18,7 +18,6 @@ from django.http import HttpResponse
 from django.db.models import Q
 
 
-
 # helper functions for encryption & decryptions
 def secret_string(msg, public_key):
     """takes in a string and a public key, encrypts the string with said
@@ -88,7 +87,6 @@ def my_login(request):
         return render(request, "login.html", {"form": form})
 
 
-
 def signup(request):
     # if request.method == 'POST':  # if the form has been filled
 
@@ -129,14 +127,15 @@ def signup(request):
                     print('here!')
                     # return redirect('/Lokahi/signup', {'messages':messages})
                     return render(request, "signup.html",
-                                  {"form": form, "profileForm": profile, 'is_registered': False,'messages':messages})
+                                  {"form": form, "profileForm": profile, 'is_registered': False, 'messages': messages})
                 else:
                     login(request, user)
                     request.session['logged_user'] = username
                     request.session['loged_in'] = True
                     return redirect("/Lokahi")
 
-    return render(request, "signup.html", {"form": form, "profileForm": profile, 'is_registered': False,'messages':messages})
+    return render(request, "signup.html",
+                  {"form": form, "profileForm": profile, 'is_registered': False, 'messages': messages})
     # return render(request, 'signup.html', {'user_obj': user_obj, 'is_registered': True})  # Redirect after POST
     # else:
     #     form = UserForm()  # an unboundform
@@ -146,7 +145,27 @@ def signup(request):
 @login_required
 def message_detail(request, message_id):
     message = Message.objects.filter(id=message_id)[0]
+    # print("user " + message.receiver.username + "'s unread num is " + str(message.receiver.profile.unread_messages))
+    # print("receiver id " + str(message.receiver.id))
+    # print("user id " +str(request.user.id))
+
+    # get the receiver's id and decrement receiver's unread message number
+    if(message.unread):
+        if (message.receiver.profile.unread_messages > 0):
+            message.receiver.profile.unread_messages -= 1
+        else:
+            message.receiver.profile.unread_messages = 0
+            print("unread message number for user " + message.receiver.username + " corrupted!")
+    else:
+        print("The message is already read.")
+    # print("user " + message.receiver.username + "'s unread num after dec is " + str(
+    #     message.receiver.profile.unread_messages))
+
     # print(message.content)
+    # save the new number into user profile
+    message.receiver.profile.save()
+    message.unread = False
+    message.save()
     return render(request, 'messagedetail.html', {"logedin": True, "message": message})
 
 
@@ -211,6 +230,12 @@ def sendMessage(request):
 
             message = form.save()
             message.receiver = User.objects.get(pk=receiver_pk)
+            # increment the receiver's unread message amount
+            message.receiver.profile.unread_messages += 1
+            # print("user " + message.receiver.username + "'s unread message number is " + str(
+            #     message.receiver.profile.unread_messages))
+            # print("receiver id " + str(message.receiver.id))
+            # print("sender id " + str(request.user.id))
             key = generate_RSA()
 
             if (to_encrypt == 'True'):
@@ -225,7 +250,9 @@ def sendMessage(request):
 
             text_key = key.exportKey()
             message.key = text_key
+            message.unread = True
             message.save()
+            message.receiver.profile.save()
             # plain = RSA.importKey(message.key).decrypt(message.content)
             # print("content is ", message.content)
             # print("type of content", type(content))
@@ -281,7 +308,6 @@ def inbox(request):
     return render(request, 'inbox.html', {"logedin": True, "messages": all_messages, "receiver_name": username})
 
 
-
 # class MakeReport(CreateView):
 #     model = Report
 #     fields = ["owner", "date", "title", "company", "phone", "location", "country", "industry", "projects", "files", "private"]
@@ -299,14 +325,16 @@ def inbox(request):
 #     template_name = "reportslist.html"
 def ReportList(request):
     reports = Report.objects.all()
-    return render(request, 'reportslist.html', { 'reports': reports })
+    return render(request, 'reportslist.html', {'reports': reports})
+
 
 def report_list(request):
     reports = Report.objects.all()
 
+    return render(request, 'reportslist.html', {'reports': reports})
 
-    return render(request, 'reportslist.html', { 'reports': reports })
-def viewReport (request, report_id):
+
+def viewReport(request, report_id):
     report = Report.objects.get(pk=report_id)
     if request.method == 'POST':
         form = FileAddForm(request.POST, request.FILES)
@@ -320,9 +348,10 @@ def viewReport (request, report_id):
     form = FileAddForm()
     return render(request, 'viewreport.html', {'report': report, 'form': form})
 
-def MakeReport (request):
-    #Report.objects.get(pk=id)
-    #Report.object.all()
+
+def MakeReport(request):
+    # Report.objects.get(pk=id)
+    # Report.object.all()
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
@@ -339,8 +368,10 @@ def MakeReport (request):
             is_private = request.POST.get('is_private')
             is_encrypted = request.POST.get('is_encrypted')
             created_at = request.POST.get('created_at')
-            report = Report.objects.create(title=title, owner=owner, company=company,  phone=phone,
-            location=location, country=country,industry=industry, sector=sector,encryptionKey =encryptionKey, projects=projects,is_private=is_private,is_encrypted=is_encrypted, created_at=created_at)
+            report = Report.objects.create(title=title, owner=owner, company=company, phone=phone,
+                                           location=location, country=country, industry=industry, sector=sector,
+                                           encryptionKey=encryptionKey, projects=projects, is_private=is_private,
+                                           is_encrypted=is_encrypted, created_at=created_at)
 
             report.save()
 
@@ -348,11 +379,12 @@ def MakeReport (request):
                 # url = afile
                 # split = url.split("/").pop(0)
                 # actualurl = split.join("/")
-                actualurl="";
+                actualurl = "";
                 encrypted = request.POST.get('Encrypted')
 
                 actualurl = "static/documents/" + str(afile);
-                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, encryptionKey=encryptionKey)
+                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted,
+                                            encryptionKey=encryptionKey)
                 FILENAME = afile.name
                 fileX.save()
                 report.files.add(fileX)
@@ -366,9 +398,8 @@ def MakeReport (request):
         else:
             print(form.errors)
     else:
-       form = ReportForm();
+        form = ReportForm();
     return render(request, 'addReport.html', {'form': form})
-
 
 
 class addFile(CreateView):
@@ -398,8 +429,14 @@ class deleteReport(DeleteView):
 
 @login_required
 def delete_message(request, message_id):
-    to_delete_message = Message.objects.filter(id=message_id)
+    to_delete_message = Message.objects.filter(id=message_id)[0]
     # print(to_delete_message)
+
+    # also dec the unread amout if delete an unread msg
+    if(to_delete_message.unread):
+        request.user.profile.unread_messages -= 1
+        request.user.profile.save()
+    
     to_delete_message.delete()
     # Message.objects.all().delete()
     return render(request, 'home.html', {"logedin": True, 'message': 'Message successfully deleted!'})
@@ -412,10 +449,10 @@ class MakeGroup(CreateView):
     template_name = "addgroup.html"
 
 
-
 class GroupList(ListView):
     model = Group1
     template_name = "grouplist.html"
+
 
 class addMember(UpdateView):
     model = Group1
@@ -423,10 +460,12 @@ class addMember(UpdateView):
     template_name = "addgroup.html"
     success_url = '/Lokahi/GroupList/'
 
+
 class deleteGroup(DeleteView):
     model = Group1
     success_url = '/Lokahi/GroupList/'
     template_name = 'deleteGroup.html'
+
 
 def Validate(request):
     return render(request, 'validate.html')
@@ -437,7 +476,7 @@ def suspendUser(request):
         search_id = request.POST.get('textfield', None)
         try:
             user = User.objects.get(username=search_id)
-            user.is_active=False
+            user.is_active = False
             user.save()
             return render(request, 'home.html')
         except User.DoesNotExist:
@@ -445,18 +484,20 @@ def suspendUser(request):
     else:
         return render(request, 'home.html')
 
+
 def activateUser(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
         try:
             user = User.objects.get(username=search_id)
-            user.is_active=True
+            user.is_active = True
             user.save()
             return render(request, 'home.html')
         except User.DoesNotExist:
             return HttpResponse("no user by that username")
     else:
         return render(request, 'home.html')
+
 
 def deleteFromGroup(request):
     if request.method == 'POST':
@@ -468,6 +509,7 @@ def deleteFromGroup(request):
             return HttpResponse("no user by that username")
     else:
         return render(request, 'home.html')
+
 
 def makeManager(request):
     if request.method == 'POST':
@@ -485,4 +527,3 @@ def makeManager(request):
 
 def Validate(request):
     return render(request, 'validate.html')
-

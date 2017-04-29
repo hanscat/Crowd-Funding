@@ -12,6 +12,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_investor = models.BooleanField(default=False) # True for investor, false for company user
     company = models.CharField(max_length=100, null=True)
+    unread_messages = models.IntegerField(default=0)
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30, blank=True)
     # birth_date = models.DateField(null=True, blank=True)
@@ -132,6 +133,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender", null=True)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
     content = models.TextField(max_length=500)
-    time = models.DateField(default=None, blank=True, null=True)
+    time = models.DateTimeField(default=None, blank=True, null=True)
     to_encrypt = models.BooleanField(default=False)
     key = models.TextField(max_length=10000, null=True, blank=True)
+    unread = models.BooleanField(default=True)

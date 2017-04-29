@@ -7,75 +7,127 @@
 
 <body>
 
-{% include 'welcome.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<div class="jumbotron" id="bki" style="background-color: #04a9af">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowdFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+        {% if not logedin %}
+            <p><a class="btn btn-primary btn-lg" href="/Lokahi/signup" role="button">Join here&raquo;</a>
+                <a class="btn btn-primary btn-lg" href="/Lokahi/login" role="button">Login&raquo;</a></p>
+        {% endif %}
+    </div>
+</div>
 
 
 {% if logedin %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="col-lg-18">
+                    <h4 class="jumbotron">Hi {{ user.username }}, how are you today?</h4>
+                </div>
+                <br>
+                {% if user.is_superuser %}
+                    <div>
+                        <h2>Suspend Users:</h2>
+                        <form method="POST" action="/Lokahi/suspenduser/">
+                            {% csrf_token %}
+                            <input type="text" name="textfield">
+                            <button type="submit">Suspend</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h2>Reactivate Users:</h2>
+                        <form method="POST" action="/Lokahi/activateuser/">
+                            {% csrf_token %}
+                            <input type="text" name="textfield">
+                            <button type="submit">Reactivate</button>
+                        </form>
+                    </div>
+                    <h2>Make Site Manager:</h2>
+                    <form method="POST" action="/Lokahi/makemanager/">
+                        {% csrf_token %}
+                        <input type="text" name="textfield">
+                        <button type="submit">Make Site Manager</button>
+                    </form>
+                    </div>
+                    {% include 'sidebar.html' %}
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                    {% if user %}
+                        {% if user.profile.is_investor %}
+                            <li>Type: Investor</li>
+                            {% if user.profile.company %}
+                                <li>Company: {{ user.profile.company }}</li>
+                            {% else %}
+                                <li>Company: Not specified when register</li>
+                            {% endif %}
+                        {% else %}
+                            <li>Type: Company User</li>
+                            <li>Company: {{ user.profile.company }}</li>
+                        {% endif %}
+                    {% endif %}
+                    {% if message %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+
+                {% endif %}
+                </div>
+    </div>
+
+{% endif %}
 <div class="container">
     <div class="row">
-        <div class="col-sm-8">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                <h2>User</h2>
-                <p>User Name: {{ user.username }}</p>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            {% if user.is_superuser %}
-            <div>
-                <h2>Suspend Users:</h2>
-                <form method="POST" action="/Lokahi/suspenduser/">
-                    {% csrf_token %}
-                    <input type="text" name="textfield">
-                    <button type="submit">Suspend</button>
-                </form>
-            </div>
-            <div>
-                <h2>Reactivate Users:</h2>
-                <form method="POST" action="/Lokahi/activateuser/">
-                    {% csrf_token %}
-                    <input type="text" name="textfield">
-                    <button type="submit">Reactivate</button>
-                </form>
-            </div>
-                <h2>Make Site Manager:</h2>
-                <form method="POST" action="/Lokahi/makemanager/">
-                    {% csrf_token %}
-                    <input type="text" name="textfield">
-                    <button type="submit">Make Site Manager</button>
-                </form>
-            </div>
-            {% include 'sidebar.html' %}
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Services</h2>
+            <h3 class="section-subheading text-muted">A System to Support Secure Crowdfunding Information Sharing
+                between General Venture Capitalists and
+                Companies Seeking Investment</h3>
         </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            {% if user %}
-                {% if user.profile.is_investor %}
-                    <li>Type: Investor</li>
-                    {% if user.profile.company %}
-                        <li>Company: {{ user.profile.company }}</li>
-                        {% else %}
-                        <li>Company: Not specified when register</li>
-                    {% endif %}
-                {% else %}
-                    <li>Type: Company User</li>
-                    <li>Company: {{ user.profile.company }}</li>
-                {% endif %}
-            {% endif %}
-            {% if message %}
-                <div class="alert alert-warning">
-                    {{ message }}
-                </div>
-            {% endif %}
-
-            {% endif %}
+    </div>
+    <div class="row text-center">
+        <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+            <h4 class="service-heading">E-Commerce Feature</h4>
+            <p class="text-muted">Lokahi Fintech Crowdfunding (LFC) brings together small investors and small firms
+                needing venture
+                capital which would otherwise be excluded from this financial market. .</p>
+        </div>
+        <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+            <h4 class="service-heading">Support Different Users</h4>
+            <p class="text-muted">Lokahi Fintech Crowdfunding will allow a "company user” seeking
+                capital to create a
+                report containing information about their business plan and current project(s) and allow an “investor
+                user” to add files to a report.</p>
+        </div>
+        <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+            <h4 class="service-heading">Web Security</h4>
+            <p class="text-muted">Independently of its public/private status, files attached to a report can optionally
+                be marked as encrypted
+                when they are uploaded to the server. The file must be encrypted before it is uploaded to the web
+                application.</p>
         </div>
     </div>
 </div>
-{% endif %}
-
 {% include 'footer.html' %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

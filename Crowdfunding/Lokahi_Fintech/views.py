@@ -43,9 +43,9 @@ def generate_RSA():
 # Create your views here.
 @csrf_exempt
 def index(request):
-    # print("==================="+request.session.get('loged_user'))
+    print("==================="+str(request.session.get('logged_user')))
 
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated or request.session.get('logged_user') == None:
         return render(request, 'home.html', {'logedin': False})
     else:
         # all_users = User.objects.all()

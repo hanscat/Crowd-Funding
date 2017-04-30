@@ -76,13 +76,14 @@ class ReportForm(forms.ModelForm):
     industry = forms.CharField(required=True, label="Enter Industry")
     sector = forms.CharField(required=True, label="Enter Company Sector")
     projects = forms.CharField(required=True, label="Enter Project Name")
+    encryptionKey = forms.CharField(required=False, label="Enter the Key")
     is_private = forms.BooleanField(label="Is This Private?", required=False)
     is_encrypted = forms.BooleanField(label="Is The File Encrypted?", required =False)
     files = forms.FileField(label="Upload a file here",
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
     class Meta:
         model= Report;
-        fields = ['title','company','owner','phone','location','country','industry','sector', 'projects', 'created_at', 'is_private', 'is_encrypted', 'files']
+        fields = ['title','company','owner','phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
 
 
 

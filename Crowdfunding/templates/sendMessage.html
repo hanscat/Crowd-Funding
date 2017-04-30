@@ -6,34 +6,41 @@
 {% include 'header2.html' %}
 {#<p>Hello, {{ message.receiver }}</p>#}
 <body>
-<div class="jumbotron" id="bki" style="background-image: url({% static 'photos/crowdfunding1.jpg' %})">
+<div class="jumbotron" id="bki" style="background-color: #04a9af">
     <div class="container">
         <font color="white">
             <h1>Welcome to crowdFunding.com!</h1>
-            <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
+            <p>Here at crowdFunding.com we are dedicated to providing quality crowdfunding opportunities for
                 customers</p>
         </font>
-        <p><a class="btn btn-primary btn-lg" href="/Lokahi/signup" role="button">Join here&raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/Lokahi/inbox">Return to inbox </a></p>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            {% include 'sidebar.html' %}
+            {#            {% include 'sidebar.html' %}#}
         </div>
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <form action="{% url 'sendMessage' %}" method="POST" id="sendMessage-form" class="form-group">
                 {% csrf_token %}
-                <h2>---Create a new message---</h2>
-                <label for="receiver">Send to: </label>
-                {{ form.receiver }}
-                </br>
-                <label for="content">The content of your message (max length of 500 characters): </label>
-                {{ form.content }}
-                </br>
-                <label for="to_encrypt">To Encrypt? </label>
-                {{ form.to_encrypt }}
+                <div class="intro-text">
+                    <h1 class="name">Create a new message</h1>
+                    <hr class="star-light">
+                </div>
+                <div><label for="receiver">Send to: </label>
+                    <p> {{ form.receiver }}</p>
+                </div>
+
+                <div><label for="content">The content of your message (max length of 500 characters): </label>
+                    <p>{{ form.content }}</p>
+                </div>
+                <div>
+                    <label for="to_encrypt">To Encrypt? </label>
+                    <p class="">{{ form.to_encrypt }}</p>
+                </div>
+                
                 <div class="submit-row">
                     <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Send"/>
 

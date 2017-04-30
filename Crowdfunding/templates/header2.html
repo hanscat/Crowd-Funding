@@ -16,26 +16,33 @@
     <nav class="navbar-wrapper navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'index' %}">crowdFunding</a>
+                <a class="navbar-brand" href="/Lokahi">crowdFunding</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
-                        <li><a href="#"> Hi, {{ user.username }} <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/Lokahi/logout">Logout</a></li>
-                        <li><a href="/Lokahi/addgroup">Add Group</a></li>
-                        <li><a href="/Lokahi/GroupList">See Groups</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Hi, {{ user.username }} <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/Lokahi/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+                        <li><a href="/Lokahi/addgroup"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Add Group</a></li>
+                        <li><a href="/Lokahi/GroupList"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> See Groups</a></li>
                         {% if not user.profile.is_investor %}
 
-                            <li><a href="/Lokahi/addreport">Add Report</a></li>
-                    {% endif %}
-                            <li><a href="/Lokahi/ReportList">See Reports</a></li>
-
-                        <li><a href="/Lokahi/inbox">Messages</a></li>
+                            <li><a href="/Lokahi/addreport"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> Add Report</a></li>
+                        {% endif %}
+                        
+                        <li><a href="/Lokahi/ReportList"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> See Reports</a></li>
+                        
+                        {% if user.profile.unread_messages > 0 %}
+                            <li><a href="/Lokahi/inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Messages<span
+                                    class="badge badge-warning">{{ user.profile.unread_messages }}</span></a></li>
+                        {% else %}
+                            <li><a href="/Lokahi/inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Messages</a></li>
+                        {% endif %}
+                        
                     {% else %}
-                        <li><a href="/Lokahi/signup">Sign Up <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/Lokahi/login">Login</a></li>
+                        <li><a href="/Lokahi/signup"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Sign Up <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/Lokahi/login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
                     {% endif %}
                 </ul>
 
@@ -48,7 +55,7 @@
                             class="fa fa-facebook"></span></a>
                     <a href="https://plus.google.com" class="btn btn-social-icon btn-google"><span
                             class="fa fa-google"></span></a>
-                    <a href="https://github.com/" class="btn btn-social-icon btn-github"><span
+                    <a href="https://https://github.com/hanscat/" class="btn btn-social-icon btn-github"><span
                             class="fa fa-github"></span></a>
                 </ul>
 

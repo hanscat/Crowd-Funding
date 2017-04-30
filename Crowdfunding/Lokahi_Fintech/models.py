@@ -12,6 +12,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_investor = models.BooleanField(default=False) # True for investor, false for company user
     company = models.CharField(max_length=100, null=True)
+    unread_messages = models.IntegerField(default=0)
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30, blank=True)
     # birth_date = models.DateField(null=True, blank=True)
@@ -49,8 +50,8 @@ class File(models.Model):
 
     #name = models.CharField(max_length=100, default="")
     #reports = models.ForeignKey('Report', null = True)
-    #encrypted = models.BooleanField(default=False)
-    #encryptionKey = models.CharField(max_length=100, default="", blank=True)
+    encrypted = models.NullBooleanField(default=False)
+    encryptionKey = models.CharField(max_length=100, default="", blank=True)
     file = models.FileField(upload_to='Lokahi_Fintech/static/documents/', blank=True)
     actualurl=models.TextField(default="")
     #def __str__(self):
@@ -97,6 +98,7 @@ class Report(models.Model):
     sector = models.CharField(max_length=60, default="")
     projects = models.TextField(default="")
     created_at = models.DateTimeField('Date Created', default=datetime.datetime.now)
+    encryptionKey = models.CharField(max_length=100, default="", blank=True)
     #files = models.ManyToManyField(File, blank=True)
     files = models.ManyToManyField(File, default="none")
     is_private = models.NullBooleanField(default=False)
@@ -131,6 +133,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender", null=True)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
     content = models.TextField(max_length=500)
-    time = models.DateField(default=None, blank=True, null=True)
+    time = models.DateTimeField(default=None, blank=True, null=True)
     to_encrypt = models.BooleanField(default=False)
     key = models.TextField(max_length=10000, null=True, blank=True)
+    unread = models.BooleanField(default=True)

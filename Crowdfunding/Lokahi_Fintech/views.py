@@ -335,36 +335,6 @@ def report_list(request):
 
 
 
-    return render(request, 'reportslist.html', { 'reports': reports })
-# def viewReport (request, report_id):
-#     report = Report.objects.get(pk=report_id)
-#     if request.method == 'POST':
-#         form = FileAddForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             for afile in request.FILES.getlist('files'):
-#                 fileX = File.objects.create(file=afile)
-#                 fileX.save()
-#                 report.files.add(fileX)
-#             report.save()
-#         return HttpResponseRedirect('../' + report_id)
-#     form = FileAddForm()
-#     return render(request, 'viewreport.html', {'report': report, 'form': form})
-#
-# def viewReport(request, report_id):
-#     report = Report.objects.get(pk=report_id)
-#     if request.method == 'POST':
-#         form = FileAddForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             for afile in request.FILES.getlist('files'):
-#                 fileX = File.objects.create(file=afile)
-#                 fileX.save()
-#                 report.files.add(fileX)
-#             report.save()
-#         return HttpResponseRedirect('../' + report_id)
-#     form = FileAddForm()
-#     return render(request, 'viewreport.html', {'report': report, 'form': form})
-
-
 def MakeReport(request):
     # Report.objects.get(pk=id)
     # Report.object.all()

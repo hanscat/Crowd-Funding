@@ -56,13 +56,15 @@ class Profile_Form(forms.ModelForm):
         fields = ['role', 'company']
 
 
-class UploadForm(forms.Form):
+class UploadForm(forms.ModelForm):
+    FileKey = forms.CharField(required=False, label="Enter the Key")
+    encrypted = forms.BooleanField(label="Is This Private?", required=False)
     files = forms.FileField(label="Upload a file here",
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}),
                               required=False)
     class Meta:
-        model = Report
-        fields = ("files",)
+        model = File
+        fields = ('files', 'encrypted', 'FileKey')
 
 class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
@@ -75,7 +77,7 @@ class ReportForm(forms.ModelForm):
     country = forms.CharField(required=True, label="Enter Company Country")
     industry = forms.CharField(required=True, label="Enter Industry")
     sector = forms.CharField(required=True, label="Enter Company Sector")
-    projects = forms.CharField(required=True, label="Enter Project Name")
+    projects = forms.CharField(required=True, label="Enter Project Name", widget=forms.Textarea)
     encryptionKey = forms.CharField(required=False, label="Enter the Key")
     is_private = forms.BooleanField(label="Is This Private?", required=False)
     is_encrypted = forms.BooleanField(label="Is The File Encrypted?", required =False)

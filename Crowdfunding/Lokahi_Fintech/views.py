@@ -349,10 +349,10 @@ def MakeReport (request):
                 # split = url.split("/").pop(0)
                 # actualurl = split.join("/")
                 actualurl="";
-                encrypted = request.POST.get('Encrypted')
-
+                encrypted = is_encrypted
+                FileKey =  encryptionKey
                 actualurl = "static/documents/" + str(afile);
-                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, encryptionKey=encryptionKey)
+                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, FileKey=FileKey)
                 FILENAME = afile.name
                 fileX.save()
                 report.files.add(fileX)
@@ -369,6 +369,41 @@ def MakeReport (request):
        form = ReportForm();
     return render(request, 'addReport.html', {'form': form})
 
+def MakeFile (request, report_id):
+    report = Report.objects.get(pk=report_id)
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            encryptionKey = request.POST.get('FileKey')
+            encrypted = request.POST.get('encrypted')
+
+
+            report.save()
+
+            for afile in request.FILES.getlist('files'):
+                # url = afile
+                # split = url.split("/").pop(0)
+                # actualurl = split.join("/")
+                actualurl="";
+                encrypted = encrypted
+                FileKey=encryptionKey
+                actualurl = "static/documents/" + str(afile);
+                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, FileKey=FileKey)
+                FILENAME = afile.name
+                fileX.save()
+                report.files.add(fileX)
+
+            report.save()
+
+            # if is_private == 'N':
+            #     story = Story.objects.create(content=user.username+" created a report called "+report.projects)
+            return HttpResponseRedirect('/Lokahi/ReportList')
+
+        else:
+            print(form.errors)
+    else:
+       form = UploadForm();
+    return render(request, 'makeFile.html', {'report': report,'form': form})
 
 
 class addFile(CreateView):
@@ -389,7 +424,13 @@ class linkfile(UpdateView):
     template_name = "addFile.html"
     success_url = '/Lokahi/ReportList/'
 
-
+class ReportUpdate(UpdateView):
+    #instance =Report.objects.get(id=)
+    model = Report
+    # the fields mentioned below become the entyr rows in the update form
+    fields = ['title', 'owner', 'company',  'phone', 'location', 'country','industry', 'sector', 'projects', 'is_private','is_encrypted']
+    template_name = 'viewreport.html'
+    success_url = '/Lokahi/ReportList/'
 class deleteReport(DeleteView):
     model = Report
     success_url = '/Lokahi/ReportList/'

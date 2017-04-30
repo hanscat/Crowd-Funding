@@ -334,7 +334,7 @@ def report_list(request):
     return render(request, 'reportslist.html', {'reports': reports})
 
 
-<<<<<<< HEAD
+
     return render(request, 'reportslist.html', { 'reports': reports })
 # def viewReport (request, report_id):
 #     report = Report.objects.get(pk=report_id)
@@ -349,7 +349,7 @@ def report_list(request):
 #         return HttpResponseRedirect('../' + report_id)
 #     form = FileAddForm()
 #     return render(request, 'viewreport.html', {'report': report, 'form': form})
-=======
+
 def viewReport(request, report_id):
     report = Report.objects.get(pk=report_id)
     if request.method == 'POST':
@@ -363,7 +363,6 @@ def viewReport(request, report_id):
         return HttpResponseRedirect('../' + report_id)
     form = FileAddForm()
     return render(request, 'viewreport.html', {'report': report, 'form': form})
->>>>>>> acdf79ee1b0bc4b9444f3a4ff0f2404c5bc0af9d
 
 
 def MakeReport(request):

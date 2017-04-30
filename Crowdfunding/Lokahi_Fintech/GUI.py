@@ -296,7 +296,6 @@ class Window:
         for report in reports:
             print(report[13])
             if (str(report[13]) == "None"):
-                print("Hellloooo")
                 # What ever index public is
                 reportsList.append(report)
         return (reportsList)
@@ -307,8 +306,9 @@ class Window:
         curs.execute("SELECT * FROM file")  # whatever we call docs
         allfiles = curs.fetchall()
         files = []
+
         for file in allfiles:
-            if (file[0] == report[0]):  # if the doc is in report
+            if (str(file[5]) == str(report[0])):  # if the doc is in report
                 files.append(file)
         return files
 

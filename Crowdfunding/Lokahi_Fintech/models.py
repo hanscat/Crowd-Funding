@@ -51,7 +51,7 @@ class File(models.Model):
     #name = models.CharField(max_length=100, default="")
     #reports = models.ForeignKey('Report', null = True)
     encrypted = models.NullBooleanField(default=False)
-    encryptionKey = models.CharField(max_length=100, default="", blank=True)
+    FileKey = models.CharField(max_length=100, default="", blank=True)
     file = models.FileField(upload_to='Lokahi_Fintech/static/documents/', blank=True)
     actualurl=models.TextField(default="")
     #def __str__(self):

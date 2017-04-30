@@ -18,63 +18,18 @@
     </div>
 </div>
 
-
-<h2>Reports | <a href="search">Search</a> </h2>
-    <ul>
-
-        {% for report in reports %}
-
-            <li> Title: {{ report.title }}</li>
-            <li> Company: {{ report.company }}</li>
-            <li> Owner: {{ report.owner }}</li>
-            <li> Phone {{ report.phone }}</li>
-            <li> Location: {{ report.location }}</li>
-            <li> Country: {{ report.country}}</li>
-            <li> Industry: {{ report.industry }}</li>
-            <li> Owner: {{ report.owner }}</li>
-            <li> Projects: {{ report.projects }}</li>
-            <li> Private: {{ report.is_private }}</li>
-            <li> Encrypted?: {{ report.is_encrypted }}</li>
-            <li> Created at: {{ report.created_at }}</li>
-            {% for f in report.files.all %}
-            <li> File Encrypted: {{ file.encrypted }}</li>
-            <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
-                <br>
-            {% endfor %}
-            <br>
-            <br>
-            <h5> Add Additional Files to Report</h5>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form }}
-                <br>
-                <button name="submit" class="button special" value="submit">Add Files</button>
-            </form>
-
-            </li>
-
-            {% if user.username == report.owner %}
-
-                <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
-            {% endif %}
+<div class="container">
+    <div class="row">
+        {% if message %}
+            {{ message }}
         {% endif %}
-        {% for group in report.groups.all %}
 
-            <p>         </p>
-            {% empty %}
-            <li>No reports yet</li>
-        {% endfor %}
-    </ul>
-            </div>
-        </div>
-
-
-
-
-{% include 'footer.html' %}
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
-</body>
-</html>
+         <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+            <button type="submit">Update Report</button>
+         </form>
+    </div>
+</div>

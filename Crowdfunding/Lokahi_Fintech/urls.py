@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'addreport/$', views.MakeReport, name='addreport'),
     url(r'addfile/$', views.addFile.as_view(), name='addfile'),
     url(r'FileList/$', views.FileList.as_view(), name='filelist'),
-    url(r'viewReport/$', views.viewReport, name='viewreport'),
     url(r'/NewFile/(?P<report_id>\d+)/$', views.MakeFile, name='makeFile'),
     url(r'ReportList/$', views.ReportList, name='ReportList'),
     url(r'^/Report/(?P<pk>[0-9]+)/$', views.ReportUpdate.as_view(), name='report-update'),

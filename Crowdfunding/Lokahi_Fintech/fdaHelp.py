@@ -6,14 +6,9 @@ import psycopg2
 global conn
 
 
-conn = psycopg2.connect(dbname="users", user="postgres", password="Gotem1937")
+conn = psycopg2.connect(dbname="users", user="postgres", password="password")
 
 
-def dropandMake():
-	global conn
-	cur = conn.cursor()
-	cur.execute("DROP DATABASE users")
-	cur.execute("CREATE DATABASE users WITH OWNER postgres")
 
 def showAllTables():
 	global conn
@@ -50,7 +45,7 @@ def showAllFiles():
 
 
 #
-dropandMake()
+
 showAllTables()
 
 showAllReports()

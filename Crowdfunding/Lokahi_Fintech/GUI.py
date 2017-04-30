@@ -240,7 +240,7 @@ class Window:
 
 
     def download_file(self, doc):
-        url = 'http://localhost:8000/static/documents' + doc[1]  #name field
+        url = 'http://localhost:8000/static/documents/' + doc[1]  #name field
         filename = doc[1] #name field
         response = urllib.request.urlopen(url)
         data = response.read()

@@ -31,17 +31,21 @@ def showAllReports():
 	print( "All Reports" )
 	for report in reports:
 		print( report )
+		print(report[13])
 	print( "------------------------" )
 
 def showAllFiles():
 	global conn
 	cur = conn.cursor()
 	cur.execute("SELECT * FROM file")
-	reports = cur.fetchall()
+	files = cur.fetchall()
 	print( "All Files" )
-	for report in reports:
-		print( report )
+	for file in files:
+		print( file )
+
 	print( "------------------------" )
+
+
 
 
 #

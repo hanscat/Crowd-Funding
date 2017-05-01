@@ -19,30 +19,32 @@
 {% include 'welcome.html' %}
 
 <h2>Groups</h2>
-    <ul>
-        {% for group1 in object_list %}
+
+{% for group1 in object_list %}
+    <div>
+        <ul>
             <li> Title: {{ group1.title }}</li>
             <li> Members: {% for member in group1.participants.all %} {{ member }} | {% endfor %}</li>
-            <a href="{% url 'addmember' group1.pk%}"> Add Member</a>
+            <a href="{% url 'addmember' group1.pk %}"> Add Member</a>
             {% if user.username == group1.owner %}
                 <a href="{% url 'deleteGroup' group1.pk %}">Delete Group</a>
             {% endif %}
+        </ul>
+    </div>
 
+    <p></p>
+{% empty %}
+    <li>No groups yet</li>
+{% endfor %}
 
-            <p>         </p>
-            {% empty %}
-            <li>No groups yet</li>
-        {% endfor %}
-    </ul>
-            </div>
-        </div>
-
+</div>
+</div>
 
 
 {% include 'footer.html' %}
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+<script src="/Lokahi_Fintech/static/js/bootstrap.min.js"></script>
 </body>
 </html>

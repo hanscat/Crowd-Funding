@@ -19,7 +19,7 @@ import psycopg2
 global conn
 
 
-conn = psycopg2.connect(dbname="users", user="postgres", password="Gotem1937")
+conn = psycopg2.connect(dbname="users", user="postgres", password="password")
 #conn = "test"
 
 
@@ -135,6 +135,7 @@ class Window:
         self.docs_page.pack_forget()
         self.first_page.pack()
         self.canvas.destroy()
+        self.scrollbar.destroy()
 
     def show_loginPage(self):
         #self.root.blind("<Return>", self.login)
@@ -239,34 +240,51 @@ class Window:
 
 
     def download_file(self, doc):
-        url = 'documents url' + doc[1]  #name field
-        filename = doc[1] #name field
-        response = urllib.request.urlopen(url)
-        data = response.read()
-        fw = open("downloads/" + filename, 'wb');
-        fw.write(data);
+        url = 'http://localhost:8000/' + doc[4]  #name field
+        filename = url.split('/')[-1]
+        u = urllib.request.urlopen(url)
+        f = open(filename, 'wb')
 
-        if(doc[2]):  #is encoded field
-                pubkey = doc[3] #public key field
+        print(filename)
+
+        block_sz = 8192
+
+        while True:
+            buffer = u.read(block_sz)
+            if not buffer:
+                break
+
+            f.write(buffer)
+        f.close()
+
+
+        # filename = doc[4] #name field
+        # response = urllib.request.urlopen(url)
+        # data = response.read()
+        # fw = open("downloads/" + filename, 'wb');
+        # fw.write(data);
+
+        if(doc[1]):  #is encoded field
+                pubkey = doc[2] #public key field
                 key = hashlib.sha256(pubkey.encode('utf-8')).digest()
-                out = "downloads/" + filename.replace(".enc", "")
+                out = filename.replace(".enc", "")
                 obj = ARC4.new(key)
                 try:
-                    with open("downloads/" + filename, 'rb') as in_file:
+                    with open(filename, 'rb') as in_file:
                         with open(out, 'wb') as out_file:
                             while True:
                                 chunk = in_file.read(8192)
                                 if len(chunk) == 0:
                                     break
                                 out_file.write(obj.decrypt(chunk))
-                    messagebox.showinfo("File Encoded", "Encoded file saved to downloads/" + filename)
+                    messagebox.showinfo("File Decrypted", out + "Downloaded and Decrypted")
                     return True
 
                 except FileNotFoundError:
                     print("Wrong file or file path")
                     return False
         else:
-            messagebox.showinfo("File Encoded", "Encoded file saved to downloads/" + filename )
+            messagebox.showinfo("File Download", filename + " downloaded.")
 
 
     def getReports(self):
@@ -276,7 +294,9 @@ class Window:
         reports = curs.fetchall()
         reportsList = []
         for report in reports:
-            if (report[3] == False):  # What ever index public is
+            print(report[13])
+            if (str(report[13]) == "None"):
+                # What ever index public is
                 reportsList.append(report)
         return (reportsList)
 
@@ -286,8 +306,9 @@ class Window:
         curs.execute("SELECT * FROM file")  # whatever we call docs
         allfiles = curs.fetchall()
         files = []
+
         for file in allfiles:
-            if (file[5] == report[0]):  # if the doc is in report
+            if (str(file[5]) == str(report[0])):  # if the doc is in report
                 files.append(file)
         return files
 
@@ -295,22 +316,23 @@ class Window:
         self.encrypt_file_page.pack_forget()
         self.docs_page.pack_forget()
         self.docs_page.destroy()
-        self.docs_page = Frame(self.root, borderwidth = 2, bg= "blue")
+        self.docs_page = Frame(self.root, borderwidth = 2, highlightbackground = "black", highlightcolor = "blue", highlightthickness = 1, bd = 0)
 
         docs = self.get_Docs(report)
         row = 0
-        self.doc_page_title = Label(self.docs_page, text="Documents from " + report[2])  #name filed
+        self.doc_page_title = Label(self.docs_page, text="Documents from " + str(report[1]))  #name filed
         self.doc_page_title.grid(row=row)
         row += 1
         for doc in docs:
-            doc_title = Label(self.docs_page, text="Title: " + doc[1])  #doc title field
+            doc_title = Label(self.docs_page, text="Title: " + str(doc[4]))  #doc title field
             download_button = Button(self.docs_page, text='Download', command=partial(self.download_file, doc))
 
             doc_title.grid(row=row, column=0)
             download_button.grid(row=row, column=1)
             row += 1
 
-        self.docs_page.pack()
+        #self.canvas.create_window(10, 300, anchor=NW, window=self.docs_page)
+        self.docs_page.pack(side = BOTTOM)
 
 
 page = Window()

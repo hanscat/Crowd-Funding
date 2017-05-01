@@ -344,6 +344,7 @@ def MakeReport(request):
             title = request.POST.get('title')
             owner = request.POST.get('owner')
             company = request.POST.get('company')
+            ceo = request.POST.get('ceo')
             phone = request.POST.get('phone')
             location = request.POST.get('location')
             country = request.POST.get('country')
@@ -354,7 +355,7 @@ def MakeReport(request):
             is_private = request.POST.get('is_private')
             is_encrypted = request.POST.get('is_encrypted')
             created_at = request.POST.get('created_at')
-            report = Report.objects.create(title=title, owner=owner, company=company, phone=phone,
+            report = Report.objects.create(title=title, ceo=ceo, owner=owner, company=company, phone=phone,
                                            location=location, country=country, industry=industry, sector=sector,
                                            encryptionKey=encryptionKey, projects=projects, is_private=is_private,
                                            is_encrypted=is_encrypted, created_at=created_at)
@@ -406,7 +407,7 @@ def MakeFile (request, report_id):
                 encrypted = encrypted
                 FileKey=encryptionKey
                 actualurl = "static/documents/" + str(afile);
-                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, FileKey=FileKey)
+                fileX = File.objects.create(file=afile, actualurl=actualurl, report_id=report_id, encrypted=encrypted, FileKey=FileKey)
                 FILENAME = afile.name
                 fileX.save()
                 report.files.add(fileX)
@@ -445,7 +446,7 @@ class ReportUpdate(UpdateView):
     #instance =Report.objects.get(id=)
     model = Report
     # the fields mentioned below become the entyr rows in the update form
-    fields = ['title', 'owner', 'company',  'phone', 'location', 'country','industry', 'sector', 'projects', 'is_private','is_encrypted']
+    fields = ['title', 'owner', 'company', 'ceo', 'phone', 'location', 'country','industry', 'sector', 'projects', 'is_private','is_encrypted']
     template_name = 'viewreport.html'
     success_url = '/Lokahi/ReportList/'
 class deleteReport(DeleteView):

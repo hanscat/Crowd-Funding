@@ -21,13 +21,14 @@
     <ul>
         {% for report in reports %}
             <h3>  {{ report.title }}</h3>
-            <li> Company: {{ report.company }}</li>
             <li> Owner: {{ report.owner }}</li>
+            <li> Company: {{ report.company }}</li>
+            <li> CEO: {{ report.ceo }}</li>
             <li> Phone {{ report.phone }}</li>
             <li> Location: {{ report.location }}</li>
             <li> Country: {{ report.country}}</li>
             <li> Industry: {{ report.industry }}</li>
-            <li> Owner: {{ report.owner }}</li>
+            <li> Sector: {{ report.sector }}</li>
             <li> Projects: {{ report.projects }}</li>
             <li> Private: {{ report.is_private }}</li>
             <li> Encrypted?: {{ report.is_encrypted }}</li>
@@ -38,6 +39,7 @@
             <li> File Encrypted: {{ f.FileKey }}</li>
             <li> File Encrypted: {{ f.encrypted }}</li>
             <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+
                 <br>
             {% endfor %}
             <br>

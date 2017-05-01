@@ -54,6 +54,7 @@ class File(models.Model):
     FileKey = models.CharField(max_length=100, default="", blank=True)
     file = models.FileField(upload_to='Lokahi_Fintech/static/documents/', blank=True)
     actualurl=models.TextField(default="")
+    report_id = models.CharField(max_length=10, default = "");
     #def __str__(self):
         #return str(self.name)
 
@@ -90,6 +91,7 @@ class Report(models.Model):
              ('N', 'No'),)
     title = models.CharField(max_length=100, default="")
     company = models.CharField(max_length=60, default="")
+    ceo = models.CharField(max_length=60, default="")
     owner = models.CharField(max_length=60, default="")
     phone = models.CharField(max_length=12, default="")
     location = models.CharField(max_length=60, default="")

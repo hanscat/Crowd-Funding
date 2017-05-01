@@ -57,8 +57,8 @@ class Profile_Form(forms.ModelForm):
 
 
 class UploadForm(forms.ModelForm):
-    FileKey = forms.CharField(required=False, label="Enter the Key")
-    encrypted = forms.BooleanField(label="Is This Private?", required=False)
+    encrypted = forms.BooleanField(label="Is This Encrypted?", required=False)
+    FileKey = forms.CharField(required=False, label="If so, enter the Key")
     files = forms.FileField(label="Upload a file here",
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}),
                               required=False)
@@ -70,8 +70,9 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'),)
     title = forms.CharField(required=True, label="Enter Report Title")
-    company = forms.CharField(required=True, label="Enter Company Name")
     owner = forms.CharField(required=True, label="Enter Owner Name")
+    company = forms.CharField(required=True, label="Enter Company Name")
+    ceo = forms.CharField(required=True, label="Enter CEO Name")
     phone = forms.CharField(required=True, label="Enter Company Phone Number")
     location = forms.CharField(required=True, label="Enter Company Location")
     country = forms.CharField(required=True, label="Enter Company Country")
@@ -85,7 +86,7 @@ class ReportForm(forms.ModelForm):
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
     class Meta:
         model= Report;
-        fields = ['title','company','owner','phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
+        fields = ['title','company','owner','ceo', 'phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
 
 
 

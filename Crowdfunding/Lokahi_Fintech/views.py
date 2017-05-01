@@ -342,9 +342,9 @@ def MakeReport(request):
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             title = request.POST.get('title')
-            ceo = request.POST.get('ceo')
             owner = request.POST.get('owner')
             company = request.POST.get('company')
+            ceo = request.POST.get('ceo')
             phone = request.POST.get('phone')
             location = request.POST.get('location')
             country = request.POST.get('country')
@@ -446,7 +446,7 @@ class ReportUpdate(UpdateView):
     #instance =Report.objects.get(id=)
     model = Report
     # the fields mentioned below become the entyr rows in the update form
-    fields = ['title', 'owner', 'company',  'phone', 'location', 'country','industry', 'sector', 'projects', 'is_private','is_encrypted']
+    fields = ['title', 'owner', 'company', 'ceo', 'phone', 'location', 'country','industry', 'sector', 'projects', 'is_private','is_encrypted']
     template_name = 'viewreport.html'
     success_url = '/Lokahi/ReportList/'
 class deleteReport(DeleteView):

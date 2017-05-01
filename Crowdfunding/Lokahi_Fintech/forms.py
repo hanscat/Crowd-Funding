@@ -70,9 +70,9 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'),)
     title = forms.CharField(required=True, label="Enter Report Title")
+    owner = forms.CharField(required=True, label="Enter Owner Name")
     company = forms.CharField(required=True, label="Enter Company Name")
     ceo = forms.CharField(required=True, label="Enter CEO Name")
-    owner = forms.CharField(required=True, label="Enter Owner Name")
     phone = forms.CharField(required=True, label="Enter Company Phone Number")
     location = forms.CharField(required=True, label="Enter Company Location")
     country = forms.CharField(required=True, label="Enter Company Country")

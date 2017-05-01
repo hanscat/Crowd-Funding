@@ -57,8 +57,8 @@ class Profile_Form(forms.ModelForm):
 
 
 class UploadForm(forms.ModelForm):
-    FileKey = forms.CharField(required=False, label="Enter the Key")
-    encrypted = forms.BooleanField(label="Is This Private?", required=False)
+    encrypted = forms.BooleanField(label="Is This Encrypted?", required=False)
+    FileKey = forms.CharField(required=False, label="If so, enter the Key")
     files = forms.FileField(label="Upload a file here",
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}),
                               required=False)

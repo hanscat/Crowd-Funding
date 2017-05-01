@@ -407,7 +407,7 @@ def MakeFile (request, report_id):
                 encrypted = encrypted
                 FileKey=encryptionKey
                 actualurl = "static/documents/" + str(afile);
-                fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, FileKey=FileKey)
+                fileX = File.objects.create(file=afile, actualurl=actualurl, report_id=report_id, encrypted=encrypted, FileKey=FileKey)
                 FILENAME = afile.name
                 fileX.save()
                 report.files.add(fileX)

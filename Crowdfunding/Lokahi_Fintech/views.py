@@ -342,6 +342,7 @@ def MakeReport(request):
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             title = request.POST.get('title')
+            ceo = request.POST.get('ceo')
             owner = request.POST.get('owner')
             company = request.POST.get('company')
             phone = request.POST.get('phone')
@@ -354,7 +355,7 @@ def MakeReport(request):
             is_private = request.POST.get('is_private')
             is_encrypted = request.POST.get('is_encrypted')
             created_at = request.POST.get('created_at')
-            report = Report.objects.create(title=title, owner=owner, company=company, phone=phone,
+            report = Report.objects.create(title=title, ceo=ceo, owner=owner, company=company, phone=phone,
                                            location=location, country=country, industry=industry, sector=sector,
                                            encryptionKey=encryptionKey, projects=projects, is_private=is_private,
                                            is_encrypted=is_encrypted, created_at=created_at)

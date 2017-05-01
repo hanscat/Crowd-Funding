@@ -71,6 +71,7 @@ class ReportForm(forms.ModelForm):
              ('N', 'No'),)
     title = forms.CharField(required=True, label="Enter Report Title")
     company = forms.CharField(required=True, label="Enter Company Name")
+    ceo = forms.CharField(required=True, label="Enter CEO Name")
     owner = forms.CharField(required=True, label="Enter Owner Name")
     phone = forms.CharField(required=True, label="Enter Company Phone Number")
     location = forms.CharField(required=True, label="Enter Company Location")
@@ -85,7 +86,7 @@ class ReportForm(forms.ModelForm):
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
     class Meta:
         model= Report;
-        fields = ['title','company','owner','phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
+        fields = ['title','company','owner','ceo', 'phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
 
 
 

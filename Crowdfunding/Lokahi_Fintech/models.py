@@ -45,20 +45,6 @@ class Document(models.Model):
     class Meta:
         db_table = 'document'
 
-class File2(models.Model):
-
-    #name = models.CharField(max_length=100, default="")
-    #reports = models.ForeignKey('Report', null = True)
-    encrypted = models.NullBooleanField(default=False)
-    FileKey = models.CharField(max_length=100, default="", blank=True)
-    file = models.FileField(upload_to='Lokahi_Fintech/static/documents/', blank=True)
-    actualurl=models.TextField(default="")
-    #def __str__(self):
-        #return str(self.name)
-
-
-    class Meta:
-        db_table = 'file2'
 
 class File(models.Model):
 

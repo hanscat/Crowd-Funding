@@ -58,7 +58,7 @@ class File2(models.Model):
 
 
     class Meta:
-        db_table = 'file'
+        db_table = 'file2'
 
 class File(models.Model):
 

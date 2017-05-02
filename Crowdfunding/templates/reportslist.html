@@ -20,7 +20,7 @@
 <h2>Reports | <a href="search">Search</a></h2>
     <ul>
         {% for report in reports %}
-            {% if user.is_superuser or user.username == report.owner or not report.is_private or True%}
+            {% if user.is_superuser %}
                 <h3>  {{ report.title }}</h3>
                 <li> Owner: {{ report.owner }}</li>
                 <li> Company: {{ report.company }}</li>
@@ -31,7 +31,6 @@
                 <li> Industry: {{ report.industry }}</li>
                 <li> Sector: {{ report.sector }}</li>
                 <li> Projects: </li>
-
                 <h5>{{ report.projects }}</h5>
                 <h5> {{ report.projects2 }}</h5>
                 <h5> {{ report.projects3 }}</h5>
@@ -40,7 +39,7 @@
                 <li> Private: {{ report.is_private }}</li>
                 <li> Encrypted?: {{ report.is_encrypted }}</li>
                 <li> Created at: {{ report.created_at }}</li>
-                <br>
+                
                 {% if report.files.all %}
                 <h4> Files </h4>
                 {% endif %}
@@ -58,7 +57,7 @@
                 </form>
                     <br>
                 {% endfor %}
-                <br>
+                    <br>
 
 
                 </li>
@@ -78,6 +77,53 @@
 
 
             <p>         </p>
+            {% elif user.username == report.owner or not report.is_private%}
+                <h3>  {{ report.title }}</h3>
+                <li> Owner: {{ report.owner }}</li>
+                <li> Company: {{ report.company }}</li>
+                <li> CEO: {{ report.ceo }}</li>
+                <li> Phone {{ report.phone }}</li>
+                <li> Location: {{ report.location }}</li>
+                <li> Country: {{ report.country}}</li>
+                <li> Industry: {{ report.industry }}</li>
+                <li> Sector: {{ report.sector }}</li>
+                <li> Projects: </li>
+
+                <h5>{{ report.projects }}</h5>
+                <h5> {{ report.projects2 }}</h5>
+                <h5> {{ report.projects3 }}</h5>
+                <h5>{{ report.projects4 }}</h5>
+                <h5> {{ report.projects5 }}</h5>
+                <li> Private: {{ report.is_private }}</li>
+                <li> Encrypted?: {{ report.is_encrypted }}</li>
+                <li> Created at: {{ report.created_at }}</li>
+
+                {% if report.files.all %}
+                <h4> Files </h4>
+                {% endif %}
+                {% for f in report.files.all %}
+                <li> File Encrypted: {{ f.FileKey }}</li>
+                <li> File Encrypted: {{ f.encrypted }}</li>
+                {% if f.encrypted %}
+                <li>Encrypted file: {{f.file.name}}</li>
+                {% else %}
+                <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                {% endif %}
+
+                {% endfor %}
+                <br>
+                <br>
+
+                </li>
+                <form action="{% url 'makeFile' report.pk  %}" method="get" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" HREF='{% url 'makeFile' report.pk  %}' class="btn btn-default btn-sm">Add Files</button>
+                </form>
+
+
+
+
+            <p>         </p>
             {% else %}
                 {% for group in report.groups.all %}
                     {% if user in group.participants.all %}
@@ -90,11 +136,16 @@
                         <li> Country: {{ report.country}}</li>
                         <li> Industry: {{ report.industry }}</li>
                         <li> Sector: {{ report.sector }}</li>
-                        <li> Projects: {{ report.projects }}</li>
+                        <li> Projects: </li>
+                        <h5>{{ report.projects }}</h5>
+                        <h5> {{ report.projects2 }}</h5>
+                        <h5> {{ report.projects3 }}</h5>
+                        <h5>{{ report.projects4 }}</h5>
+                        <h5> {{ report.projects5 }}</h5>
                         <li> Private: {{ report.is_private }}</li>
                         <li> Encrypted?: {{ report.is_encrypted }}</li>
                         <li> Created at: {{ report.created_at }}</li>
-                        <br>
+
                         {% if report.files.all %}
                         <h4> Files </h4>
                         {% endif %}
@@ -105,9 +156,17 @@
                         <li>Encrypted file: {{f.file.name}}</li>
                         {% else %}
                         <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+
+                        </li>
+                        <br>
+                        <form action="{% url 'makeFile' report.pk  %}" method="get" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" HREF='{% url 'makeFile' report.pk  %}' class="btn btn-default btn-sm">Add Files</button>
+                        </form>
                         {% endif %}
-                            <br>
+
                         {% endfor %}
+                        <br>
                         <br>
                     {% endif %}
                 {% endfor %}

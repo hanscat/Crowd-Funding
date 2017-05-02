@@ -1,0 +1,1 @@
+web: gunicorn Crowdfunding.wsgi --log-file -

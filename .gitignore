@@ -90,5 +90,5 @@ ENV/
 .ropeproject
 
 Crowdfunding/.idea/
-.idea/workspace.xml
+.idea
 Crowdfunding/Lokahi_Fintech/migrations

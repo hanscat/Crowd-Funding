@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header2.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<!-- LOGIN TEST -->
+<body>
+
+{% load staticfiles %}
+<div class="jumbotron" id="bki" style="background-color: #04a9af">
+    <div class="container">
+        <font color="white">
+            <h1>Welcome to crowdFunding.com!</h1>
+            <p>Here at crowdFunding.com we are dedicated to providing quality crowdfunding opportunities for
+                customers</p>
+        </font>
+    </div>
+</div>
+
+<h2>Reports | <a href="search">Search</a></h2>
+    <ul>
+        {% for report in reports %}
+            {% if user.is_superuser or user.username == report.owner or not report.is_private or True%}
+                <h3>  {{ report.title }}</h3>
+                <li> Owner: {{ report.owner }}</li>
+                <li> Company: {{ report.company }}</li>
+                <li> CEO: {{ report.ceo }}</li>
+                <li> Phone {{ report.phone }}</li>
+                <li> Location: {{ report.location }}</li>
+                <li> Country: {{ report.country}}</li>
+                <li> Industry: {{ report.industry }}</li>
+                <li> Sector: {{ report.sector }}</li>
+                <li> Projects: {{ report.projects }}</li>
+                <li> Private: {{ report.is_private }}</li>
+                <li> Encrypted?: {{ report.is_encrypted }}</li>
+                <li> Created at: {{ report.created_at }}</li>
+                <br>
+                {% if report.files.all %}
+                <h4> Files </h4>
+                {% endif %}
+                {% for f in report.files.all %}
+                <li> File Encrypted: {{ f.FileKey }}</li>
+                <li> File Encrypted: {{ f.encrypted }}</li>
+                {% if f.encrypted %}
+                <li>Encrypted file: {{f.file.name}}</li>
+                {% else %}
+                <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                {% endif %}
+                <form action="{% url 'deleteFile' f.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-default btn-sm">Delete File</button>
+                </form>
+                    <br>
+                {% endfor %}
+                <br>
+
+
+                </li>
+                <form action="{% url 'makeFile' report.pk  %}" method="get" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" HREF='{% url 'makeFile' report.pk  %}' class="btn btn-default btn-sm">Add Files</button>
+                </form>
+                <form action="{% url 'report-update' report.pk  %}" method="get" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" HREF='{% url 'report-update' report.pk  %}' class="btn btn-default btn-sm">Update Report</button>
+                </form>
+                 <form action="{% url 'deleteReport' report.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-default btn-sm">Delete Report</button>
+                </form>
+
+
+
+            <p>         </p>
+            {% else %}
+                {% for group in report.groups.all %}
+                    {% if user in group.participants.all %}
+                        <h3>  {{ report.title }}</h3>
+                        <li> Owner: {{ report.owner }}</li>
+                        <li> Company: {{ report.company }}</li>
+                        <li> CEO: {{ report.ceo }}</li>
+                        <li> Phone {{ report.phone }}</li>
+                        <li> Location: {{ report.location }}</li>
+                        <li> Country: {{ report.country}}</li>
+                        <li> Industry: {{ report.industry }}</li>
+                        <li> Sector: {{ report.sector }}</li>
+                        <li> Projects: {{ report.projects }}</li>
+                        <li> Private: {{ report.is_private }}</li>
+                        <li> Encrypted?: {{ report.is_encrypted }}</li>
+                        <li> Created at: {{ report.created_at }}</li>
+                        <br>
+                        {% if report.files.all.length %}
+                        <h4> Files </h4>
+                        {% endif %}
+                        {% for f in report.files.all %}
+                        <li> File Encrypted: {{ f.FileKey }}</li>
+                        <li> File Encrypted: {{ f.encrypted }}</li>
+                        {% if f.encrypted %}
+                        <li>Encrypted file: {{f.file.name}}</li>
+                        {% else %}
+                        <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                        {% endif %}
+                            <br>
+                        {% endfor %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% empty %}
+            <li>No reports yet</li>
+        {% endfor %}
+    </ul>
+            </div>
+        </div>
+
+
+
+{% include 'footer.html' %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/Lokahi_Fintech/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

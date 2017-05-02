@@ -3,16 +3,19 @@
 <body>
 {% include 'header2.html' %}
 {% load staticfiles %}
-  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 {% include 'welcome.html' %}
 
 <div class="container">
     <div class="row">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-warning">
-                    {{ message }}
-                </div>
+                {#                not showing empty message#}
+                {% if message %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
         {% if is_registered %}
@@ -23,25 +26,25 @@
                 <h2>Sign Up</h2>
                 </br>
                 <label for="username">Username: </label>
-                {{form.username}}
+                {{ form.username }}
                 </br>
                 <label for="email">Email: </label>
-                {{form.email}}
+                {{ form.email }}
                 </br>
                 <label for="password">Password: </label>
-                {{form.password}}
+                {{ form.password }}
                 </br>
                 <div class="alert alert-info">
                     <p>Your password should be at least 6 characters long</p>
                 </div>
                 <label for="password-retype">Retype-password: </label>
-                {{form.retype_password}}
+                {{ form.retype_password }}
                 </br>
                 <div class="alert alert-info">
                     <p>Type the same password again</p>
                 </div>
                 <label for="password-retype">User Type: </label>
-                {{form.type}}
+                {{ form.type }}
                 </br>
                 <label for="organization">Organization:</label>
                 {{ form.company }}
@@ -49,12 +52,12 @@
                 <div class="alert alert-info">
                     <p>Company Users Must Specify This</p>
                 </div>
-{#                {{ form }}#}
+                {#                {{ form }}#}
                 <div class="submit-row">
                     <label>&nbsp;</label><input class="btn btn-primary btn-md" type="submit" value="Register"/>
                 </div>
             </form>
-            
+
         {% endif %}
     </div>
 </div>

@@ -19,11 +19,10 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-8">
             {% include 'sidebar.html' %}
-        </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+                <div class="col-md-1"></div>
+        <div class="col-md-8">
+        <br>
             <h3>Message details:</h3>
             {% if message %}
                 <div class="alert alert-warning">
@@ -32,7 +31,11 @@
                     <p>Encrypted?: {{ message.to_encrypt }}</p>
                 </div>
                 <div class="alert alert-warning">
-                    <p>Content: {{ message.content }}</p>
+                    {% if message.to_encrypt %}
+                        <div style="width: 50px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{ message.content }}</div>
+                    {% else %}
+                        <p>Content: {{ message.content }}</p>
+                    {% endif %}
                 </div>
                 {% if message.to_encrypt == True %}
                     <a class="btn btn-default" href="/Lokahi/message_detail_decrypted/{{ message.id }}" role="button">Decrypt&raquo;</a>

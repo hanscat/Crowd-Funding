@@ -82,7 +82,7 @@ def my_login(request):
             return render(request, 'login.html', {"message": "Disabled account!", "form": form})
         else:
             # Return an 'invalid login' error message.
-            return render(request, 'login.html', {"message": "invalid token!", "form": form})
+            return render(request, 'login.html', {"message": "invalid password and username combination!", "form": form})
     else:
         return render(request, "login.html", {"form": form})
 
@@ -125,6 +125,7 @@ def signup(request):
                 if (not user.profile.is_investor) and user.profile.company == None:
                     messages.append("Registration failed! Please fill in the company field for a company user!")
                     print('here!')
+                    user.delete()
                     # return redirect('/Lokahi/signup', {'messages':messages})
                     return render(request, "signup.html",
                                   {"form": form, "profileForm": profile, 'is_registered': False, 'messages': messages})

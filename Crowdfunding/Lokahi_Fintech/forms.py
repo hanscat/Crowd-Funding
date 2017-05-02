@@ -82,11 +82,14 @@ class ReportForm(forms.ModelForm):
     encryptionKey = forms.CharField(required=False, label="Enter the Key")
     is_private = forms.BooleanField(label="Is This Private?", required=False)
     is_encrypted = forms.BooleanField(label="Is The File Encrypted?", required =False)
+    #viewers = forms.ModelMultipleChoiceField(queryset=User.objects.all(), required =False)
+    #groups = forms.ModelMultipleChoiceField(queryset=Group1.objects.all(), required = False)
+    group_name = forms.CharField(required=False, label="Enter group to have access")
     files = forms.FileField(label="Upload a file here",
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
     class Meta:
         model= Report;
-        fields = ['title','company','owner','ceo', 'phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'files']
+        fields = ['title','company','owner','ceo', 'phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'group_name', 'files']
 
 
 

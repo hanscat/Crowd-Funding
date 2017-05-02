@@ -1,7 +1,14 @@
 {{ object.text }}
+{{ object.title }}
 {{ object.company }}
+{{ object.ceo }}
+{{ object.owner }}
 {{ object.location }}
 {{ object.country }}
 {{ object.sector }}
 {{ object.industry }}
 {{ object.projects }}
+{{ object.projects2 }}
+{{ object.projects3 }}
+{{ object.projects4 }}
+{{ object.projects5 }}

@@ -38,7 +38,7 @@
                     <h4 class="jumbotron">Hi {{ user.username }}, how are you today?</h4>
                 </div>
                 <br>
-                {% if user.is_superuser %}
+                {% if user.is_superuser or user.username == "sitemanager" %}
                     <div>
                         <h2>Suspend Users:</h2>
                         <form method="POST" action="/Lokahi/suspenduser/">

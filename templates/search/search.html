@@ -14,11 +14,10 @@
             <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
                 customers</p>
         </font>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
     </div>
 </div>
 
-{% block content %}
+
     <h2>Search</h2>
 
     <form method="get" action="">
@@ -33,30 +32,52 @@
         </table>
 
         {% if query %}
-
+            <ul>
             {% for report in page.object_list %}
-            {% if user.is_superuser or user in report.viewers.all or user.username == report.owner or not report.private %}
-            <h3>Results</h3>
-            <li> Title: {{ report.title }}</li>
-            <li> Owner: {{ report.owner }}</li>
-            <li> Company: {{ report.company }}</li>
-            <li> Location: {{ report.location }}</li>
-            <li> Country: {{ report.country}}</li>
-            <li> Industry: {{ report.industry }}</li>
-            <li> Sector : {{ report.sector }}</li>
-            <li> Projects: {{ report.projects }}</li>
-            <a href="{% url "linkfile" report.pk%}"> Link File</a>
-            {% if user.is_superuser %}
-                <a href="{% url "deleteReport" report.pk %}">Delete Report</a>
-            {% endif %}
-            {% else %} <p>No results found.</p>
-            {% endif %}
-            {% empty %}
-                <p>No results found.</p>
+            {% if user.is_superuser or user.username == report.owner or not report.private %}
+                <h3>  {{ report.title }}</h3>
+                <li> Owner: {{ report.owner }}</li>
+                <li> Company: {{ report.company }}</li>
+                <li> CEO: {{ report.ceo }}</li>
+                <li> Phone {{ report.phone }}</li>
+                <li> Location: {{ report.location }}</li>
+                <li> Country: {{ report.country}}</li>
+                <li> Industry: {{ report.industry }}</li>
+                <li> Sector: {{ report.sector }}</li>
+                <li> Projects: </li>
+
+                <h5>{{ report.projects }}</h5>
+                <h5> {{ report.projects2 }}</h5>
+                <h5> {{ report.projects3 }}</h5>
+                <h5>{{ report.projects4 }}</h5>
+                <h5> {{ report.projects5 }}</h5>
+                <li> Private: {{ report.is_private }}</li>
+                <li> Encrypted?: {{ report.is_encrypted }}</li>
+                <li> Created at: {{ report.created_at }}</li>
+
+                {% if report.files.all %}
+                <h4> Files </h4>
+                {% endif %}
+                {% for f in report.files.all %}
+                <li> File Encrypted: {{ f.FileKey }}</li>
+                <li> File Encrypted: {{ f.encrypted }}</li>
+                {% if f.encrypted %}
+                <li>Encrypted file: {{f.file.name}}</li>
+                {% else %}
+                <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                {% endif %}
+
+                {% endfor %}
+                <br>
+
+
+
+               {% endif %}
             {% endfor %}
+            </ul>
         {% endif %}
     </form>
-        {% endblock %}
+
 
 
 {% include 'footer.html' %}

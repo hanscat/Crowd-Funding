@@ -1,0 +1,17 @@
+.homepage-text {
+  font-size: large
+}
+
+.homepage-text {
+  color : #777 ;
+}
+
+.bki {
+  background-image: url("/Lokahi_Fintech/static/photos/crowdfunding1.jpg")
+  
+}
+
+body {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}

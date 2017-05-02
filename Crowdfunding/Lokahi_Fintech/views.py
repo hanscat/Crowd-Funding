@@ -351,6 +351,10 @@ def MakeReport(request):
             industry = request.POST.get('industry')
             sector = request.POST.get('sector')
             projects = request.POST.get('projects')
+            projects2 = request.POST.get('projects2')
+            projects3 = request.POST.get('projects3')
+            projects4 = request.POST.get('projects4')
+            projects5 = request.POST.get('projects5')
             encryptionKey = request.POST.get('encryptionKey')
             is_private = request.POST.get('is_private')
             is_encrypted = request.POST.get('is_encrypted')
@@ -366,7 +370,7 @@ def MakeReport(request):
 
             report = Report.objects.create(title=title, ceo=ceo, owner=owner, company=company, phone=phone,
                                            location=location, country=country, industry=industry, sector=sector,
-                                           encryptionKey=encryptionKey, projects=projects, is_private=is_private,
+                                           encryptionKey=encryptionKey, projects=projects, projects2=projects2, projects3=projects3, projects4=projects4, projects5=projects5, is_private=is_private,
                                            is_encrypted=is_encrypted, created_at=created_at)
             if(group is not None):
                 report.groups.add(group)
@@ -456,7 +460,7 @@ class ReportUpdate(UpdateView):
     #instance =Report.objects.get(id=)
     model = Report
     # the fields mentioned below become the entyr rows in the update form
-    fields = ['title', 'owner', 'company', 'ceo', 'phone', 'location', 'country','industry', 'sector', 'projects','is_private', 'groups']
+    fields = ['title', 'owner', 'company', 'ceo', 'phone', 'location', 'country','industry', 'sector', 'projects', 'projects2', 'projects3', 'projects4', 'projects5','is_private', 'groups']
     template_name = 'viewreport.html'
     success_url = '/Lokahi/ReportList/'
 class deleteReport(DeleteView):

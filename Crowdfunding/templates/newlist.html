@@ -30,13 +30,16 @@
                 <li> Country: {{ report.country}}</li>
                 <li> Industry: {{ report.industry }}</li>
                 <li> Sector: {{ report.sector }}</li>
-                <li> Projects: </li>
-
-                <h5>{{ report.projects }}</h5>
-                <h5> {{ report.projects2 }}</h5>
-                <h5> {{ report.projects3 }}</h5>
-                <h5>{{ report.projects4 }}</h5>
-                <h5> {{ report.projects5 }}</h5>
+                <li> Projects: {{ report.projects }}</li>
+                {% if report.projects2 %}
+                    <li> Projects: {{ report.projects2 }}</li>
+                {% if report.projects3 %}
+                    <li> Projects: {{ report.projects3 }}</li>
+                {% if report.projects4 %}
+                    <li> Projects: {{ report.projects4 }}</li>
+                {% if report.projects5 %}
+                    <li> Projects: {{ report.projects5 }}</li>
+                {% endif %}
                 <li> Private: {{ report.is_private }}</li>
                 <li> Encrypted?: {{ report.is_encrypted }}</li>
                 <li> Created at: {{ report.created_at }}</li>
@@ -95,7 +98,7 @@
                         <li> Encrypted?: {{ report.is_encrypted }}</li>
                         <li> Created at: {{ report.created_at }}</li>
                         <br>
-                        {% if report.files.all %}
+                        {% if report.files.all.length %}
                         <h4> Files </h4>
                         {% endif %}
                         {% for f in report.files.all %}

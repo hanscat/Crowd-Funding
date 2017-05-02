@@ -78,7 +78,11 @@ class ReportForm(forms.ModelForm):
     country = forms.CharField(required=True, label="Enter Company Country")
     industry = forms.CharField(required=True, label="Enter Industry")
     sector = forms.CharField(required=True, label="Enter Company Sector")
-    projects = forms.CharField(required=True, label="Enter Project Name", widget=forms.Textarea)
+    projects = forms.CharField(required=True, label="Enter Projects")
+    projects2 = forms.CharField(required=False, label="")
+    projects3 = forms.CharField(required=False, label="")
+    projects4 = forms.CharField(required=False, label="")
+    projects5 = forms.CharField(required=False, label="")
     encryptionKey = forms.CharField(required=False, label="Enter the Key")
     is_private = forms.BooleanField(label="Is This Private?", required=False)
     is_encrypted = forms.BooleanField(label="Is The File Encrypted?", required =False)
@@ -89,7 +93,7 @@ class ReportForm(forms.ModelForm):
                               widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
     class Meta:
         model= Report;
-        fields = ['title','company','owner','ceo', 'phone','location','country','industry','sector', 'projects', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'group_name', 'files']
+        fields = ['title','company','owner','ceo', 'phone','location','country','industry','sector', 'projects', 'projects2', 'projects3', 'projects4', 'projects5', 'encryptionKey', 'created_at', 'is_private', 'is_encrypted', 'group_name', 'files']
 
 
 

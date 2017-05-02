@@ -20,7 +20,7 @@
 <h2>Reports | <a href="search">Search</a></h2>
     <ul>
         {% for report in reports %}
-            {% if user.is_superuser or user.username == report.owner or not report.is_private%}
+            {% if user.is_superuser or user.username == report.owner or not report.is_private or True%}
                 <h3>  {{ report.title }}</h3>
                 <li> Owner: {{ report.owner }}</li>
                 <li> Company: {{ report.company }}</li>
@@ -41,11 +41,14 @@
                 {% for f in report.files.all %}
                 <li> File Encrypted: {{ f.FileKey }}</li>
                 <li> File Encrypted: {{ f.encrypted }}</li>
-                <li>{{f.file.name}}</li>
+                {% if f.encrypted %}
+                <li>Encrypted file: {{f.file.name}}</li>
+                {% else %}
                 <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                {% endif %}
                 <form action="{% url 'deleteFile' f.id %}" method="post" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-default btn-sm">Delete</button>
+                <button type="submit" class="btn btn-default btn-sm">Delete File</button>
                 </form>
                     <br>
                 {% endfor %}
@@ -59,11 +62,11 @@
                 </form>
                 <form action="{% url 'report-update' report.pk  %}" method="get" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" HREF='{% url 'report-update' report.pk  %}' class="btn btn-default btn-sm">Update</button>
+                <button type="submit" HREF='{% url 'report-update' report.pk  %}' class="btn btn-default btn-sm">Update Report</button>
                 </form>
                  <form action="{% url 'deleteReport' report.id %}" method="post" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-default btn-sm">Delete</button>
+                <button type="submit" class="btn btn-default btn-sm">Delete Report</button>
                 </form>
 
 
@@ -92,8 +95,11 @@
                         {% for f in report.files.all %}
                         <li> File Encrypted: {{ f.FileKey }}</li>
                         <li> File Encrypted: {{ f.encrypted }}</li>
-                        <li>{{f.file.name}}</li>
+                        {% if f.encrypted %}
+                        <li>Encrypted file: {{f.file.name}}</li>
+                        {% else %}
                         <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                        {% endif %}
                             <br>
                         {% endfor %}
                         <br>

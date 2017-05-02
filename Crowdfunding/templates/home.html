@@ -22,6 +22,13 @@
     </div>
 </div>
 
+{% if message %}
+        <div class="row">
+        <div class="col-lg-12 text-center">
+            <h3 class="section-subheading text-muted alert-danger">{{ message }}</h3>
+        </div>
+    </div>
+{% endif %}
 
 {% if logedin %}
     <div class="container">

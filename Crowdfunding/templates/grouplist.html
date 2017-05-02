@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 {% include 'header2.html' %}
 <div class="jumbotron" id="bki" style="background-color: #04a9af">
     <div class="container">
@@ -10,41 +10,54 @@
         </font>
     </div>
 </div>
+<body>
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 <!-- LOGIN TEST -->
-<body>
-
-{% load staticfiles %}
-
-
-<h2>Groups</h2>
-
-{% for group1 in object_list %}
+<div>
     <div>
-        <ul>
-            <li> Title: {{ group1.title }}</li>
-            <li> Members: {% for member in group1.participants.all %} {{ member }} | {% endfor %}</li>
-            <a href="{% url 'addmember' group1.pk %}"> Add Member</a>
-            {% if user.username == group1.owner %}
-                <a href="{% url 'deleteGroup' group1.pk %}">Delete Group</a>
-            {% endif %}
-        </ul>
+
+        {% load staticfiles %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="name">Groups</h2>
+                    <hr class="star-light">
+                </div>
+            </div>
+            {% for group1 in object_list %}
+                <div class="col-lg-12">
+                    <ul>
+                        <h5>
+                            <div class="intro-text">
+                                Group Name: <a class='admonition-title' >{{ group1.title }}</a>
+                            </div>
+                        </h5>
+                        <h5>Members:
+                            <ul>{% for member in group1.participants.all %}
+                                <li>{{ member }}</li> {% endfor %}</ul>
+                        </h5>
+                        <a href="{% url 'addmember' group1.pk %}"> Add Member</a>
+                        {% if user.username == group1.owner %}
+                            <a href="{% url 'deleteGroup' group1.pk %}">Delete Group</a>
+                        {% endif %}
+                                        <hr class="star-light">
+                    </ul>
+                </div>
+{#                <hr class="star-light">#}
+                <p></p>
+            {% empty %}
+                <li>No groups yet</li>
+            {% endfor %}
+
+
+        </div>
     </div>
-
-    <p></p>
-{% empty %}
-    <li>No groups yet</li>
-{% endfor %}
-
 </div>
-</div>
-
 
 {% include 'footer.html' %}
 
-
-{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
-<script src="/Lokahi_Fintech/static/js/bootstrap.min.js"></script>
 </body>
+
 </html>

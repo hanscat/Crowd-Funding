@@ -27,6 +27,7 @@ urlpatterns = [
     #url(r'ReportList/$', views.report_list, name='ReportList'),
     url(r'linkfile/(?P<pk>\d+)$', views.linkfile.as_view(), name='linkfile'),
     url(r'deleteReport/(?P<pk>\d+)$', views.deleteReport.as_view(), name='deleteReport'),
+    url(r'deleteFile/(?P<id>\d+)$', views.deleteFile, name='deleteFile'),
     url(r'GroupList/$', views.GroupList.as_view(), name='grouplist'),
     url(r'deleteGroup/(?P<pk>\d+)$', views.deleteGroup.as_view(), name='deleteGroup'),
     url(r'^validate/$', views.Validate, name='validate'),

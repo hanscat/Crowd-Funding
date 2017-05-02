@@ -17,51 +17,89 @@
     </div>
 </div>
 
-<h2>Reports</h2>
+<h2>Reports | <a href="search">Search</a></h2>
     <ul>
         {% for report in reports %}
-            <h3>  {{ report.title }}</h3>
-            <li> Owner: {{ report.owner }}</li>
-            <li> Company: {{ report.company }}</li>
-            <li> CEO: {{ report.ceo }}</li>
-            <li> Phone {{ report.phone }}</li>
-            <li> Location: {{ report.location }}</li>
-            <li> Country: {{ report.country}}</li>
-            <li> Industry: {{ report.industry }}</li>
-            <li> Sector: {{ report.sector }}</li>
-            <li> Projects: {{ report.projects }}</li>
-            <li> Private: {{ report.is_private }}</li>
-            <li> Encrypted?: {{ report.is_encrypted }}</li>
-            <li> Created at: {{ report.created_at }}</li>
-            <br>
-            <h4> Files </h4>
-            {% for f in report.files.all %}
-            <li> File Encrypted: {{ f.FileKey }}</li>
-            <li> File Encrypted: {{ f.encrypted }}</li>
-            <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
-
+            {% if user.is_superuser or user.username == report.owner or not report.is_private%}
+                <h3>  {{ report.title }}</h3>
+                <li> Owner: {{ report.owner }}</li>
+                <li> Company: {{ report.company }}</li>
+                <li> CEO: {{ report.ceo }}</li>
+                <li> Phone {{ report.phone }}</li>
+                <li> Location: {{ report.location }}</li>
+                <li> Country: {{ report.country}}</li>
+                <li> Industry: {{ report.industry }}</li>
+                <li> Sector: {{ report.sector }}</li>
+                <li> Projects: {{ report.projects }}</li>
+                <li> Private: {{ report.is_private }}</li>
+                <li> Encrypted?: {{ report.is_encrypted }}</li>
+                <li> Created at: {{ report.created_at }}</li>
                 <br>
-            {% endfor %}
-            <br>
+                {% if report.files.all %}
+                <h4> Files </h4>
+                {% endif %}
+                {% for f in report.files.all %}
+                <li> File Encrypted: {{ f.FileKey }}</li>
+                <li> File Encrypted: {{ f.encrypted }}</li>
+                <li>{{f.file.name}}</li>
+                <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                <form action="{% url 'deleteFile' f.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-default btn-sm">Delete</button>
+                </form>
+                    <br>
+                {% endfor %}
+                <br>
 
 
-            </li>
-            <form action="{% url 'makeFile' report.pk  %}" method="get" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" HREF='{% url 'makeFile' report.pk  %}' class="btn btn-default btn-sm">Add Files</button>
-            </form>
-            <form action="{% url 'report-update' report.pk  %}" method="get" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" HREF='{% url 'report-update' report.pk  %}' class="btn btn-default btn-sm">Update</button>
-            </form>
-             <form action="{% url 'deleteReport' report.id %}" method="post" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-default btn-sm">Delete</button>
-            </form>
+                </li>
+                <form action="{% url 'makeFile' report.pk  %}" method="get" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" HREF='{% url 'makeFile' report.pk  %}' class="btn btn-default btn-sm">Add Files</button>
+                </form>
+                <form action="{% url 'report-update' report.pk  %}" method="get" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" HREF='{% url 'report-update' report.pk  %}' class="btn btn-default btn-sm">Update</button>
+                </form>
+                 <form action="{% url 'deleteReport' report.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-default btn-sm">Delete</button>
+                </form>
 
 
 
             <p>         </p>
+            {% else %}
+                {% for group in report.groups.all %}
+                    {% if user in group.participants.all %}
+                        <h3>  {{ report.title }}</h3>
+                        <li> Owner: {{ report.owner }}</li>
+                        <li> Company: {{ report.company }}</li>
+                        <li> CEO: {{ report.ceo }}</li>
+                        <li> Phone {{ report.phone }}</li>
+                        <li> Location: {{ report.location }}</li>
+                        <li> Country: {{ report.country}}</li>
+                        <li> Industry: {{ report.industry }}</li>
+                        <li> Sector: {{ report.sector }}</li>
+                        <li> Projects: {{ report.projects }}</li>
+                        <li> Private: {{ report.is_private }}</li>
+                        <li> Encrypted?: {{ report.is_encrypted }}</li>
+                        <li> Created at: {{ report.created_at }}</li>
+                        <br>
+                        {% if report.files.all.length %}
+                        <h4> Files </h4>
+                        {% endif %}
+                        {% for f in report.files.all %}
+                        <li> File Encrypted: {{ f.FileKey }}</li>
+                        <li> File Encrypted: {{ f.encrypted }}</li>
+                        <li>{{f.file.name}}</li>
+                        <li><a href="/{{f.actualurl}}" target="_blank">{{f.file.name}}</a>
+                            <br>
+                        {% endfor %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             {% empty %}
             <li>No reports yet</li>
         {% endfor %}

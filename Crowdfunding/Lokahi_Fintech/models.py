@@ -105,7 +105,8 @@ class Report(models.Model):
     files = models.ManyToManyField(File, default="none")
     is_private = models.NullBooleanField(default=False)
     is_encrypted = models.NullBooleanField(default=False)
-
+    #viewers = models.ManyToManyField(User, blank=True)
+    groups = models.ManyToManyField(Group1, blank=True)
 
     # files = models.ManyToManyField(File, blank=True)
     # viewers = models.ManyToManyField(User, blank=True)

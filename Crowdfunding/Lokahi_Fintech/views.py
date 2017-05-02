@@ -355,11 +355,21 @@ def MakeReport(request):
             is_private = request.POST.get('is_private')
             is_encrypted = request.POST.get('is_encrypted')
             created_at = request.POST.get('created_at')
+            # viewers = form.cleaned_data['viewers']
+            # print(viewers)
+            #groups = form.cleaned_data['groups']
+            group_name  = request.POST.get('group_name')
+            group_filter = Group1.objects.filter(title=group_name)
+            group = None
+            if len(group_filter) == 1:
+                group = group_filter[0]
+
             report = Report.objects.create(title=title, ceo=ceo, owner=owner, company=company, phone=phone,
                                            location=location, country=country, industry=industry, sector=sector,
                                            encryptionKey=encryptionKey, projects=projects, is_private=is_private,
                                            is_encrypted=is_encrypted, created_at=created_at)
-
+            if(group is not None):
+                report.groups.add(group)
             report.save()
 
             for afile in request.FILES.getlist('files'):
@@ -446,7 +456,7 @@ class ReportUpdate(UpdateView):
     #instance =Report.objects.get(id=)
     model = Report
     # the fields mentioned below become the entyr rows in the update form
-    fields = ['title', 'owner', 'company', 'ceo', 'phone', 'location', 'country','industry', 'sector', 'projects', 'is_private','is_encrypted']
+    fields = ['title', 'owner', 'company', 'ceo', 'phone', 'location', 'country','industry', 'sector', 'projects','is_private', 'groups']
     template_name = 'viewreport.html'
     success_url = '/Lokahi/ReportList/'
 class deleteReport(DeleteView):
@@ -494,7 +504,11 @@ class deleteGroup(DeleteView):
     success_url = '/Lokahi/GroupList/'
     template_name = 'deleteGroup.html'
 
-
+def deleteFile(request, id):
+    # file = (File.objects.get(id=file_id))
+    File.objects.get(id=id).delete()
+    # return render(request, 'reportslist.html')
+    return HttpResponseRedirect('/Lokahi/ReportList')
 def Validate(request):
     return render(request, 'validate.html')
 

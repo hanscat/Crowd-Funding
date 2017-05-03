@@ -381,10 +381,10 @@ def MakeReport(request):
                 # url = afile
                 # split = url.split("/").pop(0)
                 # actualurl = split.join("/")
-                actualurl="";
+                actualurl=""
                 encrypted = is_encrypted
                 FileKey =  encryptionKey
-                actualurl = "static/documents/" + str(afile);
+                actualurl = "static/documents/" + str(afile)
                 fileX = File.objects.create(file=afile, actualurl=actualurl, encrypted=encrypted, FileKey=FileKey)
 
                 FILENAME = afile.name
@@ -421,8 +421,8 @@ def MakeFile (request, report_id):
                 actualurl=""
                 encrypted = encrypted
                 FileKey=encryptionKey
-                actualurl = "Lokahi_Fintech/static/documents/" + str(afile)
-                # actualurl = "static/documents/" + str(afile)
+                # actualurl = "Lokahi_Fintech/static/documents/" + str(afile)
+                actualurl = "static/documents/" + str(afile)
                 fileX = File.objects.create(file=afile, actualurl=actualurl, report_id=report_id, encrypted=encrypted, FileKey=FileKey)
                 FILENAME = afile.name
                 fileX.save()

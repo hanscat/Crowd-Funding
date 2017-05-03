@@ -244,7 +244,8 @@ class Window:
 
     def download_file(self, doc):
         # url = 'http://localhost:8000/' + doc[4]  #name field
-        url = 'http://lit-headland-35537.herokuapp.com/static/documents/' + doc[4]  #name field
+        # print("http://lit-headland-35537.herokuapp.com/" + doc[4])
+        url = 'http://lit-headland-35537.herokuapp.com/' + doc[4]  #name field
         filename = url.split('/')[-1]
         u = urllib.request.urlopen(url)
         f = open(filename, 'wb')

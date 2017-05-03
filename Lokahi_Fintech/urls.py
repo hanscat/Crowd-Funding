@@ -36,4 +36,3 @@ urlpatterns = [
     url(r'deletefromgroup', views.deleteFromGroup, name='deletefromgroup'),
     url(r'makemanager', views.makeManager, name='makemanager'),
 ]
-

@@ -400,8 +400,8 @@ def MakeReport(request):
         else:
             print(form.errors)
     else:
-        form = ReportForm();
-    return render(request, 'addReport.html', {'form': form})
+        form = ReportForm()
+    return render(request, 'addreport.html', {'form': form})
 
 def MakeFile (request, report_id):
     report = Report.objects.get(pk=report_id)

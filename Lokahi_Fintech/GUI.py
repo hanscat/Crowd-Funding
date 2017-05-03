@@ -19,7 +19,9 @@ import psycopg2
 global conn
 
 
-conn = psycopg2.connect(dbname="users", user="postgres", password="password")
+# conn = psycopg2.connect(dbname="users", user="postgres", password="password")
+#conn = "test"
+conn = psycopg2.connect("postgres://pkieqmtpiorhih:b7fd461ef59e70babae7fd38506faaa1f57cd8cd27a2c107cacd8b1223aa818c@ec2-107-21-205-25.compute-1.amazonaws.com:5432/dee7mbd0c0kua9")
 #conn = "test"
 
 
@@ -114,8 +116,9 @@ class Window:
 
         #send to login script
 
-        URL = "http://localhost:8000/Lokahi/login" #need url
+        # URL = "http://localhost:8000/Lokahi/login" #need url
 
+        URL = "http://lit-headland-35537.herokuapp.com/Lokahi/login" #need url
         session = requests.Session()
         session.get(URL)
         csrftoken = session.cookies['csrftoken']

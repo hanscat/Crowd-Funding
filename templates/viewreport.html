@@ -14,23 +14,23 @@
             <p>Here at crowFunding.com we are dedicated to providing quality crowdfunding opportunities for
                 customers</p>
         </font>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>
+        <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Join here&raquo;</a></p>-->
     </div>
 </div>
 
 <div class="container">
     <div class="row">
         {% if message %}
-            {{ message }}
+        {{ message }}
         {% endif %}
 
-         <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-                <table>
-                    {{ form.as_table }}
-                </table>
+            <table>
+                {{ form.as_table }}
+            </table>
             <button type="submit">Update Report</button>
-         </form>
+        </form>
     </div>
 
 </div>
